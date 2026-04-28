@@ -3,6 +3,7 @@ import type { Lang, Question, ContentPack, UserData } from "../types";
 import { categoryName } from "../engine/contentPack";
 import { loc } from "../engine/util";
 import { t } from "../i18n";
+import Sign from "./Sign";
 
 type Mode = "practice" | "exam";
 
@@ -93,6 +94,17 @@ export default function QuestionCard({
           </button>
         )}
       </div>
+
+      {question.signKind && (
+        <div className="mt-5 flex justify-center rounded-2xl bg-gradient-to-b from-ink-50 to-white p-4 ring-1 ring-ink-100">
+          <Sign
+            kind={question.signKind}
+            speedValue={question.signValue}
+            size={132}
+            className="drop-shadow-md"
+          />
+        </div>
+      )}
 
       <h2 className="mt-4 text-lg font-semibold leading-snug text-ink-900 md:text-xl">
         {loc(question.stem, lang)}

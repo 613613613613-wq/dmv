@@ -25,6 +25,8 @@ export interface Question {
   explanation: Localized;
   handbookRef: HandbookReference | null;
   tags: string[];
+  signKind?: SignKind;
+  signValue?: number;
 }
 
 export interface Agency {
