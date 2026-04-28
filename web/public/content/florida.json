@@ -1,0 +1,288 @@
+{
+  "_sampleNote": "These 15 questions are SAMPLE DATA for engine validation only. Production launch requires the full ~400-question Florida bank, written from the official FLHSMV handbook, with native-speaker translations and 3+ Floridian accuracy reviewers per the workflow in docs/CONTENT_PIPELINE.md. Do not ship as-is.",
+  "code": "FL",
+  "name": "Florida",
+  "agency": {
+    "name": "FLHSMV",
+    "fullName": "Florida Department of Highway Safety and Motor Vehicles",
+    "url": "https://www.flhsmv.gov"
+  },
+  "exam": {
+    "officialName": "Class E Knowledge Exam",
+    "questionCount": 50,
+    "passingScore": 40,
+    "passingPercent": 80,
+    "timeLimitMinutes": null,
+    "sectionFormat": "single",
+    "retakeRule": "After 48 hours; same-day retake also allowed for a fee",
+    "feeRetake": 11.74
+  },
+  "languages": {
+    "ui": ["en", "es", "ht"],
+    "test": ["en"],
+    "note": "Florida switched to English-only testing on Feb 6, 2026. Spanish and Haitian Creole are provided in STUDY mode only."
+  },
+  "categories": [
+    { "id": "signs",       "name": "Road Signs",          "weight": 0.25 },
+    { "id": "row",         "name": "Right of Way",        "weight": 0.15 },
+    { "id": "rules",       "name": "Rules of the Road",   "weight": 0.20 },
+    { "id": "alcohol",     "name": "Alcohol & DUI",       "weight": 0.10 },
+    { "id": "parking",     "name": "Parking",             "weight": 0.05 },
+    { "id": "fines",       "name": "Fines & Penalties",   "weight": 0.05 },
+    { "id": "moveOver",    "name": "Move-Over Law",       "weight": 0.05 },
+    { "id": "license",     "name": "License Types & GDL", "weight": 0.05 },
+    { "id": "safety",      "name": "Safe Driving",        "weight": 0.10 }
+  ],
+  "handbook": {
+    "url": "https://www.flhsmv.gov/safety-center/driver-license-handbook/",
+    "version": "2026.04",
+    "lastReviewed": "2026-04-15"
+  },
+  "specialNotes": [
+    "TLSAE (Traffic Law and Substance Abuse Education) 4-hour course required for all first-time applicants.",
+    "DETS (Driver Education Traffic Safety) 6-hour course required for under-18 applicants since Aug 1, 2025.",
+    "Permit holders must drive with a licensed driver 21+ in the front passenger seat at all times."
+  ],
+  "questions": [
+    {
+      "id": "FL-Q-0001",
+      "category": "signs",
+      "difficulty": 2,
+      "stem": { "en": "What does a flashing red traffic signal mean?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Slow down and proceed with caution" } },
+        { "id": "b", "text": { "en": "Stop completely, then proceed when safe" } },
+        { "id": "c", "text": { "en": "Stop only if other vehicles are present" } },
+        { "id": "d", "text": { "en": "The signal is broken; treat it as green" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "A flashing red signal is treated exactly like a stop sign. Come to a complete stop, then proceed when it is safe to do so." },
+      "handbookRef": { "section": "Traffic Controls — Signal Lights", "page": null, "url": null },
+      "tags": ["signals", "stop", "common-mistake"]
+    },
+    {
+      "id": "FL-Q-0002",
+      "category": "signs",
+      "difficulty": 1,
+      "stem": { "en": "What does a flashing yellow traffic signal mean?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Stop and wait for green" } },
+        { "id": "b", "text": { "en": "Slow down and proceed with caution" } },
+        { "id": "c", "text": { "en": "Yield only to pedestrians" } },
+        { "id": "d", "text": { "en": "Speed up to clear the intersection" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "A flashing yellow signal means slow down, look both ways, and proceed through the intersection with caution." },
+      "handbookRef": { "section": "Traffic Controls — Signal Lights", "page": null, "url": null },
+      "tags": ["signals", "yellow"]
+    },
+    {
+      "id": "FL-Q-0003",
+      "category": "signs",
+      "difficulty": 1,
+      "stem": { "en": "What shape is a yield sign?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Octagon" } },
+        { "id": "b", "text": { "en": "Diamond" } },
+        { "id": "c", "text": { "en": "Downward-pointing triangle" } },
+        { "id": "d", "text": { "en": "Pentagon" } }
+      ],
+      "correct": "c",
+      "explanation": { "en": "Yield signs are downward-pointing triangles, white with a red border. They tell you to slow down and give right of way to traffic on the through road." },
+      "handbookRef": { "section": "Traffic Controls — Sign Shapes", "page": null, "url": null },
+      "tags": ["signs", "shapes"]
+    },
+    {
+      "id": "FL-Q-0004",
+      "category": "row",
+      "difficulty": 2,
+      "stem": { "en": "Two cars arrive at a four-way stop at the same time. Which car has the right of way?" },
+      "choices": [
+        { "id": "a", "text": { "en": "The car going straight" } },
+        { "id": "b", "text": { "en": "The car on the right" } },
+        { "id": "c", "text": { "en": "The car on the left" } },
+        { "id": "d", "text": { "en": "The larger vehicle" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "When two vehicles arrive at a four-way stop at the same time, the vehicle on the right has the right of way." },
+      "handbookRef": { "section": "Right of Way", "page": null, "url": null },
+      "tags": ["row", "intersection"]
+    },
+    {
+      "id": "FL-Q-0005",
+      "category": "row",
+      "difficulty": 2,
+      "stem": { "en": "You are driving on a two-lane undivided road. A school bus traveling in the opposite direction stops with its red lights flashing. What must you do?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Continue driving — only same-direction traffic must stop" } },
+        { "id": "b", "text": { "en": "Slow to 10 mph and proceed with caution" } },
+        { "id": "c", "text": { "en": "Stop completely and remain stopped until the bus moves or the lights stop flashing" } },
+        { "id": "d", "text": { "en": "Honk to warn other drivers, then continue" } }
+      ],
+      "correct": "c",
+      "explanation": { "en": "On a two-lane undivided road, traffic in BOTH directions must stop for a school bus with flashing red lights. You may proceed only when the bus moves or the lights stop flashing. On a divided highway with an unpaved median or barrier, only same-direction traffic must stop." },
+      "handbookRef": { "section": "School Buses and School Zones", "page": null, "url": null },
+      "tags": ["school-bus", "row", "common-mistake"]
+    },
+    {
+      "id": "FL-Q-0006",
+      "category": "rules",
+      "difficulty": 1,
+      "stem": { "en": "Under good conditions, what is the minimum following distance you should keep behind the vehicle ahead of you?" },
+      "choices": [
+        { "id": "a", "text": { "en": "One car length per 10 mph" } },
+        { "id": "b", "text": { "en": "At least 2 seconds" } },
+        { "id": "c", "text": { "en": "10 feet at any speed" } },
+        { "id": "d", "text": { "en": "Half a second" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "Use the two-second rule: pick a fixed object the car ahead passes, then count 'one-thousand-one, one-thousand-two.' If you reach it before two seconds, you are too close. Increase the gap in rain, fog, or at higher speeds." },
+      "handbookRef": { "section": "Safe Driving — Following Distance", "page": null, "url": null },
+      "tags": ["following-distance", "safety"]
+    },
+    {
+      "id": "FL-Q-0007",
+      "category": "rules",
+      "difficulty": 1,
+      "stem": { "en": "How far before a turn must you signal in Florida?" },
+      "choices": [
+        { "id": "a", "text": { "en": "At least 50 feet" } },
+        { "id": "b", "text": { "en": "At least 100 feet" } },
+        { "id": "c", "text": { "en": "At least 250 feet" } },
+        { "id": "d", "text": { "en": "Only when other traffic is present" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "Florida law requires you to signal a turn at least 100 feet (about 30 meters) before the turn." },
+      "handbookRef": { "section": "Rules of the Road — Turning", "page": null, "url": null },
+      "tags": ["signaling", "turning"]
+    },
+    {
+      "id": "FL-Q-0008",
+      "category": "rules",
+      "difficulty": 2,
+      "stem": { "en": "Your turn signals are not working. What hand signal indicates a left turn?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Left arm extended straight out horizontally" } },
+        { "id": "b", "text": { "en": "Left arm bent up at a 90-degree angle" } },
+        { "id": "c", "text": { "en": "Left arm bent down at a 90-degree angle" } },
+        { "id": "d", "text": { "en": "Right arm pointing left across the dashboard" } }
+      ],
+      "correct": "a",
+      "explanation": { "en": "For a left turn, extend your left arm straight out the window horizontally. Arm bent up = right turn. Arm bent down = stop or slow." },
+      "handbookRef": { "section": "Rules of the Road — Hand Signals", "page": null, "url": null },
+      "tags": ["hand-signals"]
+    },
+    {
+      "id": "FL-Q-0009",
+      "category": "alcohol",
+      "difficulty": 1,
+      "stem": { "en": "What is the legal blood alcohol content (BAC) limit for a non-commercial Florida driver age 21 or older?" },
+      "choices": [
+        { "id": "a", "text": { "en": "0.02%" } },
+        { "id": "b", "text": { "en": "0.05%" } },
+        { "id": "c", "text": { "en": "0.08%" } },
+        { "id": "d", "text": { "en": "0.10%" } }
+      ],
+      "correct": "c",
+      "explanation": { "en": "In Florida, a non-commercial driver age 21+ is legally impaired at 0.08% BAC. Drivers under 21 are limited to 0.02% (zero tolerance), and commercial drivers are limited to 0.04%." },
+      "handbookRef": { "section": "Alcohol, Other Drugs, and Driving", "page": null, "url": null },
+      "tags": ["dui", "bac"]
+    },
+    {
+      "id": "FL-Q-0010",
+      "category": "alcohol",
+      "difficulty": 2,
+      "stem": { "en": "What is the BAC limit for Florida drivers under age 21?" },
+      "choices": [
+        { "id": "a", "text": { "en": "0.00%" } },
+        { "id": "b", "text": { "en": "0.02%" } },
+        { "id": "c", "text": { "en": "0.05%" } },
+        { "id": "d", "text": { "en": "0.08%" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "Florida applies a 'zero tolerance' rule for drivers under 21: any BAC of 0.02% or higher results in an automatic license suspension." },
+      "handbookRef": { "section": "Alcohol, Other Drugs, and Driving — Under 21", "page": null, "url": null },
+      "tags": ["dui", "under-21", "zero-tolerance"]
+    },
+    {
+      "id": "FL-Q-0011",
+      "category": "moveOver",
+      "difficulty": 2,
+      "stem": { "en": "You are driving on a multi-lane road and approaching a stopped emergency vehicle with flashing lights on the shoulder. Florida's Move Over Law requires you to:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Continue at posted speed; the emergency vehicle is off the road" } },
+        { "id": "b", "text": { "en": "Move into a non-adjacent lane if safe; otherwise slow to 20 mph below the posted limit" } },
+        { "id": "c", "text": { "en": "Come to a complete stop until the emergency vehicle leaves" } },
+        { "id": "d", "text": { "en": "Honk to acknowledge the emergency vehicle" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "Florida's Move Over Law requires drivers to vacate the lane closest to a stopped emergency, law enforcement, sanitation, utility, or tow vehicle with flashing lights when safe. If you cannot move over, slow to 20 mph below the posted speed (or 5 mph if the posted speed is 20 mph or less)." },
+      "handbookRef": { "section": "Move Over Law", "page": null, "url": null },
+      "tags": ["move-over", "emergency"]
+    },
+    {
+      "id": "FL-Q-0012",
+      "category": "safety",
+      "difficulty": 2,
+      "stem": { "en": "Your car begins to hydroplane in heavy rain. What should you do?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Brake hard to slow down quickly" } },
+        { "id": "b", "text": { "en": "Steer sharply to regain control" } },
+        { "id": "c", "text": { "en": "Ease off the accelerator and steer straight until you regain traction" } },
+        { "id": "d", "text": { "en": "Accelerate to push through the water" } }
+      ],
+      "correct": "c",
+      "explanation": { "en": "If you hydroplane, ease off the gas, keep the wheel pointed straight, and avoid hard braking. Sudden steering or braking can cause a skid. Once you feel traction return, slow down gradually." },
+      "handbookRef": { "section": "Driving in Bad Weather", "page": null, "url": null },
+      "tags": ["hydroplane", "weather", "safety"]
+    },
+    {
+      "id": "FL-Q-0013",
+      "category": "rules",
+      "difficulty": 1,
+      "stem": { "en": "What is the speed limit in a Florida school zone when children are present (unless posted otherwise)?" },
+      "choices": [
+        { "id": "a", "text": { "en": "15 mph" } },
+        { "id": "b", "text": { "en": "20 mph" } },
+        { "id": "c", "text": { "en": "25 mph" } },
+        { "id": "d", "text": { "en": "30 mph" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "Unless otherwise posted, the school zone speed limit is 20 mph when children are present or during posted hours." },
+      "handbookRef": { "section": "Speed Limits — School Zones", "page": null, "url": null },
+      "tags": ["school-zone", "speed"]
+    },
+    {
+      "id": "FL-Q-0014",
+      "category": "license",
+      "difficulty": 2,
+      "stem": { "en": "Florida permit (Learner's License) holders must drive with:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Any licensed driver age 18 or older anywhere in the vehicle" } },
+        { "id": "b", "text": { "en": "A licensed driver age 21 or older in the front passenger seat" } },
+        { "id": "c", "text": { "en": "A parent or guardian only" } },
+        { "id": "d", "text": { "en": "No supervision required after the first month" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "A Florida permit holder must be accompanied at all times by a licensed driver age 21 or older who is occupying the closest seat to the driver. For the first three months they may only drive in daylight; afterward they may drive until 10 PM." },
+      "handbookRef": { "section": "Graduated Driver License — Learner's License", "page": null, "url": null },
+      "tags": ["permit", "gdl", "supervision"]
+    },
+    {
+      "id": "FL-Q-0015",
+      "category": "license",
+      "difficulty": 2,
+      "stem": { "en": "Before taking the Class E knowledge exam, all first-time Florida applicants must complete:" },
+      "choices": [
+        { "id": "a", "text": { "en": "A 30-hour behind-the-wheel course" } },
+        { "id": "b", "text": { "en": "The TLSAE (Traffic Law and Substance Abuse Education) 4-hour course" } },
+        { "id": "c", "text": { "en": "A defensive driving course" } },
+        { "id": "d", "text": { "en": "Six months of permit driving" } }
+      ],
+      "correct": "b",
+      "explanation": { "en": "All first-time Florida applicants of any age must complete the TLSAE — a 4-hour Traffic Law and Substance Abuse Education course — before they can take the Class E knowledge exam. Applicants under 18 must also complete the DETS 6-hour driver education course." },
+      "handbookRef": { "section": "Getting Your License — Required Courses", "page": null, "url": null },
+      "tags": ["tlsae", "permit", "requirements"]
+    }
+  ]
+}
