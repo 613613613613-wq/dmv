@@ -204,6 +204,8 @@ export interface LessonStep {
   signValue?: number;
   question?: Question;
   imageEmoji?: string;
+  /** Scene animation kind, optionally with a colon-separated parameter, e.g. "speedometer:70", "walkaround:3", "gear:helmet". */
+  scene?: string;
 }
 
 export interface Lesson {

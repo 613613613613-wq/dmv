@@ -11,6 +11,7 @@ A study app for the Florida FLHSMV Class E Knowledge Exam. The original reposito
 ## Web App
 - Stack: Vite 5, React 18, react-router-dom v6, TailwindCSS, no backend.
 - Engine port (`web/src/engine/`): SM-2 spaced repetition, weighted mock-test sampler, streak tracking, content-pack loader, localStorage-backed user data store with pub/sub.
+- Lessons render inline animated scenes via `web/src/components/SceneAnimation.tsx` (framer-motion). All 55 concept steps across the Car/Motorcycle/CDL packs carry a `scene:` field (e.g. `"speedometer:30"`, `"walkaround:3"`, `"bac:0.08"`). 19 scene kinds: sign-spotlight, speedometer, four-way-stop, t-intersection, left-turn-yield, ped-crosswalk, bac, siren, school-bus, move-over, timeline, gear, bike-control, corner, mc-law, walkaround, air, cdl-disqual, license-revoke. All bilingual via the in-component TEXT dictionary.
 - Routes: Home dashboard, Practice (adaptive + per-category), Mock Test (intro / full-bleed exam / result), Review (due cards), Bookmarks, Settings.
 - All progress data lives in `localStorage` under the key `dmvprep.fl.userdata.v1`. No accounts, no backend, privacy-first.
 

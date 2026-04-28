@@ -5,6 +5,7 @@ import { useLessonPack } from "../engine/contentPack";
 import { t } from "../i18n";
 import { loc } from "../engine/util";
 import Sign from "../components/Sign";
+import SceneAnimation from "../components/SceneAnimation";
 import Confetti from "../components/Confetti";
 import type { Lang, LessonStep } from "../types";
 
@@ -99,14 +100,22 @@ export default function LessonView() {
 
         {step.kind === "concept" && (
           <div className="text-center">
-            {step.sign && (
+            {step.scene ? (
+              <div className="mx-auto mb-6 max-w-xl">
+                <SceneAnimation
+                  scene={step.scene}
+                  lang={lang}
+                  fallbackSign={step.sign}
+                  fallbackSignValue={step.signValue}
+                />
+              </div>
+            ) : step.sign ? (
               <div className="mx-auto mb-6 flex justify-center">
                 <Sign kind={step.sign} size={180} speedValue={step.signValue} />
               </div>
-            )}
-            {!step.sign && step.imageEmoji && (
+            ) : step.imageEmoji ? (
               <div className="mb-6 text-7xl">{step.imageEmoji}</div>
-            )}
+            ) : null}
             {step.title && (
               <h2 className="text-xl font-bold text-ink-900 md:text-2xl">
                 {loc(step.title, lang)}

@@ -1,0 +1,1138 @@
+{
+  "code": "FL-CDL",
+  "name": "Florida",
+  "vehicleClass": "cdl",
+  "agency": {
+    "name": "FLHSMV",
+    "fullName": "Florida Department of Highway Safety and Motor Vehicles",
+    "url": "https://www.flhsmv.gov"
+  },
+  "exam": {
+    "officialName": "CDL General Knowledge Exam",
+    "questionCount": 50,
+    "passingScore": 40,
+    "passingPercent": 80,
+    "timeLimitMinutes": null,
+    "sectionFormat": "single",
+    "retakeRule": "May retake after 1 day; up to 3 attempts within a 12-month period.",
+    "feeRetake": null
+  },
+  "languages": {
+    "ui": [
+      "en",
+      "es"
+    ],
+    "test": [
+      "en",
+      "es"
+    ],
+    "note": "Florida CDL knowledge tests are available in English and Spanish."
+  },
+  "categories": [
+    {
+      "id": "vehicle",
+      "name": "Vehicle Inspection",
+      "weight": 0.2
+    },
+    {
+      "id": "control",
+      "name": "Vehicle Control",
+      "weight": 0.15
+    },
+    {
+      "id": "safety",
+      "name": "Safe Driving",
+      "weight": 0.2
+    },
+    {
+      "id": "airbrakes",
+      "name": "Air Brakes",
+      "weight": 0.1
+    },
+    {
+      "id": "haz",
+      "name": "Hazards & Emergency",
+      "weight": 0.1
+    },
+    {
+      "id": "rail",
+      "name": "Railroad & Bridges",
+      "weight": 0.05
+    },
+    {
+      "id": "law",
+      "name": "CDL Law",
+      "weight": 0.1
+    },
+    {
+      "id": "alcohol",
+      "name": "Alcohol & Drugs",
+      "weight": 0.1
+    }
+  ],
+  "handbook": {
+    "url": "https://www.flhsmv.gov/safety-center/cdl-handbook/",
+    "version": "July 2022",
+    "lastReviewed": "2026-04-28"
+  },
+  "specialNotes": [
+    "Florida CDL applicants must hold a Commercial Learner's Permit (CLP) for a minimum of 14 days before taking the skills test.",
+    "CDL holders are limited to BAC 0.04% (half the regular limit). Refusing a test = 1-year disqualification.",
+    "Federal regulations require an English language proficiency standard for CDL holders.",
+    "Pre-trip inspections are mandatory before each trip, every 24 hours, and every 150 miles or 8 hours."
+  ],
+  "questions": [
+    {
+      "id": "FLD-001",
+      "category": "vehicle",
+      "difficulty": 1,
+      "stem": {
+        "en": "How often must a commercial driver perform a pre-trip vehicle inspection?",
+        "es": "¿Con qué frecuencia debe realizar el conductor comercial una inspección previa al viaje?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Once a week",
+            "es": "Una vez por semana"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Before every trip",
+            "es": "Antes de cada viaje"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Only after a crash",
+            "es": "Sólo después de un accidente"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Whenever convenient",
+            "es": "Cuando sea conveniente"
+          }
+        }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Federal and Florida law require a pre-trip inspection before every trip, plus en-route checks every 150 miles or 8 hours of driving (whichever comes first).",
+        "es": "La ley federal y estatal exige inspección antes de cada viaje, y revisiones cada 150 millas u 8 horas (lo que ocurra primero)."
+      },
+      "handbookRef": {
+        "section": "Vehicle Inspection",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "pretrip"
+      ]
+    },
+    {
+      "id": "FLD-002",
+      "category": "vehicle",
+      "difficulty": 2,
+      "stem": {
+        "en": "Maximum tread depth allowed on the front (steering) tires of a commercial vehicle?",
+        "es": "¿Profundidad MÍNIMA del dibujo en las llantas delanteras (de dirección) de un vehículo comercial?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "1/32 of an inch",
+            "es": "1/32 de pulgada"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "2/32 of an inch",
+            "es": "2/32 de pulgada"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "4/32 of an inch",
+            "es": "4/32 de pulgada"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "6/32 of an inch",
+            "es": "6/32 de pulgada"
+          }
+        }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Steering tires must have at least 4/32\" tread. Other tires must have at least 2/32\". Less than that and the vehicle is out of service.",
+        "es": "Las llantas de dirección deben tener al menos 4/32\". Las demás al menos 2/32\". Menos = vehículo fuera de servicio."
+      },
+      "handbookRef": {
+        "section": "Tires — Tread Depth",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "tires"
+      ]
+    },
+    {
+      "id": "FLD-003",
+      "category": "vehicle",
+      "difficulty": 2,
+      "stem": {
+        "en": "When checking the engine compartment, you should check for:",
+        "es": "Al revisar el compartimiento del motor, debes verificar:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Engine oil level, coolant, power steering fluid, leaks, and worn/cracked belts and hoses",
+            "es": "Nivel de aceite, refrigerante, fluido de dirección hidráulica, fugas, y mangueras y bandas desgastadas o agrietadas"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Only the oil level",
+            "es": "Sólo el nivel de aceite"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Only that the engine starts",
+            "es": "Sólo que el motor arranque"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "The fuel gauge only",
+            "es": "Sólo el indicador de gasolina"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "A complete engine compartment check covers fluid levels, leaks (oil, coolant, fuel, power steering), belt and hose condition, and the battery.",
+        "es": "Una revisión completa cubre niveles de fluidos, fugas (aceite, refrigerante, combustible, dirección), estado de bandas y mangueras, y la batería."
+      },
+      "handbookRef": {
+        "section": "Engine Compartment Inspection",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "pretrip",
+        "engine"
+      ]
+    },
+    {
+      "id": "FLD-004",
+      "category": "control",
+      "difficulty": 1,
+      "stem": {
+        "en": "When backing a commercial vehicle, you should:",
+        "es": "Al dar reversa con un vehículo comercial, debes:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Back as quickly as possible",
+            "es": "Hacerlo lo más rápido posible"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Back slowly using mirrors, GAL (Get Out And Look), and a helper if available",
+            "es": "Hacerlo lentamente con espejos, salir y mirar (GAL), y un ayudante si hay"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Back to the right whenever possible",
+            "es": "Reversar siempre a la derecha"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Only use the rearview camera",
+            "es": "Sólo usar la cámara trasera"
+          }
+        }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Always back SLOWLY. GOAL (Get Out And Look) before backing, use mirrors, back toward the driver side when possible, and use a helper to watch blind spots.",
+        "es": "Reversa SIEMPRE LENTAMENTE. Antes, sal y mira (GOAL), usa espejos, retrocede hacia tu lado cuando sea posible, y usa un ayudante para los puntos ciegos."
+      },
+      "handbookRef": {
+        "section": "Backing Safely",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "backing"
+      ]
+    },
+    {
+      "id": "FLD-005",
+      "category": "control",
+      "difficulty": 2,
+      "stem": {
+        "en": "On a curve, you should:",
+        "es": "En una curva, debes:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Slow before the curve and accelerate slightly through it",
+            "es": "Reducir antes de la curva y acelerar ligeramente al pasarla"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Brake hard during the curve",
+            "es": "Frenar fuerte durante la curva"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Maintain the highest legal speed",
+            "es": "Mantener la máxima velocidad legal"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Coast in neutral",
+            "es": "Ir en punto muerto"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Reduce speed BEFORE the curve. Apply gentle acceleration through the curve to keep the vehicle stable. Posted curve speeds are for cars — large vehicles should be slower.",
+        "es": "Reduce ANTES de la curva. Acelera suavemente al pasarla para mantener el vehículo estable. Los límites en curvas son para autos — los vehículos grandes deben ir más despacio."
+      },
+      "handbookRef": {
+        "section": "Curves",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "curves"
+      ]
+    },
+    {
+      "id": "FLD-006",
+      "category": "safety",
+      "difficulty": 1,
+      "stem": {
+        "en": "What is the recommended following distance at speeds under 40 mph for a commercial vehicle?",
+        "es": "¿Distancia de seguimiento recomendada bajo 40 mph para un vehículo comercial?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "1 second per 10 feet of vehicle length",
+            "es": "1 segundo por cada 10 pies de largo del vehículo"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "1 second total",
+            "es": "1 segundo en total"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "2 seconds total",
+            "es": "2 segundos en total"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "5 seconds total at any speed",
+            "es": "5 segundos a cualquier velocidad"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Below 40 mph: 1 second per 10 ft of vehicle length. Above 40 mph: add 1 more second. So a 60-foot truck at 55 mph needs 7 seconds.",
+        "es": "Bajo 40 mph: 1 segundo por cada 10 pies de largo. Sobre 40 mph: añade 1 segundo más. Un camión de 60 pies a 55 mph necesita 7 segundos."
+      },
+      "handbookRef": {
+        "section": "Following Distance",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "following-distance"
+      ]
+    },
+    {
+      "id": "FLD-007",
+      "category": "safety",
+      "difficulty": 2,
+      "stem": {
+        "en": "Which is true about driving in fog?",
+        "es": "¿Cuál es cierto al conducir con niebla?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Use high-beam headlights for maximum light",
+            "es": "Usar luces altas para máxima iluminación"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Slow down, use low beams or fog lights, and turn on 4-way flashers if very slow",
+            "es": "Reducir, usar luces bajas o antiniebla, y activar intermitentes si vas muy lento"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Maintain normal speed",
+            "es": "Mantener velocidad normal"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Drive on the shoulder",
+            "es": "Manejar por el acotamiento"
+          }
+        }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "High beams reflect off fog and worsen visibility. Use low beams or fog lights, slow down, and use 4-way flashers if you must crawl. Pulling completely off the road is best in dense fog.",
+        "es": "Las luces altas reflejan en la niebla y empeoran la visibilidad. Usa bajas o antiniebla, reduce, y enciende intermitentes si vas muy lento. En niebla densa, lo mejor es salirse de la vía por completo."
+      },
+      "handbookRef": {
+        "section": "Driving in Fog",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "weather",
+        "fog"
+      ]
+    },
+    {
+      "id": "FLD-008",
+      "category": "safety",
+      "difficulty": 2,
+      "stem": {
+        "en": "On a long downgrade, the safest way to control speed is:",
+        "es": "En una bajada larga, la forma más segura de controlar velocidad es:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Hold the brake pedal continuously",
+            "es": "Mantener el pedal de freno presionado"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Shift to a lower gear BEFORE descending and use intermittent (snub) braking",
+            "es": "Cambiar a una marcha más baja ANTES de bajar y usar frenado intermitente"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Coast in neutral",
+            "es": "Ir en punto muerto"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Use the parking brake",
+            "es": "Usar el freno de estacionamiento"
+          }
+        }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Pick the right low gear BEFORE the downgrade. Use snub braking: brake firmly to drop ~5 mph, release, let speed build back, then brake again. Continuous braking causes brake fade.",
+        "es": "Selecciona la marcha baja correcta ANTES de bajar. Usa frenado intermitente: frena firme para bajar ~5 mph, suelta, deja que recupere velocidad y vuelve a frenar. Frenado continuo provoca pérdida de freno."
+      },
+      "handbookRef": {
+        "section": "Mountain Driving",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "downgrade",
+        "braking"
+      ]
+    },
+    {
+      "id": "FLD-009",
+      "category": "airbrakes",
+      "difficulty": 2,
+      "stem": {
+        "en": "What is brake fade?",
+        "es": "¿Qué es la pérdida de frenado (brake fade)?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Brakes losing effectiveness due to heat from extended use",
+            "es": "Frenos que pierden efectividad por el calor de uso prolongado"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Brakes that work better when wet",
+            "es": "Frenos que funcionan mejor mojados"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "A normal pre-trip warning sound",
+            "es": "Un sonido normal de advertencia previa al viaje"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Air pressure increasing too fast",
+            "es": "Presión de aire que aumenta muy rápido"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Brake fade is when extended brake use overheats the drums/shoes, reducing friction and stopping power. Use the engine and lower gears on long descents.",
+        "es": "La pérdida de freno ocurre cuando el uso prolongado sobrecalienta tambores/zapatas y reduce fricción y frenado. Usa motor y marchas bajas en bajadas largas."
+      },
+      "handbookRef": {
+        "section": "Brake Fade",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "airbrakes",
+        "fade"
+      ]
+    },
+    {
+      "id": "FLD-010",
+      "category": "airbrakes",
+      "difficulty": 2,
+      "stem": {
+        "en": "At what air pressure should the low-pressure warning activate?",
+        "es": "¿A qué presión de aire debe activarse la alarma de baja presión?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Below 60 psi",
+            "es": "Bajo 60 psi"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Below 100 psi",
+            "es": "Bajo 100 psi"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Below 20 psi",
+            "es": "Bajo 20 psi"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Only when the engine is off",
+            "es": "Sólo con el motor apagado"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Federal regulations require the low-air-pressure warning (light, buzzer, or wig-wag) to come on before pressure drops below 60 psi.",
+        "es": "Las regulaciones federales exigen que la alarma de baja presión (luz, zumbador o wig-wag) se active antes de que la presión caiga bajo 60 psi."
+      },
+      "handbookRef": {
+        "section": "Air Brake System",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "airbrakes"
+      ]
+    },
+    {
+      "id": "FLD-011",
+      "category": "airbrakes",
+      "difficulty": 2,
+      "stem": {
+        "en": "Spring brakes are designed to:",
+        "es": "Los frenos de resorte están diseñados para:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Engage automatically when air pressure is too low, providing emergency braking and parking",
+            "es": "Engancharse automáticamente con baja presión, dando frenado de emergencia y estacionamiento"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Be used as the primary service brake",
+            "es": "Ser usados como freno de servicio principal"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Activate only above 60 mph",
+            "es": "Activarse sólo sobre 60 mph"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Replace the engine brake",
+            "es": "Reemplazar el freno motor"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Spring brakes engage when air pressure drops to 20-45 psi. They are your parking brake AND emergency brake — held off by air, applied by powerful springs.",
+        "es": "Los frenos de resorte se enganchan cuando la presión cae a 20-45 psi. Son freno de estacionamiento Y de emergencia — se mantienen sueltos por aire y se aplican por resortes potentes."
+      },
+      "handbookRef": {
+        "section": "Spring Brakes",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "airbrakes",
+        "spring"
+      ]
+    },
+    {
+      "id": "FLD-012",
+      "category": "haz",
+      "difficulty": 2,
+      "stem": {
+        "en": "If your vehicle catches fire on the road, you should:",
+        "es": "Si tu vehículo se incendia en la carretera, debes:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Pull off the road, away from buildings/trees, shut off engine, notify help, and use the extinguisher only if trained and the fire is small",
+            "es": "Salir de la vía, lejos de edificios/árboles, apagar el motor, llamar ayuda, y usar el extintor sólo si estás capacitado y el fuego es pequeño"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Drive to the nearest gas station",
+            "es": "Manejar a la gasolinera más cercana"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Open all the doors immediately",
+            "es": "Abrir todas las puertas de inmediato"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Throw water on an electrical fire",
+            "es": "Echar agua a un incendio eléctrico"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Get the vehicle off the road, away from buildings, trees, and other vehicles. Shut off the engine. Call for help. Only fight a small fire if you can do so safely. Never use water on electrical or gasoline fires.",
+        "es": "Saca el vehículo de la vía, lejos de edificios, árboles y otros vehículos. Apaga el motor. Llama ayuda. Sólo combate un fuego pequeño si puedes hacerlo con seguridad. Nunca uses agua en fuegos eléctricos o de gasolina."
+      },
+      "handbookRef": {
+        "section": "Vehicle Fires",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "fire",
+        "emergency"
+      ]
+    },
+    {
+      "id": "FLD-013",
+      "category": "haz",
+      "difficulty": 2,
+      "stem": {
+        "en": "If your brakes fail on a downgrade, the safest action is to:",
+        "es": "Si fallan los frenos en una bajada, la acción más segura es:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Use the engine and lower gears, and look for an escape ramp",
+            "es": "Usar el motor y marchas bajas, y buscar una rampa de escape"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Pump the brakes harder and harder",
+            "es": "Bombear el freno cada vez más fuerte"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Stop the engine to slow down",
+            "es": "Apagar el motor para reducir"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Sound the horn and continue",
+            "es": "Tocar la bocina y continuar"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Downshift, use engine braking, and look for an escape ramp. Many mountain highways have gravel ramps designed to safely stop runaway trucks.",
+        "es": "Baja la marcha, usa el freno motor y busca rampa de escape. Muchas autopistas de montaña tienen rampas de grava diseñadas para detener camiones sin frenos."
+      },
+      "handbookRef": {
+        "section": "Brake Failure on Downgrades",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "brake-failure",
+        "emergency"
+      ]
+    },
+    {
+      "id": "FLD-014",
+      "category": "rail",
+      "difficulty": 1,
+      "stem": {
+        "en": "Which vehicles MUST stop at every railroad crossing in Florida, even when no train is approaching?",
+        "es": "¿Qué vehículos DEBEN detenerse en cada cruce ferroviario en Florida, incluso sin tren cerca?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "All commercial vehicles",
+            "es": "Todos los vehículos comerciales"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "School buses, vehicles carrying hazardous materials placards, and most passenger buses",
+            "es": "Buses escolares, vehículos con placas de materiales peligrosos y la mayoría de buses de pasajeros"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Only passenger cars",
+            "es": "Sólo autos de pasajeros"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Empty trucks only",
+            "es": "Sólo camiones vacíos"
+          }
+        }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "School buses, placarded hazmat trucks, and most passenger buses must stop 15-50 feet before the tracks at every crossing, listen and look both ways, then proceed.",
+        "es": "Los buses escolares, camiones con placas hazmat y la mayoría de buses deben detenerse de 15-50 pies antes de las vías en cada cruce, escuchar y mirar a ambos lados, y luego cruzar."
+      },
+      "handbookRef": {
+        "section": "Railroad Crossings",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "railroad"
+      ],
+      "signKind": "railroad-crossbuck"
+    },
+    {
+      "id": "FLD-015",
+      "category": "law",
+      "difficulty": 1,
+      "stem": {
+        "en": "Legal BAC limit for a commercial driver operating a CMV in Florida:",
+        "es": "Límite legal de BAC para conductor comercial de un CMV en Florida:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "0.02%",
+            "es": "0.02%"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "0.04%",
+            "es": "0.04%"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "0.05%",
+            "es": "0.05%"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "0.08%",
+            "es": "0.08%"
+          }
+        }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Federal law: BAC of 0.04% or higher while operating a CMV is a DUI for commercial drivers (half the regular 0.08% limit).",
+        "es": "Ley federal: BAC de 0.04% o más manejando un CMV es DUI para conductores comerciales (la mitad del límite normal de 0.08%)."
+      },
+      "handbookRef": {
+        "section": "CDL — Alcohol and Drugs",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "bac",
+        "law"
+      ]
+    },
+    {
+      "id": "FLD-016",
+      "category": "law",
+      "difficulty": 2,
+      "stem": {
+        "en": "First major offense in a CMV (e.g., DUI 0.04%+, refusing test, leaving an accident) results in:",
+        "es": "Primera infracción mayor en un CMV (ej. DUI 0.04%+, rechazar prueba, abandonar accidente) resulta en:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Warning only",
+            "es": "Sólo advertencia"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "1-year disqualification (3 years if hauling hazmat)",
+            "es": "Descalificación de 1 año (3 años si transporta hazmat)"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "30-day suspension",
+            "es": "Suspensión de 30 días"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "$50 fine",
+            "es": "Multa de $50"
+          }
+        }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Federal disqualification: 1 year for first major offense, 3 years if a hazmat placard was required. A SECOND major offense disqualifies you for life.",
+        "es": "Descalificación federal: 1 año por la primera infracción mayor, 3 años si se requería placa hazmat. Una SEGUNDA infracción mayor descalifica de por vida."
+      },
+      "handbookRef": {
+        "section": "CDL Disqualifications",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "disqualification"
+      ]
+    },
+    {
+      "id": "FLD-017",
+      "category": "alcohol",
+      "difficulty": 2,
+      "stem": {
+        "en": "If a CDL holder refuses an alcohol or drug test:",
+        "es": "Si un titular de CDL rechaza una prueba de alcohol o drogas:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Treated the same as testing 0.04% or higher — disqualification applies",
+            "es": "Se trata como dar 0.04% o más — aplica descalificación"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "No consequence — refusal is your right",
+            "es": "Sin consecuencia — rehusar es tu derecho"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Only a $25 fine",
+            "es": "Sólo multa de $25"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Allowed once per year",
+            "es": "Permitido una vez por año"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Refusing a test is treated as a positive result. You will be disqualified for at least 1 year (3 years for hazmat).",
+        "es": "Rechazar la prueba se trata como resultado positivo. Te descalifican al menos 1 año (3 años si hazmat)."
+      },
+      "handbookRef": {
+        "section": "Implied Consent — CDL",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "refusal",
+        "alcohol"
+      ]
+    },
+    {
+      "id": "FLD-018",
+      "category": "control",
+      "difficulty": 2,
+      "stem": {
+        "en": "Why is double-clutching used in non-synchronized manual transmissions?",
+        "es": "¿Por qué se usa doble embrague en cajas manuales sin sincronizadores?"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "To match engine and transmission speed for smooth shifts and avoid damage",
+            "es": "Para igualar la velocidad del motor y la transmisión, lograr cambios suaves y evitar daños"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "To save fuel",
+            "es": "Para ahorrar combustible"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "To activate ABS",
+            "es": "Para activar el ABS"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "It is required only on hills",
+            "es": "Sólo se requiere en pendientes"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Double-clutch: clutch in, neutral, clutch out, blip throttle to match speed, clutch in, gear, clutch out. This protects the gears in non-synchro transmissions.",
+        "es": "Doble embrague: embrague, neutro, suelta embrague, acelera para igualar, embrague, marcha, suelta embrague. Protege los engranes sin sincronizador."
+      },
+      "handbookRef": {
+        "section": "Shifting Gears",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "shifting"
+      ]
+    },
+    {
+      "id": "FLD-019",
+      "category": "safety",
+      "difficulty": 2,
+      "stem": {
+        "en": "On wet roads, you should reduce speed by approximately:",
+        "es": "En carretera mojada, debes reducir la velocidad aproximadamente:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "1/3",
+            "es": "1/3"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "1/2",
+            "es": "1/2"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "1/4",
+            "es": "1/4"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "No reduction needed",
+            "es": "No es necesario reducir"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Reduce speed by about 1/3 on wet roads. Reduce by half on packed snow. Reduce to a crawl on ice.",
+        "es": "Reduce un tercio en mojado. Reduce a la mitad en nieve compacta. Reduce a paso de tortuga en hielo."
+      },
+      "handbookRef": {
+        "section": "Adjust Speed for Conditions",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "weather",
+        "speed"
+      ],
+      "signKind": "slippery"
+    },
+    {
+      "id": "FLD-020",
+      "category": "vehicle",
+      "difficulty": 2,
+      "stem": {
+        "en": "Cargo on a flatbed must be secured with tiedowns at a minimum rate of:",
+        "es": "La carga en plataforma debe asegurarse con amarres a un mínimo de:"
+      },
+      "choices": [
+        {
+          "id": "a",
+          "text": {
+            "en": "1 tiedown for every 10 feet of cargo, with at least 2 tiedowns total",
+            "es": "1 amarre por cada 10 pies de carga, mínimo 2 amarres totales"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "1 tiedown is always enough",
+            "es": "1 amarre siempre es suficiente"
+          }
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Tiedowns are optional for short trips",
+            "es": "Los amarres son opcionales en viajes cortos"
+          }
+        },
+        {
+          "id": "d",
+          "text": {
+            "en": "Only required for hazmat",
+            "es": "Sólo se requieren para hazmat"
+          }
+        }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Federal rule: at least 1 tiedown per 10 ft of cargo, with a minimum of 2 tiedowns total, plus aggregate working load limit of at least 50% of cargo weight.",
+        "es": "Regla federal: al menos 1 amarre por cada 10 pies de carga, mínimo 2 amarres en total, y un límite de trabajo agregado de al menos 50% del peso de la carga."
+      },
+      "handbookRef": {
+        "section": "Cargo Securement",
+        "page": null,
+        "url": null
+      },
+      "tags": [
+        "cargo"
+      ]
+    }
+  ]
+}
