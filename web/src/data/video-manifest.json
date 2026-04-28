@@ -1,9 +1,9 @@
 {
   "videos": [
-    "sign-spotlight:construction",
+    "four-way-stop",
     "sign-spotlight:curve",
-    "sign-spotlight:school-zone",
     "sign-spotlight:stop",
-    "sign-spotlight:yield"
+    "sign-spotlight:yield",
+    "t-intersection"
   ]
 }
