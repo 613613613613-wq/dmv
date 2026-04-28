@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import type { Lang, SignKind } from "../types";
 import Sign from "./Sign";
@@ -14,13 +14,44 @@ interface Props {
 export default function SceneAnimation(props: Props) {
   const [videoFailed, setVideoFailed] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  // The watchdog timer ID — kept in a ref so onLoadedData can clear it
+  // synchronously without waiting for an effect to re-run.
+  const watchdogRef = useRef<number | null>(null);
+
+  function markLoaded() {
+    setVideoLoaded(true);
+    if (watchdogRef.current !== null) {
+      window.clearTimeout(watchdogRef.current);
+      watchdogRef.current = null;
+    }
+  }
+
   // Reset both states whenever the scene changes — without this, a single
   // failed video would force the inline animation fallback for every
   // subsequent step in the same lesson (component instance is reused),
   // and the loading shimmer would be skipped on subsequent step changes.
+  // Also start a watchdog: if the video hasn't fired loadeddata within ~6s
+  // (slow network, decoder stall, autoplay quirks), drop to the inline
+  // animation rather than show a perpetual loading spinner — this is what
+  // the user sees as a "blank gradient with a spinner that never resolves."
+  // The watchdog is cleared by markLoaded() the moment the video reports
+  // it can play, so a successful video is never replaced by the fallback.
   useEffect(() => {
     setVideoFailed(false);
     setVideoLoaded(false);
+    if (watchdogRef.current !== null) {
+      window.clearTimeout(watchdogRef.current);
+    }
+    watchdogRef.current = window.setTimeout(() => {
+      watchdogRef.current = null;
+      setVideoFailed(true);
+    }, 6000);
+    return () => {
+      if (watchdogRef.current !== null) {
+        window.clearTimeout(watchdogRef.current);
+        watchdogRef.current = null;
+      }
+    };
   }, [props.scene]);
   const hasVideo = hasGeneratedVideo(props.scene);
 
@@ -45,8 +76,15 @@ export default function SceneAnimation(props: Props) {
           muted
           playsInline
           preload="metadata"
-          onLoadedData={() => setVideoLoaded(true)}
-          onError={() => setVideoFailed(true)}
+          onLoadedData={markLoaded}
+          onCanPlay={markLoaded}
+          onError={() => {
+            if (watchdogRef.current !== null) {
+              window.clearTimeout(watchdogRef.current);
+              watchdogRef.current = null;
+            }
+            setVideoFailed(true);
+          }}
         />
       </div>
     );

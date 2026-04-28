@@ -10,8 +10,8 @@ const STRINGS: Dict = {
   pickLanguage: { en: "Pick your language", es: "Elige tu idioma" },
   pickClass: { en: "What are you studying for?", es: "¿Qué estás estudiando?" },
   carBlurb: {
-    en: "Class E Knowledge Exam · 50 questions · 80% to pass",
-    es: "Examen de Conocimientos Clase E · 50 preguntas · 80% para aprobar",
+    en: "Class E Knowledge Exam · road rules, signs & safe driving",
+    es: "Examen de Conocimientos Clase E · normas, señales y conducción segura",
   },
   motorcycleBlurb: {
     en: "Motorcycle endorsement & MSF Basic RiderCourse",

@@ -35,6 +35,8 @@ export default function SongsView() {
   // Reset transport state whenever the user switches songs. The actual
   // play/paused state is driven by the audio element's events (onPlay/onPause)
   // to avoid races between user clicks and the play() promise resolving.
+  // We also explicitly call load() so the new src is fetched (some browsers
+  // can otherwise reuse stale metadata when only the src attribute changes).
   useEffect(() => {
     setCurrentTime(0);
     setDuration(0);
@@ -44,6 +46,7 @@ export default function SongsView() {
     if (a) {
       a.pause();
       a.currentTime = 0;
+      a.load();
     }
   }, [currentId]);
 
@@ -122,7 +125,22 @@ export default function SongsView() {
         ref={audioRef}
         src={current.audioFile}
         preload="metadata"
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        onLoadedMetadata={(e) => {
+          const d = e.currentTarget.duration;
+          if (isFinite(d) && d > 0) setDuration(d);
+        }}
+        onDurationChange={(e) => {
+          // Some browsers (notably Chromium with chunked audio) populate
+          // duration via this event rather than loadedmetadata.
+          const d = e.currentTarget.duration;
+          if (isFinite(d) && d > 0) setDuration(d);
+        }}
+        onCanPlay={(e) => {
+          // Last-resort safety net: by the time audio can play, duration
+          // is virtually always known. Ensures the scrubber never stays at 0:00.
+          const d = e.currentTarget.duration;
+          if (isFinite(d) && d > 0) setDuration((cur) => (cur > 0 ? cur : d));
+        }}
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         onEnded={() => {
           if (playlist.length > 1) skip(1);

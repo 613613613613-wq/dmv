@@ -76,7 +76,11 @@ export default function SignsView() {
       <div className="card flex items-center justify-between p-4">
         <div>
           <div className="text-xs uppercase tracking-wider text-ink-500">{t("bestScore", lang)} · {t("signRush", lang)}</div>
-          <div className="text-2xl font-bold text-ink-900">{data.bestSignRush}</div>
+          <div className="text-2xl font-bold text-ink-900">
+            {data.bestSignRush > 0
+              ? data.bestSignRush
+              : <span className="text-ink-400">—</span>}
+          </div>
         </div>
         <div className="text-3xl">⚡</div>
       </div>

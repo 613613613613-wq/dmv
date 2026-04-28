@@ -67,7 +67,7 @@ export default function HomeView() {
                 to={`/learn/${nextLesson.id}`}
                 className="btn-primary bg-sun-300 text-ink-900 hover:bg-sun-200"
               >
-                {nextLesson.emoji} {t("beginLesson", lang)} →
+                {t("beginLesson", lang)} →
               </Link>
             )}
             <Link to="/practice" className="text-sm font-medium text-sun-200 hover:text-white">
@@ -183,7 +183,13 @@ export default function HomeView() {
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm font-semibold text-ink-900">{cat.name}</span>
                     <span className="text-xs text-ink-500">
-                      {s.attempts === 0 ? `${totalQs} ${t("questions", lang)}` : `${Math.round(s.accuracy * 100)}%`}
+                      {s.attempts === 0
+                        ? `${totalQs} ${
+                            totalQs === 1
+                              ? lang === "es" ? "pregunta" : "question"
+                              : lang === "es" ? "preguntas" : "questions"
+                          }`
+                        : `${Math.round(s.accuracy * 100)}%`}
                     </span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-ink-100">

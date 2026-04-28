@@ -12,6 +12,8 @@ export default function MockTestView() {
   if (!pack) return <div className="card h-72 animate-pulse" />;
 
   const sampleSize = Math.min(pack.exam.questionCount, pack.questions.length);
+  const passMark = Math.ceil((sampleSize * pack.exam.passingPercent) / 100);
+  const undersized = sampleSize < pack.exam.questionCount;
 
   return (
     <div className="space-y-6">
@@ -24,15 +26,22 @@ export default function MockTestView() {
         </h1>
         <p className="mt-2 text-sm text-ink-600 md:text-base">
           {lang === "es"
-            ? `Una simulación con formato real. ${pack.exam.questionCount} preguntas, muestreadas por categoría como hace FLHSMV. Aprueba con ${pack.exam.passingScore}/${pack.exam.questionCount} (${pack.exam.passingPercent}%).`
-            : `A real-format simulation. ${pack.exam.questionCount} questions, sampled by category weight to mirror FLHSMV. Pass at ${pack.exam.passingScore}/${pack.exam.questionCount} (${pack.exam.passingPercent}%).`}
+            ? `Una simulación con formato real. ${sampleSize} preguntas, muestreadas por categoría como hace FLHSMV. Aprueba con ${passMark}/${sampleSize} (${pack.exam.passingPercent}%).`
+            : `A real-format simulation. ${sampleSize} questions, sampled by category weight to mirror FLHSMV. Pass at ${passMark}/${sampleSize} (${pack.exam.passingPercent}%).`}
         </p>
+        {undersized && (
+          <p className="mt-1 text-xs text-ink-500">
+            {lang === "es"
+              ? `El examen oficial es de ${pack.exam.questionCount} preguntas; estamos creciendo el banco de preguntas. El umbral del ${pack.exam.passingPercent}% se mantiene.`
+              : `The real exam has ${pack.exam.questionCount} questions; we're still growing the question bank. The ${pack.exam.passingPercent}% threshold is preserved.`}
+          </p>
+        )}
 
         <div className="mt-5 grid gap-3 md:grid-cols-3">
           <Spec label={t("questions", lang)} value={String(sampleSize)} />
           <Spec
             label={t("passMark", lang)}
-            value={`${Math.ceil((sampleSize * pack.exam.passingPercent) / 100)} / ${sampleSize}`}
+            value={`${passMark} / ${sampleSize}`}
           />
           <Spec
             label={t("timeLimit", lang)}
