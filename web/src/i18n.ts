@@ -35,6 +35,15 @@ const STRINGS: Dict = {
   practice: { en: "Practice", es: "Práctica" },
   mockTest: { en: "Mock Test", es: "Simulado" },
   signs: { en: "Signs", es: "Señales" },
+  songs: { en: "Songs", es: "Canciones" },
+  songsTitle: {
+    en: "Songs to Remember",
+    es: "Canciones para Recordar",
+  },
+  songsBlurb: {
+    en: "Catchy mnemonics for the trickiest stuff on the test. Press play, sing along, never forget.",
+    es: "Reglas mnemotécnicas pegajosas para lo más difícil del examen. Dale play, canta y no lo olvides.",
+  },
   review: { en: "Review", es: "Repasar" },
   saved: { en: "Saved", es: "Guardado" },
   settings: { en: "Settings", es: "Ajustes" },

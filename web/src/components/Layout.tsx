@@ -22,6 +22,7 @@ export default function Layout() {
     { to: "/learn", label: t("learn", lang), icon: BookIcon },
     { to: "/practice", label: t("practice", lang), icon: TargetIcon },
     { to: "/signs", label: t("signs", lang), icon: SignIcon },
+    { to: "/songs", label: t("songs", lang), icon: MusicIcon },
     { to: "/mock", label: t("mockTest", lang), icon: ClipboardIcon },
     { to: "/review", label: t("review", lang), icon: HistoryIcon },
     { to: "/settings", label: t("settings", lang), icon: GearIcon },
@@ -97,20 +98,20 @@ export default function Layout() {
 
       {!onMockExam && (
         <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-ink-100 bg-white/95 backdrop-blur md:hidden">
-          <div className="mx-auto grid max-w-5xl grid-cols-7">
+          <div className="mx-auto grid max-w-5xl grid-cols-8">
             {NAV.map(({ to, label, icon: Icon }) => (
               <NavLink
                 key={to}
                 to={to}
                 end={to === "/"}
                 className={({ isActive }) =>
-                  `flex flex-col items-center gap-0.5 py-2.5 text-[9px] font-medium leading-tight ${
+                  `flex min-w-0 flex-col items-center gap-0.5 px-0.5 py-2 text-[8.5px] font-medium leading-tight ${
                     isActive ? "text-ink-900" : "text-ink-400"
                   }`
                 }
               >
                 <Icon />
-                <span>{label}</span>
+                <span className="block w-full truncate text-center">{label}</span>
               </NavLink>
             ))}
           </div>
@@ -191,6 +192,15 @@ function HistoryIcon() {
       <path d="M3 12a9 9 0 1 0 3-6.7" />
       <path d="M3 4v5h5" />
       <path d="M12 7v5l4 2" />
+    </svg>
+  );
+}
+function MusicIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
     </svg>
   );
 }
