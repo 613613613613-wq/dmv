@@ -1,9 +1,14 @@
 {
   "videos": [
     "four-way-stop",
+    "left-turn-yield",
+    "ped-crosswalk",
+    "sign-spotlight:construction",
     "sign-spotlight:curve",
+    "sign-spotlight:school-zone",
     "sign-spotlight:stop",
     "sign-spotlight:yield",
+    "speedometer:20",
     "t-intersection"
   ]
 }
