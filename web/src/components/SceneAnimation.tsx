@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import type { Lang, SignKind } from "../types";
 import Sign from "./Sign";
+import videoManifest from "../data/video-manifest.json";
 
 interface Props {
   scene: string;
@@ -9,7 +11,30 @@ interface Props {
   fallbackSignValue?: number;
 }
 
+const generatedVideos = new Set<string>(videoManifest.videos);
+const sceneToFilename = (s: string) => s.replace(/[:/\\]/g, "-") + ".mp4";
+
 export default function SceneAnimation(props: Props) {
+  const [videoFailed, setVideoFailed] = useState(false);
+  const hasVideo = generatedVideos.has(props.scene);
+
+  if (hasVideo && !videoFailed) {
+    return (
+      <div className="relative w-full overflow-hidden rounded-2xl bg-ink-900 ring-1 ring-ink-100 aspect-[16/9]">
+        <video
+          src={`/videos/${sceneToFilename(props.scene)}`}
+          className="h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          onError={() => setVideoFailed(true)}
+        />
+      </div>
+    );
+  }
+
   // Honors the user's prefers-reduced-motion setting: framer-motion will skip
   // transform animations (translate/scale/rotate) and only keep opacity changes,
   // leaving each scene visible in its final, accessible state.

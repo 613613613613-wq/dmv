@@ -42,3 +42,7 @@ AuthKey_*.p8
 .vscode/
 .idea/
 *.swp
+
+# Generated MP4s from Veo (large binaries)
+web/public/videos/
+

@@ -1,0 +1,13 @@
+{
+  "name": "dmv-video-generator",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "One-time script that generates Veo videos for each lesson scene.",
+  "scripts": {
+    "generate": "node generate-videos.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^0.14.0"
+  }
+}
