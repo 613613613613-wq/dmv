@@ -110,18 +110,27 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
       return (
         <svg {...props}>
           <polygon points="60,8 112,60 60,112 8,60" fill="#d6e94a" stroke="#000" strokeWidth="3" />
-          <circle cx="58" cy="38" r="6" fill="#000" />
-          <path d="M48,52 L66,52 L72,72 L62,72 L66,90 L52,90 L48,70 L42,70 Z" fill="#000" />
+          {/* Walking-pedestrian silhouette (MUTCD W11-2 style): striding figure */}
+          <g fill="#000">
+            <circle cx="58" cy="34" r="6" />
+            {/* torso + leading arm + back arm */}
+            <path d="M48,46 L62,42 L70,52 L66,58 L60,52 L60,72 L54,72 Z" />
+            {/* legs mid-stride */}
+            <path d="M54,70 L62,72 L72,92 L66,94 L60,82 L52,96 L46,94 Z" />
+          </g>
         </svg>
       );
     case "railroad-crossing":
       return (
         <svg {...props}>
+          {/* MUTCD W10-1: yellow CIRCLE with bold black X and an R in the left
+              and right sectors (the X meets at center, so Rs go into the side
+              wedges, not the top/bottom ones). */}
           <circle cx="60" cy="60" r="54" fill="#ffd400" stroke="#000" strokeWidth="4" />
-          <line x1="10" y1="100" x2="110" y2="20" stroke="#000" strokeWidth="6" />
-          <line x1="10" y1="20" x2="110" y2="100" stroke="#000" strokeWidth="6" />
-          <text x="40" y="56" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="22" fill="#000">R</text>
-          <text x="80" y="78" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="22" fill="#000">R</text>
+          <line x1="14" y1="106" x2="106" y2="14" stroke="#000" strokeWidth="9" strokeLinecap="square" />
+          <line x1="14" y1="14" x2="106" y2="106" stroke="#000" strokeWidth="9" strokeLinecap="square" />
+          <text x="22" y="70" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="22" fontWeight="900" fill="#000">R</text>
+          <text x="98" y="70" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="22" fontWeight="900" fill="#000">R</text>
         </svg>
       );
     case "railroad-crossbuck":
@@ -163,10 +172,19 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
           <polygon points="60,76 44,46 76,46" fill="#fff" />
         </svg>
       );
+    case "no-passing":
+      return (
+        <svg {...props}>
+          {/* MUTCD W14-3: special pennant shape (horizontal triangle pointing right) */}
+          <polygon points="6,18 114,60 6,102" fill="#ffd400" stroke="#000" strokeWidth="4" strokeLinejoin="miter" />
+          <text x="44" y="50" textAnchor="middle" fontSize="11" fontFamily="Arial Black, sans-serif" fontWeight="900" fill="#000">NO</text>
+          <text x="50" y="66" textAnchor="middle" fontSize="11" fontFamily="Arial Black, sans-serif" fontWeight="900" fill="#000">PASSING</text>
+          <text x="56" y="82" textAnchor="middle" fontSize="11" fontFamily="Arial Black, sans-serif" fontWeight="900" fill="#000">ZONE</text>
+        </svg>
+      );
     case "merge":
     case "lane-ends":
     case "two-way":
-    case "no-passing":
     case "curve":
     case "winding-road":
     case "divided-highway":
@@ -176,56 +194,102 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
         <svg {...props}>
           <polygon points="60,8 112,60 60,112 8,60" fill="#ffd400" stroke="#000" strokeWidth="3" />
           {kind === "merge" && (
-            <g stroke="#000" strokeWidth="6" fill="none" strokeLinecap="round">
-              <line x1="60" y1="100" x2="60" y2="50" />
-              <path d="M60,50 Q60,32 80,28" />
+            /* MUTCD W4-1: vertical arrow with secondary line merging in from right */
+            <g fill="#000" stroke="#000">
+              {/* main vertical arrow shaft */}
+              <line x1="58" y1="100" x2="58" y2="34" strokeWidth="7" strokeLinecap="round" />
+              {/* arrowhead */}
+              <polygon points="58,18 48,38 68,38" />
+              {/* merging line curving in from upper-right and joining at the shaft */}
+              <path d="M88,98 C88,72 76,58 60,52" fill="none" strokeWidth="7" strokeLinecap="round" />
             </g>
           )}
           {kind === "lane-ends" && (
-            <g stroke="#000" strokeWidth="6" fill="none" strokeLinecap="round">
-              <line x1="50" y1="100" x2="50" y2="40" />
-              <path d="M70,100 Q70,60 50,50" />
+            /* MUTCD W4-2: two parallel lanes, right one tapers into the left */
+            <g>
+              <g fill="none" stroke="#000" strokeWidth="6" strokeLinecap="round">
+                {/* through (left) edge */}
+                <line x1="48" y1="100" x2="48" y2="34" />
+                {/* outer right edge tapering inward to meet the left edge */}
+                <path d="M82,100 C82,70 80,52 52,40" />
+              </g>
+              {/* arrowhead at the top of the through lane */}
+              <polygon points="48,18 36,38 60,38" fill="#000" />
             </g>
           )}
           {kind === "two-way" && (
-            <g stroke="#000" strokeWidth="5" fill="#000">
-              <line x1="50" y1="100" x2="50" y2="30" />
-              <polygon points="44,30 56,30 50,18" />
-              <line x1="70" y1="20" x2="70" y2="90" />
-              <polygon points="64,90 76,90 70,102" />
-            </g>
-          )}
-          {kind === "no-passing" && (
-            <g>
-              <text x="60" y="40" textAnchor="middle" fontSize="11" fontFamily="Arial Black">NO</text>
-              <text x="60" y="58" textAnchor="middle" fontSize="11" fontFamily="Arial Black">PASSING</text>
-              <text x="60" y="76" textAnchor="middle" fontSize="11" fontFamily="Arial Black">ZONE</text>
+            /* MUTCD W6-3: two arrows, one up, one down, side by side */
+            <g fill="#000" stroke="#000" strokeLinecap="square">
+              <line x1="46" y1="98" x2="46" y2="32" strokeWidth="6" />
+              <polygon points="46,18 36,38 56,38" />
+              <line x1="74" y1="22" x2="74" y2="88" strokeWidth="6" />
+              <polygon points="74,102 64,82 84,82" />
             </g>
           )}
           {kind === "curve" && (
-            <path d="M40,100 Q40,70 60,60 T80,30" stroke="#000" strokeWidth="6" fill="none" strokeLinecap="round" />
+            /* MUTCD W1-2: curving arrow (left-curve variant shown) */
+            <g fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M72,100 C72,76 56,58 46,46" fill="none" strokeWidth="8" />
+              {/* clean arrowhead at top end pointing up-and-left along curve tangent */}
+              <polygon points="32,32 56,38 46,52" />
+            </g>
           )}
           {kind === "winding-road" && (
-            <path d="M40,100 Q40,80 50,70 Q60,60 50,50 Q40,40 60,30" stroke="#000" strokeWidth="6" fill="none" strokeLinecap="round" />
+            /* MUTCD W1-5: S-curve arrow */
+            <g fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M70,100 C70,82 40,72 40,58 C40,46 70,42 70,28" fill="none" strokeWidth="8" />
+              {/* arrowhead at top */}
+              <polygon points="70,16 58,32 82,32" />
+            </g>
           )}
           {kind === "divided-highway" && (
-            <g stroke="#000" strokeWidth="5" fill="#000">
-              <line x1="50" y1="98" x2="50" y2="60" />
-              <line x1="70" y1="60" x2="70" y2="22" />
-              <ellipse cx="60" cy="50" rx="6" ry="14" fill="#000" />
+            /* MUTCD W6-1: two parallel arrows around an oval median */
+            <g fill="#000" stroke="#000" strokeLinecap="square">
+              {/* left arrow shaft + head */}
+              <line x1="40" y1="100" x2="40" y2="32" strokeWidth="6" />
+              <polygon points="40,18 30,38 50,38" />
+              {/* right arrow shaft + head */}
+              <line x1="80" y1="100" x2="80" y2="32" strokeWidth="6" />
+              <polygon points="80,18 70,38 90,38" />
+              {/* center median */}
+              <ellipse cx="60" cy="68" rx="6" ry="22" />
             </g>
           )}
           {kind === "deer" && (
+            /* MUTCD W11-3: leaping-deer silhouette */
             <g fill="#000">
-              <path d="M44,82 L44,60 L52,52 L60,52 L66,46 L66,38 L62,32 L66,30 L72,38 L72,44 L80,52 L80,82 L74,82 L74,68 L52,68 L52,82 Z" />
+              {/* body */}
+              <path d="M34,68 C34,60 42,56 56,56 L72,56 C82,56 88,60 88,66 L88,72 C88,74 86,76 84,76 L36,76 C34,76 32,74 32,72 Z" />
+              {/* neck */}
+              <path d="M76,58 L84,40 L92,40 L86,62 Z" />
+              {/* head */}
+              <ellipse cx="92" cy="38" rx="6" ry="4" />
+              {/* ear */}
+              <path d="M92,34 L96,28 L94,36 Z" />
+              {/* antlers */}
+              <path d="M88,34 L82,22 M84,30 L78,18 M92,32 L94,18 M96,30 L102,20" stroke="#000" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+              {/* tail */}
+              <path d="M32,62 L24,54 L30,64 Z" />
+              {/* legs (front pair forward, back pair back) */}
+              <path d="M38,76 L34,98 L40,98 L44,80 Z" />
+              <path d="M48,76 L44,98 L50,98 L54,80 Z" />
+              <path d="M72,76 L74,98 L80,98 L80,80 Z" />
+              <path d="M82,76 L86,98 L92,98 L88,80 Z" />
             </g>
           )}
           {kind === "slippery" && (
+            /* MUTCD W8-5: car silhouette with wavy skid marks below */
             <g fill="#000">
-              <rect x="38" y="56" width="44" height="14" rx="2" />
-              <circle cx="46" cy="76" r="6" />
-              <circle cx="74" cy="76" r="6" />
-              <path d="M30,90 Q60,70 90,90" stroke="#000" strokeWidth="3" fill="none" />
+              {/* car: body + roof */}
+              <path d="M28,68 L38,58 L52,52 L72,52 L84,58 L92,68 L92,76 L28,76 Z" />
+              {/* wheel cutouts */}
+              <circle cx="42" cy="76" r="6" fill="#ffd400" />
+              <circle cx="78" cy="76" r="6" fill="#ffd400" />
+              <circle cx="42" cy="76" r="4" />
+              <circle cx="78" cy="76" r="4" />
+              {/* wavy skid marks behind the rear wheel */}
+              <path d="M16,90 Q24,86 32,90 T48,90 T64,90" stroke="#000" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <path d="M22,100 Q30,96 38,100 T54,100 T70,100" stroke="#000" strokeWidth="3" fill="none" strokeLinecap="round" />
             </g>
           )}
         </svg>
