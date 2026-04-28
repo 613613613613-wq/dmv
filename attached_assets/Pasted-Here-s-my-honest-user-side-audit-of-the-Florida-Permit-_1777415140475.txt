@@ -1,0 +1,28 @@
+Here's my honest user-side audit of the Florida Permit Prep app, walked through end-to-end.
+
+**Overall first impression**
+The app makes a strong first impression. The bilingual welcome screen, vehicle-class picker (Car/Motorcycle/CDL), and home dashboard all look polished — Duolingo-style XP, streaks, hearts, and "every answer cites the handbook" framing build trust quickly. The information architecture (Home / Lessons / Practice / Signs / Songs / Mock Test / Review / Settings) is exactly what a learner needs, and nothing feels missing conceptually. Privacy copy ("no accounts, no analytics, lives in this browser") is a nice differentiator.
+
+**Critical bugs I'd fix before shipping**
+
+1. The **/signs route is currently broken on direct load**. It renders a blank page, and the console shows `ReferenceError: SignTestView is not defined` thrown from App.tsx, with the React error boundary triggering. Sign Rush is one of the headline features of the app — the gallery only works if you arrive via in-app sidebar nav. Anyone who refreshes, bookmarks, or shares a link to /signs sees nothing. Same risk applies to any other deep-linked route.
+
+2. **Mock Test page contradicts itself.** The headline says "50 questions … pass at 40/50 (80%)" but the stat cards directly below say 30 questions and 24/30. Settings confirms the underlying pack (FL-CAR) only has 30 questions. The marketing copy on the home hero ("50 questions · 80% pass mark") is also inaccurate for what the app actually delivers. Pick one source of truth and use it everywhere.
+
+3. **Lesson 1, slide 2/8 ("Octagon = STOP") is missing its image.** The frame loads with just a faint loading ring on a blank gradient. The very first image a brand-new user sees in the very first lesson is broken. Other lesson slides I sampled rendered fine, so this looks like a single bad asset path.
+
+4. **Several signs in the gallery look off or amateurish** compared to real FLHSMV reference imagery: Do Not Enter has a clipped/garbled "DO NOT ENTER" bar, Railroad Crossbuck is rendered as a black X with tiny illegible text instead of the clean white crossbuck, Pedestrian Crossing shows a disembodied figure rather than the standard striding silhouette, Railroad Advance Warning has odd "R R" lettering, and the No Passing Zone pennant looks more like a stretched diamond than the proper pennant. For a test prep app, sign accuracy is the product — these need to match the real signs the user will see on the exam and on the road.
+
+5. **Songs probably don't actually play.** I clicked play on "Eight Colors" — the icon flipped to pause, but the timer stayed `0:00 / 0:00` and the scrubber didn't move. Either the audio file is missing/silent or the duration metadata never loaded. If audio isn't ready, the Songs tab arguably shouldn't ship yet.
+
+**Smaller UX nits**
+
+The hero CTA "🛑 Begin lesson →" reuses the stop-sign emoji, which is visually noisy right next to a button. The home page mixes "Topic counts" (5 questions, 4 questions, 1 questions) with a singular/plural typo ("1 questions" should be "1 question"). The Mock Test description says "Hearts mode: you have 3 hearts" but there's no hearts indicator visible from the lobby — surfacing it earlier would help. The Signs page has a "Best score: 0" card before the user has ever played, which reads as discouraging — consider hiding until first play. Direct URL refresh on inner routes is a general routing gap worth fixing alongside the SignTestView bug.
+
+**What's genuinely good**
+
+The Practice flow is the strongest part of the app: clear category tags, difficulty pip, bookmark icon, immediate green confirmation with `+10 XP`, an explanation, and a handbook citation ("FLHSMV · Right of Way — Intersections"). That's exactly the loop that makes this kind of app stick. Adaptive practice framing ("picks from your weakest topics and questions you're about to forget") is the right pitch. Lessons being chunked into 6–8 slides with XP rewards mirrors proven learning-app patterns. The bilingual support, vehicle-class switching that "preserves XP," and the no-account local-only model are all real selling points. Visual design is clean, modern, and consistent — typography, spacing, dark hero card, light content cards.
+
+**My take in one line**
+
+Concept and UX are a 9/10; execution is a 6/10 right now because of the broken /signs route, the 30-vs-50 question contradiction, the missing STOP image on lesson 1 slide 2, the questionable sign artwork, and the non-functional song player. Fix those five and this is genuinely shippable as a free, privacy-friendly Florida permit prep tool.
