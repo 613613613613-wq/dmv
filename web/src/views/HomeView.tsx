@@ -6,6 +6,7 @@ import { categoryStats } from "../engine/practice";
 import { dueCards } from "../engine/srs";
 import { t } from "../i18n";
 import { loc } from "../engine/util";
+import videoManifest from "../data/video-manifest.json";
 import type { Lang } from "../types";
 
 export default function HomeView() {
@@ -50,6 +51,15 @@ export default function HomeView() {
                 ? "cada respuesta cita el manual."
                 : "every answer cites the handbook."}
             </p>
+            {videoManifest.videos.length > 0 && (
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-sun-200 ring-1 ring-white/20 backdrop-blur">
+                <span aria-hidden>▶</span>
+                <span>
+                  {videoManifest.videos.length}{" "}
+                  {lang === "es" ? "lecciones en video" : "video lessons"}
+                </span>
+              </div>
+            )}
           </div>
           <div className="flex flex-col gap-2 md:items-end">
             {nextLesson && (

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUserData } from "../engine/store";
 import { useLessonPack } from "../engine/contentPack";
@@ -8,6 +8,7 @@ import Sign from "../components/Sign";
 import SceneAnimation from "../components/SceneAnimation";
 import { hasGeneratedVideo, sceneVideoUrl } from "../engine/videoAssets";
 import Confetti from "../components/Confetti";
+import Narration from "../components/Narration";
 import type { Lang, LessonStep } from "../types";
 
 export default function LessonView() {
@@ -27,6 +28,76 @@ export default function LessonView() {
   const [confetti, setConfetti] = useState(false);
   const [completed, setCompleted] = useState(false);
 
+  // Tracks the "hide confetti" timer so we can cancel it if the user
+  // navigates to the next step (or unmounts) before it fires; otherwise the
+  // timer would race against the next step's own confetti and create flicker.
+  const confettiTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function scheduleConfettiHide(ms: number) {
+    if (confettiTimer.current) clearTimeout(confettiTimer.current);
+    confettiTimer.current = setTimeout(() => {
+      setConfetti(false);
+      confettiTimer.current = null;
+    }, ms);
+  }
+  useEffect(() => {
+    return () => {
+      if (confettiTimer.current) clearTimeout(confettiTimer.current);
+    };
+  }, []);
+
+  // Keyboard shortcuts: Space/Enter/Right-arrow = continue,
+  // A/B/C/D = pick that answer on a checkpoint. Hooks must run before any
+  // early-return so the order stays stable across renders. We inline the
+  // continue/pick logic instead of calling next()/pickAnswer() so the effect
+  // doesn't depend on those (re-created every render) closures.
+  useEffect(() => {
+    if (!lesson) return;
+    function onKey(e: KeyboardEvent) {
+      if (!lesson) return;
+      const target = e.target as HTMLElement | null;
+      if (target && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(target.tagName)) {
+        // Allow Space/Enter on focused buttons to use native click handling.
+        if (target.tagName === "BUTTON" && (e.key === " " || e.key === "Enter")) return;
+      }
+      const currentStep = lesson.steps[stepIdx];
+      if (!currentStep) return;
+      if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight") {
+        if (currentStep.kind === "checkpoint" && chosen === null) return;
+        e.preventDefault();
+        if (stepIdx < lesson.steps.length - 1) {
+          if (confettiTimer.current) {
+            clearTimeout(confettiTimer.current);
+            confettiTimer.current = null;
+          }
+          setConfetti(false);
+          setStepIdx((i) => i + 1);
+          setChosen(null);
+        } else if (!completed) {
+          completeLesson(lesson.id, lesson.xpReward);
+          setCompleted(true);
+          setConfetti(true);
+        }
+        return;
+      }
+      if (currentStep.kind === "checkpoint" && currentStep.question && chosen === null) {
+        const idx = ["a", "b", "c", "d"].indexOf(e.key.toLowerCase());
+        const choice = currentStep.question.choices[idx];
+        if (idx >= 0 && choice) {
+          e.preventDefault();
+          setChosen(choice.id);
+          const correct = choice.id === currentStep.question.correct;
+          recordAttempt(currentStep.question.id, correct, 0);
+          if (correct) {
+            setConfetti(true);
+            scheduleConfettiHide(1500);
+          }
+        }
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lesson, stepIdx, chosen, completed, completeLesson, recordAttempt]);
+
   if (!lesson) return <div className="card h-72 animate-pulse" />;
 
   const step: LessonStep = lesson.steps[stepIdx];
@@ -41,14 +112,15 @@ export default function LessonView() {
     nextStep?.scene && hasGeneratedVideo(nextStep.scene)
       ? sceneVideoUrl(nextStep.scene)
       : null;
-  // Reset the answer-pick state whenever the step changes, in case a parent
-  // ever swaps the lesson without remounting (defensive — current flow remounts).
-  useEffect(() => {
-    setChosen(null);
-  }, [stepIdx]);
 
   function next() {
     if (stepIdx < total - 1) {
+      // Cancel any in-flight confetti hide so it can't fire on the next step.
+      if (confettiTimer.current) {
+        clearTimeout(confettiTimer.current);
+        confettiTimer.current = null;
+      }
+      setConfetti(false);
       setStepIdx((i) => i + 1);
       setChosen(null);
       return;
@@ -65,8 +137,10 @@ export default function LessonView() {
     setChosen(choiceId);
     const correct = choiceId === step.question.correct;
     recordAttempt(step.question.id, correct, 0);
-    if (correct) setConfetti(true);
-    setTimeout(() => setConfetti(false), 1500);
+    if (correct) {
+      setConfetti(true);
+      scheduleConfettiHide(1500);
+    }
   }
 
   return (
@@ -118,9 +192,17 @@ export default function LessonView() {
               {loc(step.title ?? lesson.title, lang)}
             </h1>
             {step.body && (
-              <p className="mx-auto mt-3 max-w-md text-sm text-ink-600 md:text-base">
-                {loc(step.body, lang)}
-              </p>
+              <>
+                <p className="mx-auto mt-3 max-w-md text-sm text-ink-600 md:text-base">
+                  {loc(step.body, lang)}
+                </p>
+                <div className="mt-4 flex justify-center">
+                  <Narration
+                    text={`${loc(step.title ?? lesson.title, lang)}. ${loc(step.body, lang)}`}
+                    lang={lang}
+                  />
+                </div>
+              </>
             )}
           </div>
         )}
@@ -152,6 +234,14 @@ export default function LessonView() {
               <p className="mx-auto mt-3 max-w-md text-base leading-relaxed text-ink-700">
                 {loc(step.body, lang)}
               </p>
+            )}
+            {step.body && (
+              <div className="mt-4 flex justify-center">
+                <Narration
+                  text={`${step.title ? loc(step.title, lang) + ". " : ""}${loc(step.body, lang)}`}
+                  lang={lang}
+                />
+              </div>
             )}
           </div>
         )}
