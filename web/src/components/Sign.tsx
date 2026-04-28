@@ -33,9 +33,12 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
     case "do-not-enter":
       return (
         <svg {...props}>
-          <circle cx="60" cy="60" r="56" fill="#c8202b" stroke="#fff" strokeWidth="6" />
-          <rect x="20" y="50" width="80" height="20" fill="#fff" rx="2" />
-          <text x="60" y="98" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="11" fill="#fff">DO NOT ENTER</text>
+          {/* MUTCD R5-1: red rounded square with a wide white "no entry" bar
+              in the upper portion and DO NOT ENTER in white below the bar. */}
+          <rect x="4" y="4" width="112" height="112" rx="14" fill="#c8202b" stroke="#fff" strokeWidth="4" />
+          <rect x="16" y="38" width="88" height="22" fill="#fff" rx="2" />
+          <text x="60" y="84" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="14" fill="#fff">DO NOT</text>
+          <text x="60" y="102" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="14" fill="#fff">ENTER</text>
         </svg>
       );
     case "wrong-way":
@@ -50,13 +53,21 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
     case "one-way-right":
       return (
         <svg {...props}>
-          <rect x="6" y="34" width="108" height="52" fill="#000" stroke="#fff" strokeWidth="3" />
+          {/* MUTCD R6-1: black horizontal sign with ONE WAY text in white at top
+              and a clean white arrow across the middle. */}
+          <rect x="6" y="22" width="108" height="76" fill="#000" stroke="#fff" strokeWidth="3" />
+          <text x="60" y="42" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="13" fill="#fff" letterSpacing="1">ONE WAY</text>
           {kind === "one-way-left" ? (
-            <polygon points="14,60 50,40 50,52 100,52 100,68 50,68 50,80" fill="#fff" />
+            <g fill="#fff">
+              <rect x="32" y="68" width="68" height="10" />
+              <polygon points="14,73 36,60 36,86" />
+            </g>
           ) : (
-            <polygon points="106,60 70,40 70,52 20,52 20,68 70,68 70,80" fill="#fff" />
+            <g fill="#fff">
+              <rect x="20" y="68" width="68" height="10" />
+              <polygon points="106,73 84,60 84,86" />
+            </g>
           )}
-          <text x="60" y="22" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="11" fill="#000">ONE WAY</text>
         </svg>
       );
     case "no-uturn":
@@ -96,14 +107,21 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
     case "school-crossing":
       return (
         <svg {...props}>
+          {/* MUTCD S1-1: yellow-green pentagon with two walking children
+              silhouettes (a smaller child in front of a taller one). */}
           <polygon points="60,4 116,30 116,90 60,116 4,90 4,30" fill="#d6e94a" stroke="#000" strokeWidth="3" />
-          <g transform="translate(36,32)">
-            <circle cx="14" cy="10" r="6" fill="#000" />
-            <path d="M6,28 H22 L26,40 H2 Z" fill="#000" />
-            <circle cx="34" cy="14" r="5" fill="#000" />
-            <path d="M28,30 H40 L44,44 H24 Z" fill="#000" />
+          <g fill="#000">
+            {/* smaller child (front, leading) */}
+            <circle cx="42" cy="44" r="6" />
+            <path d="M34,52 L48,52 L52,76 L46,78 L42,68 L42,78 L36,76 Z" />
+            <path d="M36,76 L32,98 L38,98 L42,80 Z" />
+            <path d="M44,80 L48,98 L54,98 L50,76 Z" />
+            {/* taller child / adult (back) */}
+            <circle cx="74" cy="36" r="7" />
+            <path d="M64,46 L82,46 L86,78 L78,80 L74,68 L74,80 L66,78 Z" />
+            <path d="M66,78 L62,102 L70,102 L72,82 Z" />
+            <path d="M76,82 L80,102 L88,102 L84,78 Z" />
           </g>
-          <text x="60" y="92" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="10" fill="#000">SCHOOL</text>
         </svg>
       );
     case "pedestrian-crossing":
@@ -136,14 +154,16 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
     case "railroad-crossbuck":
       return (
         <svg {...props}>
+          {/* MUTCD R15-1: two crossed white slats with RAILROAD on one and
+              CROSSING on the other, each rotated to follow its slat. */}
           <g transform="rotate(45 60 60)">
-            <rect x="6" y="52" width="108" height="16" fill="#fff" stroke="#000" strokeWidth="3" />
+            <rect x="2" y="52" width="116" height="16" fill="#fff" stroke="#000" strokeWidth="3" />
+            <text x="60" y="64" textAnchor="middle" fontSize="11" fontWeight="900" fontFamily="Arial Black, sans-serif" fill="#000" letterSpacing="0.5">RAILROAD</text>
           </g>
           <g transform="rotate(-45 60 60)">
-            <rect x="6" y="52" width="108" height="16" fill="#fff" stroke="#000" strokeWidth="3" />
+            <rect x="2" y="52" width="116" height="16" fill="#fff" stroke="#000" strokeWidth="3" />
+            <text x="60" y="64" textAnchor="middle" fontSize="11" fontWeight="900" fontFamily="Arial Black, sans-serif" fill="#000" letterSpacing="0.5">CROSSING</text>
           </g>
-          <text x="60" y="48" textAnchor="middle" fontSize="9" fill="#000" fontFamily="Arial Black">RAILROAD</text>
-          <text x="60" y="80" textAnchor="middle" fontSize="9" fill="#000" fontFamily="Arial Black">CROSSING</text>
         </svg>
       );
     case "signal-ahead":
@@ -264,10 +284,17 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
               <path d="M76,58 L84,40 L92,40 L86,62 Z" />
               {/* head */}
               <ellipse cx="92" cy="38" rx="6" ry="4" />
+              {/* branched antlers (one on each side, with tines) */}
+              <path
+                d="M88,36 L82,22 M82,22 L76,24 M82,22 L80,16
+                   M94,34 L98,20 M98,20 L104,22 M98,20 L100,14"
+                stroke="#000"
+                strokeWidth="2.5"
+                fill="none"
+                strokeLinecap="round"
+              />
               {/* ear */}
-              <path d="M92,34 L96,28 L94,36 Z" />
-              {/* antlers */}
-              <path d="M88,34 L82,22 M84,30 L78,18 M92,32 L94,18 M96,30 L102,20" stroke="#000" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+              <path d="M90,32 L94,26 L94,34 Z" />
               {/* tail */}
               <path d="M32,62 L24,54 L30,64 Z" />
               {/* legs (front pair forward, back pair back) */}
@@ -297,37 +324,74 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
     case "construction":
       return (
         <svg {...props}>
+          {/* MUTCD W21-1: orange diamond, worker silhouette with hardhat
+              digging with a shovel into a small mound. */}
           <polygon points="60,8 112,60 60,112 8,60" fill="#ff7a2e" stroke="#000" strokeWidth="3" />
           <g fill="#000">
-            <path d="M40,40 L52,40 L46,76 L34,76 Z" />
-            <path d="M68,40 L80,40 L86,76 L74,76 Z" />
-            <rect x="34" y="76" width="52" height="6" />
+            {/* hardhat dome */}
+            <path d="M38,32 Q56,18 70,32 L70,36 L38,36 Z" />
+            {/* head */}
+            <circle cx="54" cy="42" r="4" />
+            {/* torso (slightly bent forward) */}
+            <path d="M44,46 L64,46 L68,72 L60,74 L52,72 L46,68 Z" />
+            {/* legs */}
+            <path d="M48,72 L46,96 L54,96 L56,76 Z" />
+            <path d="M58,74 L62,96 L68,96 L66,72 Z" />
+            {/* arm + shovel handle */}
+            <path d="M64,52 L92,76" stroke="#000" strokeWidth="5" strokeLinecap="round" />
+            {/* shovel blade */}
+            <path d="M86,72 L100,80 L94,90 L80,82 Z" />
+            {/* dirt mound */}
+            <path d="M70,98 Q86,90 100,98 L100,102 L70,102 Z" />
           </g>
         </svg>
       );
     case "flagger":
       return (
         <svg {...props}>
+          {/* MUTCD W11-7: orange diamond, worker with hardhat holding a red flag. */}
           <polygon points="60,8 112,60 60,112 8,60" fill="#ff7a2e" stroke="#000" strokeWidth="3" />
-          <circle cx="60" cy="36" r="8" fill="#000" />
-          <path d="M52,46 L68,46 L74,78 L46,78 Z" fill="#000" />
-          <rect x="74" y="40" width="20" height="14" fill="#c8202b" stroke="#000" strokeWidth="2" />
+          <g fill="#000">
+            {/* hardhat */}
+            <path d="M44,30 Q60,20 76,30 L76,34 L44,34 Z" />
+            {/* head */}
+            <circle cx="60" cy="40" r="5" />
+            {/* torso */}
+            <path d="M48,46 L72,46 L76,80 L44,80 Z" />
+            {/* legs */}
+            <rect x="48" y="80" width="9" height="22" />
+            <rect x="63" y="80" width="9" height="22" />
+            {/* extended arm to flag */}
+            <line x1="74" y1="52" x2="96" y2="44" stroke="#000" strokeWidth="5" strokeLinecap="round" />
+            {/* flag pole */}
+            <line x1="96" y1="36" x2="96" y2="74" stroke="#000" strokeWidth="2.5" />
+          </g>
+          {/* red flag */}
+          <rect x="76" y="38" width="20" height="14" fill="#c8202b" stroke="#000" strokeWidth="1.5" />
         </svg>
       );
     case "detour":
       return (
         <svg {...props}>
-          <rect x="6" y="34" width="108" height="52" fill="#ff7a2e" stroke="#000" strokeWidth="3" />
-          <text x="40" y="68" textAnchor="middle" fontFamily="Arial Black" fontSize="14" fill="#000">DETOUR</text>
-          <polygon points="80,52 100,60 80,68 80,62 70,62 70,58 80,58" fill="#000" />
+          {/* MUTCD M4-9: orange rectangle, "DETOUR" text + clean horizontal arrow. */}
+          <rect x="6" y="22" width="108" height="76" fill="#ff7a2e" stroke="#000" strokeWidth="3" />
+          <text x="60" y="50" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#000" letterSpacing="1">DETOUR</text>
+          <g fill="#000">
+            <rect x="22" y="74" width="62" height="8" />
+            <polygon points="100,78 80,66 80,90" />
+          </g>
         </svg>
       );
     case "hospital":
       return (
         <svg {...props}>
-          <rect x="6" y="20" width="108" height="80" fill="#1d6cb8" stroke="#fff" strokeWidth="3" />
-          <rect x="48" y="36" width="24" height="48" fill="#fff" />
-          <rect x="36" y="48" width="48" height="24" fill="#fff" />
+          {/* MUTCD D9-2: blue square with bold white H. */}
+          <rect x="6" y="6" width="108" height="108" fill="#1d6cb8" stroke="#fff" strokeWidth="3" rx="3" />
+          <g fill="#fff">
+            <rect x="30" y="26" width="16" height="68" />
+            <rect x="74" y="26" width="16" height="68" />
+            <rect x="30" y="52" width="60" height="16" />
+          </g>
         </svg>
       );
     case "hov":
@@ -366,15 +430,27 @@ export default function Sign({ kind, size = 120, speedValue, className }: Props)
     case "no-truck":
       return (
         <svg {...props}>
+          {/* MUTCD R5-2: white square, red prohibition circle, semi truck
+              silhouette inside (trailer + cab + wheels), red diagonal slash. */}
           <rect x="6" y="6" width="108" height="108" fill="#fff" stroke="#000" strokeWidth="3" rx="6" />
           <circle cx="60" cy="60" r="42" fill="none" stroke="#c8202b" strokeWidth="8" />
           <g fill="#000">
-            <rect x="32" y="50" width="36" height="22" />
-            <rect x="68" y="42" width="20" height="30" />
-            <circle cx="42" cy="78" r="6" />
-            <circle cx="76" cy="78" r="6" />
+            {/* trailer box */}
+            <rect x="24" y="46" width="46" height="24" />
+            {/* cab in front */}
+            <rect x="70" y="38" width="20" height="32" />
+            {/* hood/bumper bump */}
+            <rect x="86" y="58" width="8" height="12" />
+            {/* chassis */}
+            <rect x="22" y="70" width="74" height="3" />
+            {/* wheels */}
+            <circle cx="36" cy="78" r="6" />
+            <circle cx="80" cy="78" r="6" />
           </g>
-          <line x1="22" y1="22" x2="98" y2="98" stroke="#c8202b" strokeWidth="8" strokeLinecap="round" />
+          {/* hub highlights so wheels read as wheels */}
+          <circle cx="36" cy="78" r="2" fill="#fff" />
+          <circle cx="80" cy="78" r="2" fill="#fff" />
+          <line x1="24" y1="24" x2="96" y2="96" stroke="#c8202b" strokeWidth="8" strokeLinecap="round" />
         </svg>
       );
     case "weight-limit":
