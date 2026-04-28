@@ -76,12 +76,17 @@ Recommended App Store messaging:
 
 | Layer | Status |
 |---|---|
-| Engine (models, SRS, mock generator, content loader) | ✅ Built, tested |
-| SwiftUI app shell | ✅ Built — practice, mock, review, bookmarks, settings, paywall |
+| Engine (models, SRS, mock generator, content loader, streak tracker) | ✅ Built, smoke-checked |
+| SwiftUI app shell | ✅ Practice, mock, review, bookmarks, settings, paywall, test-day checklist, streak badge |
 | Florida sample content (15 Qs) | ✅ Engine-validated |
-| Florida full content (~400 Qs) | ❌ Per pipeline doc |
-| App Store assets (icon, screenshots, ASO) | ❌ Needs design |
-| GRDB-backed ProgressStore | ❌ Stub only |
-| Localizations (ES, HT) | ❌ Strings exist in pack, not in UI |
-| Fastlane / CI | ❌ Sketched in BUILD.md |
-| Android, web | 🚫 Deferred — see ANDROID_WEB_DEFERRED.md |
+| Florida full content (~400 Qs) | ❌ Per `docs/CONTENT_PIPELINE.md` |
+| App icon | 📋 Spec in `docs/ICON_SPEC.md`; needs designer |
+| App Store screenshots | 📋 Spec in `docs/SCREENSHOT_SPEC.md`; needs design pass once Xcode is installed |
+| GRDB-backed ProgressStore | ✅ `App/Persistence/GRDBProgressStore.swift` |
+| Localizations (en, es) | ✅ UI strings + App Store metadata; question translations need native-speaker pass |
+| App Store metadata (en-US, es-MX) | ✅ `fastlane/metadata/florida/` |
+| Privacy policy | ✅ `docs/PRIVACY_POLICY.md` |
+| Fastlane lanes (TestFlight, App Store) | ✅ `fastlane/Fastfile` — needs Apple Developer account to run |
+| GitHub Actions CI | ✅ `.github/workflows/smoke.yml` |
+| Apple Developer enrollment | ❌ User action — $99/yr at developer.apple.com |
+| Android, web | 🚫 Deferred — see `docs/ANDROID_WEB_DEFERRED.md` |

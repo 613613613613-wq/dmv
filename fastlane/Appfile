@@ -1,0 +1,11 @@
+# Per-state app identifiers. Each state is a separate App Store listing
+# under your Apple Developer team; they share team_id but get distinct app_identifier.
+# The active app_identifier comes from the FASTLANE_APP_IDENTIFIER env var,
+# typically set per-lane.
+
+apple_id(ENV["FASTLANE_APPLE_ID"])           # e.g. you@example.com
+team_id(ENV["FASTLANE_TEAM_ID"])             # 10-char Apple Developer team ID
+
+# Set per-state via env:
+#   FASTLANE_APP_IDENTIFIER=com.shlomo.dmvprep.fl bundle exec fastlane ship_florida
+app_identifier(ENV["FASTLANE_APP_IDENTIFIER"] || "com.shlomo.dmvprep.fl")

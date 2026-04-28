@@ -2,8 +2,8 @@ import SwiftUI
 import DMVEngine
 
 /// Reusable question presenter — used by both practice and mock test modes.
-/// Locks selection after answering in practice mode (immediate feedback).
-/// In mock mode, parent suppresses the explanation reveal until the test ends.
+/// Practice mode reveals the answer immediately on tap.
+/// Mock mode suppresses reveal until the test ends.
 struct QuestionView: View {
     let question: Question
     let language: String
@@ -11,6 +11,7 @@ struct QuestionView: View {
     let onAnswer: (String) -> Void
 
     @State private var selected: String?
+    @ScaledMetric(relativeTo: .body) private var rowSpacing: CGFloat = 12
 
     var body: some View {
         ScrollView {
@@ -19,6 +20,7 @@ struct QuestionView: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                     .accessibilityAddTraits(.isHeader)
+                    .accessibilityIdentifier("question.stem")
 
                 ForEach(question.choices) { choice in
                     Button {
@@ -29,11 +31,14 @@ struct QuestionView: View {
                         ChoiceRow(
                             choice: choice,
                             language: language,
-                            state: state(for: choice.id)
+                            style: style(for: choice.id)
                         )
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(choice.text.value(for: language))
                     .accessibilityHint(accessibilityHint(for: choice))
+                    .accessibilityAddTraits(.isButton)
+                    .accessibilityIdentifier("choice.\(choice.id)")
                 }
 
                 if revealsAnswer, let selected, let chosen = question.choices.first(where: { $0.id == selected }) {
@@ -44,6 +49,7 @@ struct QuestionView: View {
                         handbookRef: question.handbookRef
                     )
                     .transition(.opacity)
+                    .accessibilityIdentifier("explanation")
                 }
             }
             .padding()
@@ -51,7 +57,7 @@ struct QuestionView: View {
         .animation(.easeInOut, value: selected)
     }
 
-    private func state(for choiceID: String) -> ChoiceRow.State {
+    private func style(for choiceID: String) -> ChoiceRow.Style {
         guard revealsAnswer, let selected else {
             return self.selected == choiceID ? .selected : .idle
         }
@@ -61,23 +67,31 @@ struct QuestionView: View {
     }
 
     private func accessibilityHint(for choice: Choice) -> String {
-        revealsAnswer && selected != nil
-            ? (question.isCorrect(choice.id) ? "Correct answer" : "")
-            : "Tap to select this answer"
+        guard revealsAnswer, selected != nil else {
+            return NSLocalizedString("a11y.choice.idle", comment: "")
+        }
+        if choice.id == question.correct {
+            return NSLocalizedString("a11y.choice.correct", comment: "")
+        }
+        if choice.id == selected {
+            return NSLocalizedString("a11y.choice.wrong", comment: "")
+        }
+        return ""
     }
 }
 
 private struct ChoiceRow: View {
-    enum State { case idle, selected, correct, wrong }
+    enum Style { case idle, selected, correct, wrong }
     let choice: Choice
     let language: String
-    let state: State
+    let style: Style
 
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .foregroundStyle(iconColor)
                 .frame(width: 24)
+                .accessibilityHidden(true)
             Text(choice.text.value(for: language))
                 .multilineTextAlignment(.leading)
             Spacer()
@@ -89,7 +103,7 @@ private struct ChoiceRow: View {
     }
 
     private var icon: String {
-        switch state {
+        switch style {
         case .idle: return "circle"
         case .selected: return "circle.inset.filled"
         case .correct: return "checkmark.circle.fill"
@@ -97,7 +111,7 @@ private struct ChoiceRow: View {
         }
     }
     private var iconColor: Color {
-        switch state {
+        switch style {
         case .correct: return .green
         case .wrong: return .red
         case .selected: return .accentColor
@@ -105,7 +119,7 @@ private struct ChoiceRow: View {
         }
     }
     private var background: Color {
-        switch state {
+        switch style {
         case .correct: return .green.opacity(0.12)
         case .wrong: return .red.opacity(0.12)
         case .selected: return .accentColor.opacity(0.08)
@@ -113,7 +127,7 @@ private struct ChoiceRow: View {
         }
     }
     private var border: Color {
-        switch state {
+        switch style {
         case .correct: return .green.opacity(0.5)
         case .wrong: return .red.opacity(0.5)
         case .selected: return .accentColor.opacity(0.5)
@@ -132,7 +146,10 @@ private struct ExplanationCard: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Image(systemName: wasCorrect ? "checkmark.seal.fill" : "exclamationmark.triangle.fill")
-                Text(wasCorrect ? "Correct" : "Not quite")
+                    .accessibilityHidden(true)
+                Text(wasCorrect
+                     ? NSLocalizedString("practice.correct", comment: "")
+                     : NSLocalizedString("practice.notQuite", comment: ""))
                     .fontWeight(.semibold)
             }
             .foregroundStyle(wasCorrect ? .green : .orange)
@@ -140,10 +157,11 @@ private struct ExplanationCard: View {
             if let ref = handbookRef {
                 Divider()
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Handbook: \(ref.section)")
+                    Text(String(format: NSLocalizedString("practice.handbook", comment: ""), ref.section))
                         .font(.caption).foregroundStyle(.secondary)
                     if let page = ref.page {
-                        Text("Page \(page)").font(.caption).foregroundStyle(.secondary)
+                        Text(String(format: NSLocalizedString("practice.page", comment: ""), page))
+                            .font(.caption).foregroundStyle(.secondary)
                     }
                 }
             }
@@ -152,5 +170,6 @@ private struct ExplanationCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(.tertiarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .accessibilityElement(children: .combine)
     }
 }

@@ -28,6 +28,13 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
+# Sensitive — never commit these
+fastlane/.env
+fastlane/.env.*
+*.p8
+*.p12
+AuthKey_*.p8
+
 # macOS
 .DS_Store
 

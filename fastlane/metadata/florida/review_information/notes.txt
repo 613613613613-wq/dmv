@@ -1,0 +1,9 @@
+App reviewer notes:
+
+This app is offline-only. There is nothing to log into. No demo account is needed.
+
+To exercise the buy-once IAP without spending money, the App Store Connect sandbox tester account works as expected — open the app, tap any practice question, the paywall is reachable from the main menu under "Buy full pack."
+
+Privacy: this app uses no analytics SDK, no ad SDK, and no third-party tracking. The App Store privacy nutrition label is "Data Not Collected." All data lives in a local SQLite database in the app's sandbox.
+
+Content sourcing: every question is sourced from the publicly available Florida Driver License Handbook published by the Florida Department of Highway Safety and Motor Vehicles (FLHSMV). Handbook section references are surfaced in-app on every wrong-answer review screen.

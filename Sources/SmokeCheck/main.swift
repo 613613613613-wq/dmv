@@ -74,4 +74,23 @@ let l = Localized(["en": "Hello", "es": "Hola"])
 check(l.value(for: "es") == "Hola", "exact-match returns Spanish")
 check(l.value(for: "ht") == "Hello", "missing language falls back to English")
 
+// 6. Streak tracker — three consecutive days of attempts → 3-day streak.
+section("StreakTracker")
+let cal = Calendar.current
+let today = cal.startOfDay(for: Date())
+let attempts = (0..<3).map { offset -> Attempt in
+    let day = cal.date(byAdding: .day, value: -offset, to: today)!
+    return Attempt(questionID: "q\(offset)", correct: true, timeSpentSeconds: 5, timestamp: day)
+}
+let streak = StreakTracker().currentStreak(attempts: attempts, now: today, calendar: cal)
+check(streak == 3, "3 consecutive days → 3-day streak (got \(streak))")
+let longest = StreakTracker().longestStreak(attempts: attempts, calendar: cal)
+check(longest == 3, "longest streak across 3 consecutive days = 3 (got \(longest))")
+let withGap: [Attempt] = [
+    Attempt(questionID: "a", correct: true, timeSpentSeconds: 5, timestamp: cal.date(byAdding: .day, value: -10, to: today)!),
+    Attempt(questionID: "b", correct: true, timeSpentSeconds: 5, timestamp: today),
+]
+check(StreakTracker().currentStreak(attempts: withGap, now: today, calendar: cal) == 1,
+      "gap breaks the streak — only today counts")
+
 print("\n✅ All smoke checks passed.")

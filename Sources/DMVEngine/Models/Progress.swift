@@ -5,6 +5,13 @@ public struct Attempt: Codable, Hashable, Sendable {
     public let correct: Bool
     public let timeSpentSeconds: Double
     public let timestamp: Date
+
+    public init(questionID: String, correct: Bool, timeSpentSeconds: Double, timestamp: Date) {
+        self.questionID = questionID
+        self.correct = correct
+        self.timeSpentSeconds = timeSpentSeconds
+        self.timestamp = timestamp
+    }
 }
 
 public struct CategoryStats: Sendable {

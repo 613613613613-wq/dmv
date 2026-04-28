@@ -1,0 +1,84 @@
+/* HomeView */
+"home.practice" = "Practice";
+"home.practice.subtitle" = "Adaptive — focuses on your weak categories";
+"home.mock" = "Mock Test";
+"home.mock.subtitle" = "%lld questions • %lld%% to pass";
+"home.review" = "Review Wrong Answers";
+"home.review.subtitle" = "With handbook references";
+"home.testday" = "Test-Day Checklist";
+"home.testday.subtitle" = "What to bring, what to expect";
+"home.section.state" = "State";
+"home.section.settings" = "Settings";
+"home.agency" = "Agency";
+"home.exam" = "Exam";
+"home.handbook" = "Handbook";
+"home.settings" = "Settings & Accessibility";
+"home.bookmarks" = "Bookmarks";
+
+/* Practice */
+"practice.title" = "Practice";
+"practice.next" = "Next";
+"practice.correct" = "Correct";
+"practice.notQuite" = "Not quite";
+"practice.handbook" = "Handbook: %@";
+"practice.page" = "Page %lld";
+
+/* Mock test */
+"mock.title" = "Mock Test";
+"mock.start" = "Start Mock Test";
+"mock.submit" = "Submit";
+"mock.previous" = "Previous";
+"mock.next" = "Next";
+"mock.question.of" = "Question %lld of %lld";
+"mock.passed" = "Passed";
+"mock.failed" = "Did not pass";
+"mock.retake" = "Retake Mock Test";
+"mock.review_wrong" = "Review Wrong Answers";
+"mock.score" = "%lld / %lld correct";
+"mock.time" = "Time: %@";
+"mock.no_time_limit" = "No time limit";
+"mock.time_limit" = "%lld minute time limit";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.section.accessibility" = "Accessibility";
+"settings.dyslexia" = "Dyslexia-friendly font";
+"settings.audio" = "Audio narration";
+"settings.section.language" = "Language";
+"settings.ui_language" = "UI language";
+"settings.section.privacy" = "Privacy";
+"settings.privacy.headline" = "No analytics. No accounts. No tracking.";
+"settings.privacy.body" = "All progress is stored locally on this device. Nothing is sent off-device.";
+"settings.section.about" = "About";
+"settings.state" = "State";
+"settings.handbook_version" = "Handbook version";
+"settings.last_reviewed" = "Last reviewed";
+
+/* Empty states */
+"empty.review.title" = "No wrong answers yet";
+"empty.review.body" = "Wrong answers from practice and mock tests will appear here for review.";
+"empty.bookmarks.title" = "No bookmarks";
+"empty.bookmarks.body" = "Tap the bookmark on any question to save it for later.";
+
+/* Accessibility */
+"a11y.tap_to_open" = "Double-tap to open";
+"a11y.streak" = "%lld day study streak";
+"a11y.choice.correct" = "Correct answer";
+"a11y.choice.wrong" = "Your incorrect answer";
+"a11y.choice.idle" = "Tap to select this answer";
+
+/* Test day */
+"testday.title" = "Test-Day Checklist";
+"testday.bring" = "What to bring";
+"testday.format" = "Exam format";
+"testday.questions" = "Questions";
+"testday.to_pass" = "To pass";
+"testday.time_limit" = "Time limit";
+"testday.no_time_limit" = "None";
+"testday.retake" = "Retake";
+"testday.retake_fee" = "Retake fee";
+
+/* Paywall */
+"paywall.cta" = "%@ — One-time purchase";
+"paywall.restore" = "Restore Purchase";
+"paywall.assurance" = "One-time purchase. No subscription. No ads.";

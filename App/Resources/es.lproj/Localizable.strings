@@ -1,0 +1,84 @@
+/* HomeView */
+"home.practice" = "Práctica";
+"home.practice.subtitle" = "Adaptativa — se enfoca en tus categorías débiles";
+"home.mock" = "Examen Simulado";
+"home.mock.subtitle" = "%lld preguntas • %lld%% para aprobar";
+"home.review" = "Revisar Respuestas Incorrectas";
+"home.review.subtitle" = "Con referencias al manual";
+"home.testday" = "Lista para el Día del Examen";
+"home.testday.subtitle" = "Qué llevar, qué esperar";
+"home.section.state" = "Estado";
+"home.section.settings" = "Ajustes";
+"home.agency" = "Agencia";
+"home.exam" = "Examen";
+"home.handbook" = "Manual";
+"home.settings" = "Ajustes y Accesibilidad";
+"home.bookmarks" = "Marcadores";
+
+/* Practice */
+"practice.title" = "Práctica";
+"practice.next" = "Siguiente";
+"practice.correct" = "Correcto";
+"practice.notQuite" = "No es correcto";
+"practice.handbook" = "Manual: %@";
+"practice.page" = "Página %lld";
+
+/* Mock test */
+"mock.title" = "Examen Simulado";
+"mock.start" = "Comenzar Examen Simulado";
+"mock.submit" = "Enviar";
+"mock.previous" = "Anterior";
+"mock.next" = "Siguiente";
+"mock.question.of" = "Pregunta %lld de %lld";
+"mock.passed" = "Aprobado";
+"mock.failed" = "No aprobado";
+"mock.retake" = "Repetir Examen Simulado";
+"mock.review_wrong" = "Revisar Respuestas Incorrectas";
+"mock.score" = "%lld / %lld correctas";
+"mock.time" = "Tiempo: %@";
+"mock.no_time_limit" = "Sin límite de tiempo";
+"mock.time_limit" = "%lld minutos de límite";
+
+/* Settings */
+"settings.title" = "Ajustes";
+"settings.section.accessibility" = "Accesibilidad";
+"settings.dyslexia" = "Fuente para dislexia";
+"settings.audio" = "Narración de audio";
+"settings.section.language" = "Idioma";
+"settings.ui_language" = "Idioma de la interfaz";
+"settings.section.privacy" = "Privacidad";
+"settings.privacy.headline" = "Sin análisis. Sin cuentas. Sin rastreo.";
+"settings.privacy.body" = "Todo tu progreso se guarda localmente en este dispositivo. Nada se envía fuera.";
+"settings.section.about" = "Acerca de";
+"settings.state" = "Estado";
+"settings.handbook_version" = "Versión del manual";
+"settings.last_reviewed" = "Última revisión";
+
+/* Empty states */
+"empty.review.title" = "Aún no hay respuestas incorrectas";
+"empty.review.body" = "Las respuestas incorrectas aparecerán aquí para revisar.";
+"empty.bookmarks.title" = "No hay marcadores";
+"empty.bookmarks.body" = "Toca el marcador en cualquier pregunta para guardarla.";
+
+/* Accessibility */
+"a11y.tap_to_open" = "Toca dos veces para abrir";
+"a11y.streak" = "Racha de %lld días de estudio";
+"a11y.choice.correct" = "Respuesta correcta";
+"a11y.choice.wrong" = "Tu respuesta incorrecta";
+"a11y.choice.idle" = "Toca para seleccionar esta respuesta";
+
+/* Test day */
+"testday.title" = "Lista para el Día del Examen";
+"testday.bring" = "Qué llevar";
+"testday.format" = "Formato del examen";
+"testday.questions" = "Preguntas";
+"testday.to_pass" = "Para aprobar";
+"testday.time_limit" = "Límite de tiempo";
+"testday.no_time_limit" = "Ninguno";
+"testday.retake" = "Repetición";
+"testday.retake_fee" = "Costo de repetir";
+
+/* Paywall */
+"paywall.cta" = "%@ — Compra única";
+"paywall.restore" = "Restaurar compra";
+"paywall.assurance" = "Compra única. Sin suscripción. Sin anuncios.";

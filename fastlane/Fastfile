@@ -1,0 +1,70 @@
+# Fastlane lanes for per-state ship.
+# Each state is a separate App Store SKU; the lane archives the matching scheme
+# and uploads it to App Store Connect with the metadata under fastlane/metadata/<state>/.
+#
+# Prerequisites (set up once):
+#   - Apple Developer Program enrollment ($99/yr, https://developer.apple.com/programs/)
+#   - App Store Connect API key — set FASTLANE_USER, FASTLANE_PASSWORD, or use App-Specific Password
+#   - For each state: an App ID (com.shlomo.dmvprep.<state>) in Apple Developer
+#   - For each state: an App Store Connect listing
+#   - `fastlane match init` for code-signing certificates (recommended)
+#
+# Run:
+#   bundle exec fastlane ios beta_florida    — TestFlight build
+#   bundle exec fastlane ios ship_florida    — App Store production submission
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Run engine smoke check (Swift Package, no Xcode required)"
+  lane :smoke do
+    sh "cd .. && swift run SmokeCheck"
+  end
+
+  desc "Florida — TestFlight build"
+  lane :beta_florida do
+    smoke
+    build_app(
+      scheme: "Florida",
+      configuration: "Release",
+      export_method: "app-store",
+      clean: true,
+      output_directory: "build/Florida",
+    )
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,
+      changelog: ENV["FASTLANE_CHANGELOG"] || "Bug fixes and improvements.",
+    )
+  end
+
+  desc "Florida — App Store production submission"
+  lane :ship_florida do
+    smoke
+    build_app(
+      scheme: "Florida",
+      configuration: "Release",
+      export_method: "app-store",
+      clean: true,
+      output_directory: "build/Florida",
+    )
+    upload_to_app_store(
+      skip_metadata: false,
+      skip_screenshots: false,
+      submit_for_review: false,    # require manual review submission until we trust the pipeline
+      automatic_release: false,
+      force: true,
+      metadata_path: "fastlane/metadata/florida",
+      screenshots_path: "fastlane/screenshots/florida",
+      precheck_include_in_app_purchases: false,
+    )
+  end
+
+  # ------- Templates for future state lanes -------
+  # desc "Texas — TestFlight build"
+  # lane :beta_texas do
+  #   smoke
+  #   build_app(scheme: "Texas", configuration: "Release", export_method: "app-store",
+  #             clean: true, output_directory: "build/Texas")
+  #   upload_to_testflight(skip_waiting_for_build_processing: true)
+  # end
+end

@@ -1,0 +1,38 @@
+name: smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  engine-smoke-check:
+    name: SmokeCheck (Swift Package)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Build the engine package
+        run: swift build
+
+      - name: Run smoke check (engine end-to-end)
+        run: swift run SmokeCheck
+
+  xcodegen:
+    name: project.yml generates a clean .xcodeproj
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen
+
+      - name: Verify project was created
+        run: test -d DMVPrep.xcodeproj
