@@ -1,0 +1,293 @@
+{
+  "vehicleClass": "car",
+  "lessons": [
+    {
+      "id": "car-l1-signs",
+      "vehicleClass": "car",
+      "emoji": "🛑",
+      "title": { "en": "Reading the Road: Sign Shapes & Colors", "es": "Leer el Camino: Formas y Colores de Señales" },
+      "blurb": { "en": "Before you read the words, the SHAPE and COLOR tell you what's coming.", "es": "Antes de leer las palabras, la FORMA y el COLOR te dicen qué viene." },
+      "xpReward": 50,
+      "steps": [
+        {
+          "kind": "intro",
+          "title": { "en": "Shapes & colors are a language", "es": "Las formas y colores son un idioma" },
+          "body": {
+            "en": "You'll often see Florida signs from a distance — at night, in rain, or with sun glare. Their shape and color let you react before you can read the words.",
+            "es": "A menudo verás señales de Florida desde lejos — de noche, con lluvia o con reflejo del sol. Su forma y color te permiten reaccionar antes de leer las palabras."
+          },
+          "imageEmoji": "🛣️"
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "Octagon = STOP", "es": "Octágono = ALTO" },
+          "body": {
+            "en": "Only one sign in the U.S. is an octagon: the STOP sign. Come to a complete stop, look both ways, and proceed when safe.",
+            "es": "Sólo una señal en EE.UU. es octagonal: el PARE. Detente por completo, mira a ambos lados y avanza cuando sea seguro."
+          },
+          "sign": "stop"
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "Triangle = YIELD", "es": "Triángulo = CEDA" },
+          "body": {
+            "en": "A downward-pointing triangle, white with a red border, means YIELD. Slow down and give right of way to traffic on the through road or pedestrians in the crosswalk.",
+            "es": "Un triángulo invertido, blanco con borde rojo, significa CEDA. Reduce y cede el paso al tráfico de la vía principal o a los peatones."
+          },
+          "sign": "yield"
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "Yellow Diamond = WARNING", "es": "Rombo Amarillo = ADVERTENCIA" },
+          "body": {
+            "en": "Yellow diamond signs warn of hazards ahead: a curve, a signal, a school crossing, animals, or a slippery road. Slow down and stay alert.",
+            "es": "Los rombos amarillos advierten peligros adelante: curva, semáforo, cruce escolar, animales o vía resbalosa. Reduce y mantente alerta."
+          },
+          "sign": "curve"
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "Orange Diamond = WORK ZONE", "es": "Rombo Naranja = ZONA DE OBRAS" },
+          "body": {
+            "en": "Orange means road work or maintenance. Watch for workers, lane shifts, and reduced speed limits. Florida fines are doubled in active work zones.",
+            "es": "Naranja significa obras o mantenimiento. Atento a trabajadores, cambios de carril y límites reducidos. Las multas se duplican en zonas activas."
+          },
+          "sign": "construction"
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "Yellow-Green Pentagon = SCHOOL", "es": "Pentágono Amarillo-Verde = ESCUELA" },
+          "body": {
+            "en": "Florida's school zone signs are bright yellow-green pentagons. The school zone speed is 20 mph when children are present.",
+            "es": "Las señales de zona escolar son pentágonos amarillo-verde brillantes. El límite escolar es 20 mph con niños presentes."
+          },
+          "sign": "school-zone"
+        },
+        {
+          "kind": "checkpoint",
+          "title": { "en": "Quick check", "es": "Mini-control" },
+          "question": {
+            "id": "L-CAR-1-CK",
+            "category": "signs",
+            "difficulty": 1,
+            "stem": { "en": "An orange diamond sign means:", "es": "Un rombo naranja significa:" },
+            "choices": [
+              { "id": "a", "text": { "en": "School zone", "es": "Zona escolar" } },
+              { "id": "b", "text": { "en": "Work zone or construction", "es": "Zona de obras o construcción" } },
+              { "id": "c", "text": { "en": "Hospital ahead", "es": "Hospital adelante" } },
+              { "id": "d", "text": { "en": "No passing", "es": "No rebasar" } }
+            ],
+            "correct": "b",
+            "explanation": {
+              "en": "Orange = construction or maintenance work. Florida doubles fines for traffic violations in active work zones.",
+              "es": "Naranja = construcción o mantenimiento. Florida duplica las multas por infracciones en zonas activas."
+            },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        {
+          "kind": "outro",
+          "title": { "en": "Lesson complete!", "es": "¡Lección completada!" },
+          "body": { "en": "Now you can read a sign before you read the word.", "es": "Ahora puedes leer una señal antes de leer la palabra." }
+        }
+      ]
+    },
+    {
+      "id": "car-l2-row",
+      "vehicleClass": "car",
+      "emoji": "🚦",
+      "title": { "en": "Right of Way at Intersections", "es": "Derecho de Paso en Intersecciones" },
+      "blurb": { "en": "Who goes first when two cars meet? Get this right and you avoid 30% of all crashes.", "es": "¿Quién va primero cuando dos autos se encuentran? Si lo dominas, evitas el 30% de los choques." },
+      "xpReward": 50,
+      "steps": [
+        {
+          "kind": "intro",
+          "title": { "en": "Yielding saves lives", "es": "Ceder el paso salva vidas" },
+          "body": { "en": "Right of way is something you GIVE, never something you take. Even if a sign says you have it, you must yield to avoid a crash.", "es": "El derecho de paso es algo que CEDES, no que tomas. Aunque una señal te dé prioridad, debes ceder para evitar un choque." },
+          "imageEmoji": "🤝"
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "4-way stop: first to arrive, first to go", "es": "Alto de 4 vías: el primero en llegar, primero en pasar" },
+          "body": { "en": "Whoever stops first goes first. If two cars stop at the same time, the car on the RIGHT has the right of way.", "es": "Quien se detiene primero, pasa primero. Si dos autos llegan a la vez, el que está a la DERECHA tiene la prioridad." }
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "T-intersection: through traffic first", "es": "Intersección en T: el tráfico recto primero" },
+          "body": { "en": "If the road you're on ends at a T, traffic on the through road has the right of way. You must yield even without a sign.", "es": "Si tu vía termina en T, el tráfico de la vía principal tiene prioridad. Debes ceder incluso sin señal." }
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "Left turns yield to oncoming", "es": "Giros a la izquierda ceden a los que vienen" },
+          "body": { "en": "When turning left, you must yield to ALL oncoming traffic — cars, motorcycles, bicycles. The most common intersection crash is a left-turner who didn't yield.", "es": "Al girar a la izquierda, debes ceder a TODO el tráfico que viene — autos, motos y bicicletas. El choque más común es un giro a la izquierda que no cedió." }
+        },
+        {
+          "kind": "concept",
+          "title": { "en": "Pedestrians always", "es": "Los peatones siempre" },
+          "body": { "en": "Yield to pedestrians in any crosswalk, marked or unmarked. A pedestrian using a white cane or guide dog ALWAYS has the right of way — you must stop completely.", "es": "Cede el paso a peatones en cualquier cruce, marcado o no. Un peatón con bastón blanco o perro guía SIEMPRE tiene prioridad — debes detenerte por completo." },
+          "sign": "pedestrian-crossing"
+        },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CAR-2-CK",
+            "category": "row",
+            "difficulty": 2,
+            "stem": { "en": "You arrive at a 4-way stop the same time as a car on your right. Who goes first?", "es": "Llegas a un alto de 4 vías al mismo tiempo que un auto a tu derecha. ¿Quién pasa primero?" },
+            "choices": [
+              { "id": "a", "text": { "en": "You — going straight has priority", "es": "Tú — ir recto tiene prioridad" } },
+              { "id": "b", "text": { "en": "The car on your right", "es": "El auto a tu derecha" } },
+              { "id": "c", "text": { "en": "Whoever honks first", "es": "El que toque la bocina primero" } },
+              { "id": "d", "text": { "en": "The bigger vehicle", "es": "El vehículo más grande" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "When two vehicles arrive at the same time, the car on the right has the right of way.", "es": "Cuando dos vehículos llegan a la vez, el de la derecha tiene prioridad." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Nice work", "es": "Buen trabajo" }, "body": { "en": "You just learned the rules behind 1 in 3 crashes.", "es": "Acabas de aprender las reglas detrás de 1 de cada 3 choques." } }
+      ]
+    },
+    {
+      "id": "car-l3-speed",
+      "vehicleClass": "car",
+      "emoji": "📏",
+      "title": { "en": "Florida Speed Limits", "es": "Límites de Velocidad en Florida" },
+      "blurb": { "en": "Know the defaults — many roads in Florida aren't posted.", "es": "Conoce los predeterminados — muchas vías de Florida no tienen señal." },
+      "xpReward": 40,
+      "steps": [
+        { "kind": "intro", "title": { "en": "When in doubt, the law has a default", "es": "En la duda, la ley tiene un predeterminado" }, "body": { "en": "Florida statute 316.183 sets default speed limits where no sign is posted. Memorize these four.", "es": "El estatuto 316.183 fija límites por defecto donde no hay señal. Memoriza estos cuatro." } },
+        { "kind": "concept", "title": { "en": "School zones: 20 mph", "es": "Zonas escolares: 20 mph" }, "body": { "en": "Whenever children are present or during posted hours, slow to 20 mph. Fines are doubled.", "es": "Cuando hay niños o en los horarios indicados, reduce a 20 mph. Las multas se duplican." }, "sign": "speed-limit", "signValue": 20 },
+        { "kind": "concept", "title": { "en": "Residential / business: 30 mph", "es": "Residencial / comercial: 30 mph" }, "body": { "en": "If you don't see a sign in a city neighborhood, the limit is 30.", "es": "Si no ves señal en un barrio urbano, el límite es 30." }, "sign": "speed-limit", "signValue": 30 },
+        { "kind": "concept", "title": { "en": "Rural interstate: 70 mph", "es": "Interestatal rural: 70 mph" }, "body": { "en": "Most rural interstates are 70. Some sections (e.g., I-75 'Alligator Alley') are 70-75. Florida Turnpike rural is 70.", "es": "La mayoría rurales son 70. Algunos tramos (ej. I-75 'Alligator Alley') son 70-75. La Florida Turnpike rural es 70." }, "sign": "speed-limit", "signValue": 70 },
+        { "kind": "concept", "title": { "en": "Other roads: 55 mph", "es": "Otras vías: 55 mph" }, "body": { "en": "On any other Florida road without a posted sign, the default limit is 55 mph.", "es": "En cualquier otra vía de Florida sin señal, el predeterminado es 55 mph." }, "sign": "speed-limit", "signValue": 55 },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CAR-3-CK",
+            "category": "rules",
+            "difficulty": 1,
+            "stem": { "en": "You're in a Florida residential neighborhood with no posted speed sign. The limit is:", "es": "Estás en un barrio residencial de Florida sin señal de velocidad. El límite es:" },
+            "choices": [
+              { "id": "a", "text": { "en": "20 mph", "es": "20 mph" } },
+              { "id": "b", "text": { "en": "30 mph", "es": "30 mph" } },
+              { "id": "c", "text": { "en": "45 mph", "es": "45 mph" } },
+              { "id": "d", "text": { "en": "55 mph", "es": "55 mph" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "Default in residential and business areas is 30 mph.", "es": "Predeterminado en zonas residenciales y comerciales es 30 mph." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Locked in!", "es": "¡Aprendido!" }, "body": { "en": "These four numbers cover 80% of the roads you'll drive.", "es": "Estos cuatro números cubren el 80% de las vías que conducirás." } }
+      ]
+    },
+    {
+      "id": "car-l4-dui",
+      "vehicleClass": "car",
+      "emoji": "🍺",
+      "title": { "en": "Alcohol, Drugs & DUI", "es": "Alcohol, Drogas y DUI" },
+      "blurb": { "en": "Florida's BAC limits, zero tolerance, and what happens if you refuse a test.", "es": "Límites de BAC en Florida, cero tolerancia y qué pasa si rechazas la prueba." },
+      "xpReward": 50,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Three numbers that matter", "es": "Tres números que importan" }, "body": { "en": "Florida sets three different BAC limits depending on your age and license type.", "es": "Florida fija tres límites de BAC distintos según edad y tipo de licencia." }, "imageEmoji": "🚓" },
+        { "kind": "concept", "title": { "en": "21 and over: 0.08%", "es": "21 o más: 0.08%" }, "body": { "en": "A driver 21+ is presumed impaired at 0.08% BAC. About 2 standard drinks for a 160 lb adult, but it depends on weight, food, and time.", "es": "Un conductor 21+ se presume bajo influencia con 0.08%. Unos 2 tragos para un adulto de 73 kg, pero varía con peso, comida y tiempo." } },
+        { "kind": "concept", "title": { "en": "Under 21: 0.02% (zero tolerance)", "es": "Menores de 21: 0.02% (cero tolerancia)" }, "body": { "en": "0.02% — about one drink — triggers an automatic 6-month license suspension. No second chances.", "es": "0.02% — más o menos un trago — provoca suspensión automática de 6 meses. Sin segundas oportunidades." } },
+        { "kind": "concept", "title": { "en": "CDL (commercial): 0.04%", "es": "CDL (comercial): 0.04%" }, "body": { "en": "Commercial drivers are held to 0.04% — half the regular limit. First offense in a CMV = 1-year disqualification.", "es": "Conductores comerciales se limitan a 0.04% — la mitad del límite normal. Primera infracción en un CMV = 1 año de descalificación." } },
+        { "kind": "concept", "title": { "en": "Refusing the test", "es": "Rechazar la prueba" }, "body": { "en": "Florida has 'Implied Consent.' Refusing a breath, urine, or blood test = automatic license suspension: 1 year for the first refusal, 18 months and a misdemeanor charge for the second.", "es": "Florida aplica 'Consentimiento Implícito.' Rechazar la prueba = suspensión automática: 1 año la primera vez, 18 meses y delito menor la segunda." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CAR-4-CK",
+            "category": "alcohol",
+            "difficulty": 2,
+            "stem": { "en": "A 19-year-old driver in Florida is pulled over with a BAC of 0.03%. What happens?", "es": "Un conductor de 19 años en Florida da BAC 0.03%. ¿Qué pasa?" },
+            "choices": [
+              { "id": "a", "text": { "en": "Nothing — they're under 0.08%", "es": "Nada — está bajo 0.08%" } },
+              { "id": "b", "text": { "en": "Automatic license suspension under zero tolerance", "es": "Suspensión automática por cero tolerancia" } },
+              { "id": "c", "text": { "en": "$25 fine only", "es": "Sólo multa de $25" } },
+              { "id": "d", "text": { "en": "Just a warning", "es": "Sólo advertencia" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "Under 21 = 0.02% zero tolerance. 0.03% triggers automatic suspension.", "es": "Menores de 21 = cero tolerancia con 0.02%. 0.03% activa suspensión automática." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Best decision: don't drive impaired", "es": "Mejor decisión: no manejes bajo influencia" }, "body": { "en": "The cheapest rideshare beats the cheapest DUI by thousands of dollars.", "es": "El viaje compartido más caro es más barato que el DUI más barato por miles de dólares." } }
+      ]
+    },
+    {
+      "id": "car-l5-emergency",
+      "vehicleClass": "car",
+      "emoji": "🚨",
+      "title": { "en": "Emergencies & Move-Over Law", "es": "Emergencias y Ley Move-Over" },
+      "blurb": { "en": "What to do for sirens, school buses, and stopped emergency vehicles.", "es": "Qué hacer ante sirenas, buses escolares y vehículos de emergencia detenidos." },
+      "xpReward": 50,
+      "steps": [
+        { "kind": "intro", "title": { "en": "When seconds matter", "es": "Cuando los segundos importan" }, "body": { "en": "Three scenarios you'll face in Florida and how to respond.", "es": "Tres escenarios que enfrentarás en Florida y cómo responder." } },
+        { "kind": "concept", "title": { "en": "Siren behind you", "es": "Sirena detrás de ti" }, "body": { "en": "Pull as close as possible to the right edge of the road and stop. Stay stopped until ALL emergency vehicles have passed. Do not block intersections.", "es": "Orillate lo más cerca posible al borde derecho y detente. Permanece detenido hasta que pasen TODOS los vehículos de emergencia. No bloquees intersecciones." } },
+        { "kind": "concept", "title": { "en": "School bus with red flashing lights", "es": "Bus escolar con luces rojas intermitentes" }, "body": { "en": "On a 2-lane road, traffic in BOTH directions stops. On a divided highway with a median or barrier, only same-direction traffic stops. Stay stopped until the lights go off.", "es": "En vía de 2 carriles, AMBOS sentidos se detienen. En autopista dividida con mediana o barrera, sólo el mismo sentido. Permanece hasta que se apaguen las luces." } },
+        { "kind": "concept", "title": { "en": "Move Over Law", "es": "Ley Move-Over" }, "body": { "en": "Approaching a stopped emergency, law enforcement, sanitation, utility, or tow vehicle with flashing lights, you MUST move into a non-adjacent lane. Can't move? Slow to 20 mph BELOW the posted speed (or 5 mph if the limit is 20 or less).", "es": "Si te acercas a un vehículo detenido de emergencia, policía, sanidad, servicios o grúa con luces, DEBES cambiarte a un carril no contiguo. Si no puedes, reduce 20 mph BAJO el límite (o 5 mph si el límite es 20 o menos)." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CAR-5-CK",
+            "category": "moveOver",
+            "difficulty": 2,
+            "stem": { "en": "On a 4-lane road posted 55 mph, you can't safely move out of the lane next to a stopped patrol car. You must:", "es": "En una vía de 4 carriles a 55 mph, no puedes cambiarte con seguridad del carril junto a una patrulla detenida. Debes:" },
+            "choices": [
+              { "id": "a", "text": { "en": "Maintain 55", "es": "Mantener 55" } },
+              { "id": "b", "text": { "en": "Slow to 35 mph (20 below the limit)", "es": "Reducir a 35 mph (20 bajo el límite)" } },
+              { "id": "c", "text": { "en": "Stop completely", "es": "Detenerte por completo" } },
+              { "id": "d", "text": { "en": "Honk and continue", "es": "Tocar la bocina y continuar" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "If you can't move over, slow to 20 mph below the posted limit: 55 - 20 = 35 mph.", "es": "Si no puedes cambiarte, reduce 20 mph bajo el límite: 55 - 20 = 35 mph." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "You're protecting first responders", "es": "Estás protegiendo a los rescatistas" }, "body": { "en": "The Move Over Law exists because too many troopers and tow operators were killed by passing cars.", "es": "La Ley Move-Over existe porque demasiados policías y grueros han muerto atropellados." } }
+      ]
+    },
+    {
+      "id": "car-l6-perm",
+      "vehicleClass": "car",
+      "emoji": "🪪",
+      "title": { "en": "Your Florida Learner's Permit Rules", "es": "Reglas de tu Permiso de Aprendizaje" },
+      "blurb": { "en": "TLSAE, the supervisor rule, and the night curfew.", "es": "TLSAE, regla del supervisor y toque de queda nocturno." },
+      "xpReward": 40,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Florida's Graduated Driver License (GDL)", "es": "Licencia Gradual (GDL) de Florida" }, "body": { "en": "Florida licenses new drivers in stages. Each stage has rules designed to keep you safe while you build experience.", "es": "Florida licencia a conductores nuevos por etapas. Cada etapa tiene reglas para mantenerte seguro mientras adquieres experiencia." } },
+        { "kind": "concept", "title": { "en": "Step 1: TLSAE (4 hours)", "es": "Paso 1: TLSAE (4 horas)" }, "body": { "en": "Before your first knowledge test, complete the Traffic Law and Substance Abuse Education course (TLSAE). Required for all first-time applicants.", "es": "Antes del primer examen de conocimientos, completa el curso TLSAE de Ley de Tráfico y Abuso de Sustancias. Obligatorio para todos los nuevos solicitantes." } },
+        { "kind": "concept", "title": { "en": "Step 2: Permit (Learner's License)", "es": "Paso 2: Permiso (Licencia de Aprendizaje)" }, "body": { "en": "After passing the knowledge and vision/hearing exams, you get a Learner's License. You must always have a licensed driver 21+ in the closest seat.", "es": "Tras aprobar los exámenes de conocimientos, vista y oído, recibes el permiso. Siempre debes llevar un conductor con licencia de 21+ en el asiento más cercano." } },
+        { "kind": "concept", "title": { "en": "First 3 months: daylight only", "es": "Primeros 3 meses: sólo de día" }, "body": { "en": "For your first 3 months, you may only drive during daylight hours. After that, you may drive until 10:00 PM.", "es": "Los primeros 3 meses puedes manejar sólo de día. Después, hasta las 10:00 PM." } },
+        { "kind": "concept", "title": { "en": "After 12 months / age 16: Class E", "es": "Tras 12 meses / 16 años: Clase E" }, "body": { "en": "After 12 months with no traffic conviction (or until you turn 18), you may take the driving skills test for a Class E license. Then you face only the GDL night curfew until 18.", "es": "Tras 12 meses sin condenas (o al cumplir 18), puedes tomar el examen práctico para Clase E. Luego sólo el toque de queda GDL hasta los 18." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CAR-6-CK",
+            "category": "license",
+            "difficulty": 1,
+            "stem": { "en": "Your supervising adult on a Florida permit must be:", "es": "Tu adulto supervisor con permiso en Florida debe ser:" },
+            "choices": [
+              { "id": "a", "text": { "en": "Anyone 18+", "es": "Cualquier mayor de 18" } },
+              { "id": "b", "text": { "en": "A licensed driver 21+ in the closest seat", "es": "Un conductor con licencia de 21+ en el asiento más cercano" } },
+              { "id": "c", "text": { "en": "A parent only", "es": "Sólo un padre" } },
+              { "id": "d", "text": { "en": "Not required after 1 month", "es": "No requerido tras 1 mes" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "Always a licensed driver age 21+, in the seat closest to the driver, at all times.", "es": "Siempre un conductor con licencia de 21+, en el asiento más cercano al conductor, en todo momento." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "You're set to study", "es": "Listo para estudiar" }, "body": { "en": "Practice these rules until they're automatic.", "es": "Practica estas reglas hasta que sean automáticas." } }
+      ]
+    }
+  ]
+}

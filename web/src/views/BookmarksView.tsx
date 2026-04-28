@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import { useContentPack, categoryName } from "../engine/contentPack";
 import { useUserData } from "../engine/store";
 import { loc } from "../engine/util";
+import { t } from "../i18n";
+import type { Lang } from "../types";
 
 export default function BookmarksView() {
-  const { pack } = useContentPack();
   const { data, toggleBookmark } = useUserData();
+  const lang = (data.profile.language ?? "en") as Lang;
+  const { pack } = useContentPack(data.profile.vehicleClass);
   if (!pack) return <div className="card h-72 animate-pulse" />;
 
   const qById = new Map(pack.questions.map((q) => [q.id, q]));
@@ -16,12 +19,10 @@ export default function BookmarksView() {
   if (bookmarked.length === 0) {
     return (
       <div className="card p-6 text-center">
-        <h2 className="text-lg font-semibold text-ink-900">No saved questions</h2>
-        <p className="mt-2 text-sm text-ink-500">
-          Tap the bookmark icon on any question to save it for later review.
-        </p>
+        <h2 className="text-lg font-semibold text-ink-900">{t("saved", lang)}</h2>
+        <p className="mt-2 text-sm text-ink-500">{t("noBookmarks", lang)}</p>
         <Link to="/practice" className="btn-primary mt-4">
-          Find questions to save
+          {t("beginPracticing", lang)}
         </Link>
       </div>
     );
@@ -30,8 +31,8 @@ export default function BookmarksView() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-bold text-ink-900">Saved questions</h1>
-        <p className="text-sm text-ink-500">{bookmarked.length} bookmarked.</p>
+        <h1 className="text-xl font-bold text-ink-900">{t("saved", lang)}</h1>
+        <p className="text-sm text-ink-500">{bookmarked.length}</p>
       </div>
       <ul className="space-y-3">
         {bookmarked.map((q) => {
@@ -44,7 +45,7 @@ export default function BookmarksView() {
                     {categoryName(pack, q.category)}
                   </div>
                   <h3 className="mt-1 text-sm font-semibold text-ink-900">
-                    {loc(q.stem, data.language)}
+                    {loc(q.stem, lang)}
                   </h3>
                 </div>
                 <button
@@ -60,16 +61,11 @@ export default function BookmarksView() {
               </div>
               <div className="mt-3 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-900">
                 <span className="font-bold">✓ </span>
-                {loc(correct.text, data.language)}
+                {loc(correct.text, lang)}
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink-700">
-                {loc(q.explanation, data.language)}
+                {loc(q.explanation, lang)}
               </p>
-              {q.handbookRef && (
-                <div className="mt-2 text-xs text-ink-500">
-                  FLHSMV Handbook · {q.handbookRef.section}
-                </div>
-              )}
             </li>
           );
         })}

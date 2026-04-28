@@ -1,0 +1,113 @@
+{
+  "vehicleClass": "cdl",
+  "lessons": [
+    {
+      "id": "cdl-l1-pretrip",
+      "vehicleClass": "cdl",
+      "emoji": "🔧",
+      "title": { "en": "Pre-Trip Inspection — The 7-Step Walk-Around", "es": "Inspección Previa — Recorrido de 7 Pasos" },
+      "blurb": { "en": "Catch problems in the yard, not at 65 mph on I-95.", "es": "Detecta problemas en el patio, no a 65 mph en la I-95." },
+      "xpReward": 60,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Why it matters", "es": "Por qué importa" }, "body": { "en": "Federal law requires a pre-trip inspection before EVERY trip, plus en-route checks every 150 miles or 8 hours. Skipping this is the easiest way to lose your CDL.", "es": "La ley federal exige inspección antes de CADA viaje, y revisiones cada 150 millas u 8 horas. Saltársela es la forma más fácil de perder tu CDL." } },
+        { "kind": "concept", "title": { "en": "1. Vehicle overview", "es": "1. Vista general del vehículo" }, "body": { "en": "Walk to the driver door. Note any leaks under the truck, body damage, lean. Check last vehicle inspection report for repairs.", "es": "Camina hacia la puerta del conductor. Observa fugas bajo el camión, daños de carrocería, inclinación. Revisa el último reporte de inspección." } },
+        { "kind": "concept", "title": { "en": "2. Engine compartment", "es": "2. Compartimiento del motor" }, "body": { "en": "Coolant level, oil level, power steering fluid, leaks (oil/fuel/coolant), worn or cracked belts and hoses, battery secure.", "es": "Nivel de refrigerante, aceite, fluido de dirección, fugas (aceite/combustible/refrigerante), bandas y mangueras desgastadas o agrietadas, batería asegurada." } },
+        { "kind": "concept", "title": { "en": "3. Inside the cab — start engine", "es": "3. Dentro de la cabina — arranca el motor" }, "body": { "en": "Gauges (oil pressure, voltage, air pressure rising), warning lights off, mirrors and windshield clean, emergency equipment (3 reflective triangles, fire extinguisher, spare fuses).", "es": "Indicadores (presión de aceite, voltaje, presión de aire subiendo), luces de advertencia apagadas, espejos y parabrisas limpios, equipo de emergencia (3 triángulos reflectivos, extintor, fusibles)." } },
+        { "kind": "concept", "title": { "en": "4. Lights check", "es": "4. Revisión de luces" }, "body": { "en": "Walk around: low beams, high beams, 4-way flashers, parking lights, brake lights (with helper or wall reflection), turn signals.", "es": "Da la vuelta: bajas, altas, intermitentes, luces de estacionamiento, frenos (con ayudante o reflejo en pared), direccionales." } },
+        { "kind": "concept", "title": { "en": "5. Walk-around — left front, right front", "es": "5. Recorrido — frente izquierdo, frente derecho" }, "body": { "en": "Tires: tread depth (4/32\" steers, 2/32\" others), no cuts/bulges, valve caps on, properly inflated. Rims: no cracks. Steering linkage tight.", "es": "Llantas: dibujo (4/32\" de dirección, 2/32\" demás), sin cortes/bultos, tapas de válvula, correctamente infladas. Rines: sin grietas. Articulación de dirección firme." } },
+        { "kind": "concept", "title": { "en": "6. Side and rear", "es": "6. Costado y parte trasera" }, "body": { "en": "Fuel tanks secure and capped. Drive shaft straight. Exhaust mounted, no leaks. Frame, suspension. Cargo properly tied down (1 tiedown per 10 ft, min 2). Doors closed/latched.", "es": "Tanques asegurados y tapados. Eje de transmisión recto. Escape montado, sin fugas. Chasis y suspensión. Carga amarrada (1 amarre por 10 pies, mín 2). Puertas cerradas." } },
+        { "kind": "concept", "title": { "en": "7. Signal/brake lights — final check", "es": "7. Frenos y direccionales — revisión final" }, "body": { "en": "From the cab, test brake lights and turn signals one last time. Release the parking brake — air should not drop more than 3 psi in a minute (single) or 4 psi (combo).", "es": "Desde la cabina, prueba luces de freno y direccionales una vez más. Suelta el freno de estacionamiento — el aire no debe caer más de 3 psi por minuto (sencillo) o 4 psi (combinado)." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CDL-1-CK",
+            "category": "vehicle",
+            "difficulty": 2,
+            "stem": { "en": "How often must a commercial driver perform a pre-trip inspection?", "es": "¿Con qué frecuencia debe inspeccionar un conductor comercial antes del viaje?" },
+            "choices": [
+              { "id": "a", "text": { "en": "Once a week", "es": "Una vez por semana" } },
+              { "id": "b", "text": { "en": "Before every trip", "es": "Antes de cada viaje" } },
+              { "id": "c", "text": { "en": "Only after a crash", "es": "Sólo después de un choque" } },
+              { "id": "d", "text": { "en": "When time permits", "es": "Cuando haya tiempo" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "Federal law: pre-trip every trip, en-route every 150 miles or 8 hours.", "es": "Ley federal: previo a cada viaje, en ruta cada 150 millas u 8 horas." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "DOT-ready", "es": "Listo para DOT" }, "body": { "en": "This is exactly the inspection a DOT officer can ask you to perform.", "es": "Esta es exactamente la inspección que un oficial de DOT puede pedirte." } }
+      ]
+    },
+    {
+      "id": "cdl-l2-airbrakes",
+      "vehicleClass": "cdl",
+      "emoji": "💨",
+      "title": { "en": "Air Brakes 101", "es": "Frenos de Aire 101" },
+      "blurb": { "en": "Service brakes, parking brakes, spring brakes — and how to avoid brake fade.", "es": "Frenos de servicio, estacionamiento, resorte — y cómo evitar la pérdida de freno." },
+      "xpReward": 60,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Three brake systems share one air supply", "es": "Tres sistemas de freno comparten una misma fuente de aire" }, "body": { "en": "Service (the pedal), parking (held by springs), and emergency (also springs). They all rely on compressed air.", "es": "Servicio (pedal), estacionamiento (sostenidos por resortes) y emergencia (también resortes). Todos dependen de aire comprimido." } },
+        { "kind": "concept", "title": { "en": "Compressor & governor", "es": "Compresor y gobernador" }, "body": { "en": "The compressor builds pressure. The governor cuts in (~85 psi) and out (~125 psi). Tanks should pump from 85 to 100 psi in 45 seconds or less.", "es": "El compresor genera presión. El gobernador entra (~85 psi) y sale (~125 psi). Los tanques deben pasar de 85 a 100 psi en 45 segundos o menos." } },
+        { "kind": "concept", "title": { "en": "Low-pressure warning at 60 psi", "es": "Alarma de baja presión a 60 psi" }, "body": { "en": "If pressure drops below 60 psi, the warning light/buzzer/wig-wag MUST come on. If you hear it on the road, stop safely as soon as possible.", "es": "Si la presión cae bajo 60 psi, la luz/zumbador/wig-wag DEBE activarse. Si la oyes en la carretera, detente con seguridad lo antes posible." } },
+        { "kind": "concept", "title": { "en": "Spring brakes engage at 20-45 psi", "es": "Frenos de resorte se activan a 20-45 psi" }, "body": { "en": "If air keeps dropping, powerful springs slam the brakes on. This is your fail-safe — but it stops you HARD with no warning.", "es": "Si la presión sigue bajando, resortes potentes accionan los frenos. Es el seguro — pero te detiene MUY duro sin aviso." } },
+        { "kind": "concept", "title": { "en": "Brake fade & how to avoid it", "es": "Pérdida de freno y cómo evitarla" }, "body": { "en": "Holding the brake down a long descent overheats the drums until they stop working. Fix: pick a low gear BEFORE the hill, then 'snub brake' — firm bursts to drop 5 mph, release, repeat.", "es": "Mantener el freno en una bajada sobrecalienta los tambores hasta que dejan de frenar. Solución: elige una marcha baja ANTES de la cuesta y aplica frenado intermitente — golpes firmes para bajar 5 mph, suelta, repite." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CDL-2-CK",
+            "category": "airbrakes",
+            "difficulty": 2,
+            "stem": { "en": "The low-pressure warning device must come on before pressure drops below:", "es": "La alarma de baja presión debe activarse antes de que la presión caiga bajo:" },
+            "choices": [
+              { "id": "a", "text": { "en": "20 psi", "es": "20 psi" } },
+              { "id": "b", "text": { "en": "45 psi", "es": "45 psi" } },
+              { "id": "c", "text": { "en": "60 psi", "es": "60 psi" } },
+              { "id": "d", "text": { "en": "100 psi", "es": "100 psi" } }
+            ],
+            "correct": "c",
+            "explanation": { "en": "Federal regulation: warning at 60 psi or above. Spring brakes engage between 20-45 psi.", "es": "Regulación federal: alarma a 60 psi o más. Los frenos de resorte se activan entre 20-45 psi." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Air-savvy", "es": "Con dominio del aire" }, "body": { "en": "Air brakes are simple once you know the three sub-systems and the warning thresholds.", "es": "Los frenos de aire son simples si conoces los tres sub-sistemas y los umbrales." } }
+      ]
+    },
+    {
+      "id": "cdl-l3-disqual",
+      "vehicleClass": "cdl",
+      "emoji": "🚫",
+      "title": { "en": "Disqualifications: Don't Lose Your CDL", "es": "Descalificaciones: No Pierdas Tu CDL" },
+      "blurb": { "en": "What gets you a 1-year, 3-year, or lifetime ban.", "es": "Qué te da 1 año, 3 años o cadena perpetua de inhabilitación." },
+      "xpReward": 50,
+      "steps": [
+        { "kind": "intro", "title": { "en": "A CDL is a privilege you can lose fast", "es": "El CDL es un privilegio que puedes perder rápido" }, "body": { "en": "Federal law standardizes 'major offenses' that take a CDL away — and they're stricter than for regular drivers.", "es": "La ley federal estandariza las 'infracciones mayores' que te quitan el CDL — y son más estrictas que para conductores regulares." } },
+        { "kind": "concept", "title": { "en": "BAC 0.04% in a CMV = DUI", "es": "BAC 0.04% en un CMV = DUI" }, "body": { "en": "Half the regular limit. Refusing a test counts the same as failing it.", "es": "La mitad del límite normal. Rechazar la prueba cuenta igual que fallarla." } },
+        { "kind": "concept", "title": { "en": "First major offense = 1 year (3 if hazmat)", "es": "Primera infracción mayor = 1 año (3 si hazmat)" }, "body": { "en": "Major offenses include: DUI 0.04%+, refusal, leaving the scene of an accident, using a CMV in a felony.", "es": "Infracciones mayores: DUI 0.04%+, rechazo, abandonar la escena, usar un CMV en un delito grave." } },
+        { "kind": "concept", "title": { "en": "Second major offense = LIFE", "es": "Segunda infracción mayor = DE POR VIDA" }, "body": { "en": "A second major offense disqualifies you for LIFE. Some lifetime disqualifications can be reduced after 10 years if you complete a rehabilitation program.", "es": "Una segunda infracción mayor te descalifica DE POR VIDA. Algunas pueden reducirse tras 10 años si completas rehabilitación." } },
+        { "kind": "concept", "title": { "en": "Serious traffic violations stack", "es": "Infracciones serias se acumulan" }, "body": { "en": "2 serious violations (excessive speed, reckless, improper lane change, following too closely, etc.) in 3 years = 60-day disqualification. 3 in 3 years = 120 days.", "es": "2 infracciones serias (exceso de velocidad, conducción imprudente, cambio indebido, seguir muy cerca, etc.) en 3 años = 60 días. 3 en 3 años = 120 días." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-CDL-3-CK",
+            "category": "law",
+            "difficulty": 2,
+            "stem": { "en": "Refusing an alcohol or drug test as a CDL holder:", "es": "Rechazar una prueba de alcohol o drogas siendo titular de CDL:" },
+            "choices": [
+              { "id": "a", "text": { "en": "Has no consequence — refusal is a right", "es": "No tiene consecuencia — rehusar es un derecho" } },
+              { "id": "b", "text": { "en": "Counts the same as failing the test — disqualification applies", "es": "Cuenta igual que fallar la prueba — aplica descalificación" } },
+              { "id": "c", "text": { "en": "Only a $50 fine", "es": "Sólo multa de $50" } },
+              { "id": "d", "text": { "en": "Allowed once a year", "es": "Permitido una vez al año" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "Refusal = positive. Minimum 1-year disqualification (3 years if hazmat).", "es": "Rechazo = positivo. Mínimo 1 año de descalificación (3 años si hazmat)." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Career-protecting", "es": "Cuida tu carrera" }, "body": { "en": "Knowing exactly what's at stake makes the right call easy.", "es": "Saber exactamente qué está en juego hace fácil decidir." } }
+      ]
+    }
+  ]
+}

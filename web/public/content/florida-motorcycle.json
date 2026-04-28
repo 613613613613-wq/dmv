@@ -1,0 +1,388 @@
+{
+  "code": "FL-MC",
+  "name": "Florida",
+  "vehicleClass": "motorcycle",
+  "agency": {
+    "name": "FLHSMV",
+    "fullName": "Florida Department of Highway Safety and Motor Vehicles",
+    "url": "https://www.flhsmv.gov"
+  },
+  "exam": {
+    "officialName": "Motorcycle Endorsement (Class E + Motorcycle)",
+    "questionCount": 25,
+    "passingScore": 20,
+    "passingPercent": 80,
+    "timeLimitMinutes": null,
+    "sectionFormat": "single",
+    "retakeRule": "Most riders earn the endorsement by completing the MSF Basic RiderCourse instead of taking the FLHSMV exam.",
+    "feeRetake": null
+  },
+  "languages": {
+    "ui": ["en", "es"],
+    "test": ["en"],
+    "note": "Florida requires completion of the MSF Basic RiderCourse (BRC) to add a motorcycle endorsement to your license."
+  },
+  "categories": [
+    { "id": "gear",      "name": "Gear & Inspection",     "weight": 0.15 },
+    { "id": "controls",  "name": "Controls & Posture",    "weight": 0.15 },
+    { "id": "braking",   "name": "Braking & Stopping",    "weight": 0.15 },
+    { "id": "cornering", "name": "Cornering & Curves",    "weight": 0.15 },
+    { "id": "strategy",  "name": "Street Strategy",       "weight": 0.15 },
+    { "id": "emergency", "name": "Emergency Maneuvers",   "weight": 0.10 },
+    { "id": "law",       "name": "Florida Law",           "weight": 0.10 },
+    { "id": "impair",    "name": "Impairment",            "weight": 0.05 }
+  ],
+  "handbook": {
+    "url": "https://www.msf-usa.org",
+    "version": "MSF BRC Edition 1.0 (2020)",
+    "lastReviewed": "2026-04-28"
+  },
+  "specialNotes": [
+    "Florida requires the MSF Basic RiderCourse to add a motorcycle endorsement.",
+    "Florida riders 21+ may legally ride without a helmet IF they carry at least $10,000 of medical insurance. Under 21: helmet required by law.",
+    "Lane-splitting is illegal in Florida. Two motorcycles may ride side-by-side in a single lane.",
+    "Headlight must be on at all times when riding, day or night."
+  ],
+  "questions": [
+    {
+      "id": "FLM-001", "category": "gear", "difficulty": 1,
+      "stem": { "en": "What is the most protective head gear a motorcyclist can wear?", "es": "¿Cuál es el casco más protector que puede usar un motociclista?" },
+      "choices": [
+        { "id": "a", "text": { "en": "A baseball cap", "es": "Una gorra" } },
+        { "id": "b", "text": { "en": "A full-face DOT-approved helmet", "es": "Un casco integral aprobado por DOT" } },
+        { "id": "c", "text": { "en": "A novelty helmet without DOT certification", "es": "Un casco decorativo sin certificación DOT" } },
+        { "id": "d", "text": { "en": "Sunglasses only", "es": "Sólo lentes de sol" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "A full-face DOT-approved helmet provides the most protection for your face, jaw, and skull. Look for the 'DOT' label on the back.",
+        "es": "Un casco integral con certificación DOT da la mayor protección para cara, mandíbula y cráneo. Busca la etiqueta 'DOT' en la parte trasera."
+      },
+      "handbookRef": { "section": "Personal Protective Gear — Helmet", "page": 14, "url": null },
+      "tags": ["helmet", "gear"]
+    },
+    {
+      "id": "FLM-002", "category": "gear", "difficulty": 1,
+      "stem": { "en": "Why is bright or reflective riding gear strongly recommended?", "es": "¿Por qué se recomienda usar ropa brillante o reflectante al manejar?" },
+      "choices": [
+        { "id": "a", "text": { "en": "It looks fashionable", "es": "Se ve a la moda" } },
+        { "id": "b", "text": { "en": "It makes you more visible to other drivers, especially at dusk and night", "es": "Te hace más visible para otros conductores, sobre todo al anochecer y de noche" } },
+        { "id": "c", "text": { "en": "It is required by federal law", "es": "Lo exige la ley federal" } },
+        { "id": "d", "text": { "en": "It keeps you cooler", "es": "Te mantiene fresco" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Most car-vs-motorcycle crashes involve a driver who 'didn't see' the motorcycle. Bright colors and retro-reflective materials dramatically increase your conspicuity.",
+        "es": "La mayoría de choques auto-moto ocurren porque el conductor 'no vio' la moto. Los colores brillantes y los materiales reflectantes aumentan drásticamente tu visibilidad."
+      },
+      "handbookRef": { "section": "Being Visible", "page": 21, "url": null },
+      "tags": ["visibility", "gear"]
+    },
+    {
+      "id": "FLM-003", "category": "gear", "difficulty": 2,
+      "stem": { "en": "Florida riders age 21 or older may legally ride without a helmet IF:", "es": "Los motociclistas de Florida de 21+ pueden manejar legalmente sin casco SI:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Their motorcycle is under 250cc", "es": "Su moto es de menos de 250cc" } },
+        { "id": "b", "text": { "en": "They carry at least $10,000 in medical insurance for crash injuries", "es": "Llevan al menos $10,000 de seguro médico para lesiones en accidente" } },
+        { "id": "c", "text": { "en": "They are riding on private property", "es": "Manejan en propiedad privada" } },
+        { "id": "d", "text": { "en": "Never — Florida law requires helmets at all ages", "es": "Nunca — la ley de Florida exige casco a toda edad" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Florida's helmet law: riders 21+ may go without a helmet only if they carry at least $10,000 in medical insurance for motorcycle crash injuries. Riders under 21: helmet required, no exceptions. Eye protection is required for all riders.",
+        "es": "Ley de cascos de Florida: 21+ pueden ir sin casco sólo si llevan ≥$10,000 de seguro médico para lesiones de moto. Menores de 21: casco obligatorio sin excepciones. Protección ocular obligatoria para todos."
+      },
+      "handbookRef": { "section": "Florida Helmet Law (s. 316.211 F.S.)", "page": null, "url": null },
+      "tags": ["law", "helmet", "florida"]
+    },
+    {
+      "id": "FLM-004", "category": "controls", "difficulty": 1,
+      "stem": { "en": "Where is the front brake control on most street motorcycles?", "es": "¿Dónde está el freno delantero en la mayoría de motos de calle?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Right hand lever", "es": "Palanca de la mano derecha" } },
+        { "id": "b", "text": { "en": "Left hand lever", "es": "Palanca de la mano izquierda" } },
+        { "id": "c", "text": { "en": "Right foot pedal", "es": "Pedal del pie derecho" } },
+        { "id": "d", "text": { "en": "Left foot pedal", "es": "Pedal del pie izquierdo" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Right hand = front brake (and throttle). Right foot = rear brake. Left hand = clutch. Left foot = shifter.",
+        "es": "Mano derecha = freno delantero (y acelerador). Pie derecho = freno trasero. Mano izquierda = embrague. Pie izquierdo = cambios."
+      },
+      "handbookRef": { "section": "Primary Controls", "page": 4, "url": null },
+      "tags": ["controls"]
+    },
+    {
+      "id": "FLM-005", "category": "controls", "difficulty": 1,
+      "stem": { "en": "Where is the gear shifter located?", "es": "¿Dónde está la palanca de cambios?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Right hand", "es": "Mano derecha" } },
+        { "id": "b", "text": { "en": "Right foot", "es": "Pie derecho" } },
+        { "id": "c", "text": { "en": "Left foot", "es": "Pie izquierdo" } },
+        { "id": "d", "text": { "en": "Left hand", "es": "Mano izquierda" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Most modern street motorcycles use a 1-down, then-up shift pattern operated by your LEFT foot. The clutch is the LEFT hand lever.",
+        "es": "La mayoría de motos modernas usan patrón 1 abajo, resto arriba, accionado por el pie IZQUIERDO. El embrague es la palanca de la mano IZQUIERDA."
+      },
+      "handbookRef": { "section": "Primary Controls", "page": 4, "url": null },
+      "tags": ["controls", "shifting"]
+    },
+    {
+      "id": "FLM-006", "category": "braking", "difficulty": 2,
+      "stem": { "en": "For the shortest stop on a motorcycle in good conditions, you should:", "es": "Para la frenada más corta en una moto en buenas condiciones, debes:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Use only the front brake", "es": "Usar sólo el freno delantero" } },
+        { "id": "b", "text": { "en": "Use only the rear brake", "es": "Usar sólo el freno trasero" } },
+        { "id": "c", "text": { "en": "Apply both brakes firmly and progressively", "es": "Aplicar ambos frenos firme y progresivamente" } },
+        { "id": "d", "text": { "en": "Downshift quickly without using the brakes", "es": "Bajar marchas sin usar frenos" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Always use BOTH brakes for any stop. The front brake provides ~70% of stopping power; the rear stabilizes. Apply progressively — squeeze, don't grab.",
+        "es": "Usa SIEMPRE ambos frenos. El delantero da ~70% de la frenada; el trasero estabiliza. Aplica progresivamente — apreta, no agarres."
+      },
+      "handbookRef": { "section": "Braking to a Stop", "page": 10, "url": null },
+      "tags": ["braking"]
+    },
+    {
+      "id": "FLM-007", "category": "braking", "difficulty": 2,
+      "stem": { "en": "If your front tire skids during hard braking, you should:", "es": "Si la rueda delantera derrapa al frenar fuerte, debes:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Release the front brake immediately, then re-apply more gently", "es": "Soltar el freno delantero de inmediato y reaplicar con más suavidad" } },
+        { "id": "b", "text": { "en": "Squeeze the front brake harder", "es": "Apretar el freno delantero más fuerte" } },
+        { "id": "c", "text": { "en": "Let go of both brakes", "es": "Soltar ambos frenos" } },
+        { "id": "d", "text": { "en": "Lay the bike down", "es": "Tirar la moto" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "A locked front wheel will cause a fall in less than a second. Release the front brake immediately, then re-apply with less pressure.",
+        "es": "Una rueda delantera bloqueada te tira en menos de un segundo. Suelta el freno delantero al instante y reaplica con menos presión."
+      },
+      "handbookRef": { "section": "Front Tire Skid", "page": 34, "url": null },
+      "tags": ["braking", "skid"]
+    },
+    {
+      "id": "FLM-008", "category": "braking", "difficulty": 2,
+      "stem": { "en": "If your rear tire skids during braking, you should:", "es": "Si la rueda trasera derrapa al frenar, debes:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Release the rear brake immediately if the bike is going straight; otherwise hold it locked until you stop", "es": "Soltar el freno trasero al instante si vas recto; si no, mantenlo bloqueado hasta detenerte" } },
+        { "id": "b", "text": { "en": "Always release the rear brake regardless of direction", "es": "Soltar el freno trasero siempre, sin importar la dirección" } },
+        { "id": "c", "text": { "en": "Squeeze the front brake harder to compensate", "es": "Apretar más el freno delantero para compensar" } },
+        { "id": "d", "text": { "en": "Steer with the front wheel locked", "es": "Girar con la rueda delantera bloqueada" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "If the bike is straight, release the rear brake to regain traction. If you're sliding sideways, hold the rear brake locked — releasing it during a sideways skid can cause a 'high-side' violent flip.",
+        "es": "Si la moto va recta, suelta el freno trasero para recuperar tracción. Si vas derrapando de costado, mantén el freno bloqueado — soltarlo de costado puede provocar un 'high-side' violento."
+      },
+      "handbookRef": { "section": "Rear Tire Skid", "page": 34, "url": null },
+      "tags": ["braking", "skid"]
+    },
+    {
+      "id": "FLM-009", "category": "cornering", "difficulty": 2,
+      "stem": { "en": "What is the best technique for taking a curve?", "es": "¿Cuál es la mejor técnica para tomar una curva?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Slow before the curve, look through the curve, roll on throttle through the curve", "es": "Reduce antes de la curva, mira a través de ella, acelera a la salida" } },
+        { "id": "b", "text": { "en": "Brake hard while leaned over", "es": "Frenar fuerte estando inclinado" } },
+        { "id": "c", "text": { "en": "Coast through with the clutch in", "es": "Pasar con el embrague apretado" } },
+        { "id": "d", "text": { "en": "Accelerate hard before the apex", "es": "Acelerar fuerte antes del ápex" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Slow before the curve (downshift if needed), look through the curve to where you want to go, lean the bike with countersteering, and roll on the throttle smoothly through and out.",
+        "es": "Reduce antes de la curva (cambia si es necesario), mira hacia donde quieres ir, inclina con contradirección y acelera suavemente a través y a la salida."
+      },
+      "handbookRef": { "section": "Curves", "page": 28, "url": null },
+      "tags": ["cornering"]
+    },
+    {
+      "id": "FLM-010", "category": "cornering", "difficulty": 3,
+      "stem": { "en": "To make a motorcycle lean to the LEFT in a curve, you should:", "es": "Para hacer que la moto se incline a la IZQUIERDA en una curva, debes:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Push forward on the LEFT handlebar (countersteer)", "es": "Empujar el manubrio IZQUIERDO hacia adelante (contradirección)" } },
+        { "id": "b", "text": { "en": "Push forward on the RIGHT handlebar", "es": "Empujar el manubrio DERECHO hacia adelante" } },
+        { "id": "c", "text": { "en": "Lean your body without using the handlebars", "es": "Inclinar el cuerpo sin usar el manubrio" } },
+        { "id": "d", "text": { "en": "Pull back on both handlebars", "es": "Tirar de ambos manubrios" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Above ~12 mph, motorcycles steer by COUNTERSTEERING. Push forward on the LEFT bar to lean and turn LEFT. Push RIGHT to go RIGHT. 'Press, lean, roll.'",
+        "es": "Sobre ~12 mph, las motos giran por CONTRADIRECCIÓN. Empuja el manubrio IZQUIERDO para inclinarte y girar a la IZQUIERDA. Empuja el DERECHO para ir a la DERECHA."
+      },
+      "handbookRef": { "section": "Basic Turning — Countersteering", "page": 9, "url": null },
+      "tags": ["cornering", "countersteering"]
+    },
+    {
+      "id": "FLM-011", "category": "strategy", "difficulty": 2,
+      "stem": { "en": "Where in the lane is most often safest for a motorcyclist on a typical road?", "es": "¿Dónde dentro del carril suele ser más seguro un motociclista en una vía típica?" },
+      "choices": [
+        { "id": "a", "text": { "en": "There is no single 'best' position — you should adjust based on traffic, road and surface", "es": "No hay una posición única 'mejor' — ajústate según tráfico, vía y superficie" } },
+        { "id": "b", "text": { "en": "Always the center of the lane (oily strip)", "es": "Siempre el centro del carril (zona aceitosa)" } },
+        { "id": "c", "text": { "en": "Always the right edge", "es": "Siempre el borde derecho" } },
+        { "id": "d", "text": { "en": "On the lane line", "es": "Sobre la línea del carril" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Lane position is dynamic. Pick the third (left, center, right) that maximizes your visibility, escape paths, and traction. Avoid the oily center strip in stop-and-go traffic.",
+        "es": "La posición es dinámica. Elige el tercio (izquierdo, centro, derecho) que maximice tu visibilidad, escape y tracción. Evita la zona aceitosa central en tráfico parado."
+      },
+      "handbookRef": { "section": "Positioning", "page": 20, "url": null },
+      "tags": ["positioning"]
+    },
+    {
+      "id": "FLM-012", "category": "strategy", "difficulty": 2,
+      "stem": { "en": "The most common car-vs-motorcycle crash at intersections happens when:", "es": "El choque auto-moto más común en intersecciones ocurre cuando:" },
+      "choices": [
+        { "id": "a", "text": { "en": "A car turns LEFT in front of an oncoming motorcycle", "es": "Un auto gira a la IZQUIERDA frente a una moto que viene" } },
+        { "id": "b", "text": { "en": "The motorcycle is rear-ended", "es": "La moto es golpeada por detrás" } },
+        { "id": "c", "text": { "en": "A pedestrian steps into the road", "es": "Un peatón cruza la calle" } },
+        { "id": "d", "text": { "en": "The motorcycle changes lanes too fast", "es": "La moto cambia de carril muy rápido" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "The classic 'left-turning car' crash. Cover your brakes at intersections, make eye contact when possible, and assume oncoming left-turners may not see you.",
+        "es": "El clásico choque por 'auto que gira a la izquierda'. Cubre los frenos en intersecciones, busca contacto visual y asume que el que gira no te ve."
+      },
+      "handbookRef": { "section": "Intersections", "page": 26, "url": null },
+      "tags": ["intersections", "strategy"]
+    },
+    {
+      "id": "FLM-013", "category": "emergency", "difficulty": 2,
+      "stem": { "en": "Swerving on a motorcycle is best used to:", "es": "Esquivar en moto se usa mejor para:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Avoid an obstacle when there is not enough room to stop", "es": "Evitar un obstáculo cuando no hay espacio para frenar" } },
+        { "id": "b", "text": { "en": "Pass slow cars", "es": "Rebasar autos lentos" } },
+        { "id": "c", "text": { "en": "Show off riding skill", "es": "Lucir habilidad" } },
+        { "id": "d", "text": { "en": "Lane-split through traffic", "es": "Filtrar entre carriles" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Swerving is two quick countersteers — one to dodge, one to recover. Do NOT brake while swerving. Brake first, then swerve, or swerve first, then brake — never both at once.",
+        "es": "Esquivar son dos contradirecciones rápidas — una para evitar y otra para recuperar. NO frenes mientras esquivas. Frena primero o esquiva primero — nunca ambos a la vez."
+      },
+      "handbookRef": { "section": "Swerving", "page": 35, "url": null },
+      "tags": ["emergency", "swerving"]
+    },
+    {
+      "id": "FLM-014", "category": "law", "difficulty": 2,
+      "stem": { "en": "Lane-splitting (riding between lanes of slow or stopped cars) in Florida is:", "es": "El 'lane-splitting' (manejar entre carriles de autos lentos o parados) en Florida es:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Legal at any time", "es": "Legal en cualquier momento" } },
+        { "id": "b", "text": { "en": "Legal in heavy traffic only", "es": "Legal sólo en tráfico pesado" } },
+        { "id": "c", "text": { "en": "Illegal — but two motorcycles MAY ride two-abreast in a single lane", "es": "Ilegal — pero dos motos PUEDEN ir lado a lado en un mismo carril" } },
+        { "id": "d", "text": { "en": "Legal on highways", "es": "Legal en autopistas" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Lane-splitting is illegal in Florida. However, two motorcycles may legally ride side-by-side in the same lane.",
+        "es": "El lane-splitting es ilegal en Florida. Sin embargo, dos motos pueden ir legalmente lado a lado en el mismo carril."
+      },
+      "handbookRef": { "section": "Florida Motorcycle Law", "page": null, "url": null },
+      "tags": ["law"]
+    },
+    {
+      "id": "FLM-015", "category": "law", "difficulty": 1,
+      "stem": { "en": "When must your motorcycle headlight be on?", "es": "¿Cuándo debe estar encendido el faro de tu moto?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Only at night", "es": "Sólo de noche" } },
+        { "id": "b", "text": { "en": "Only in bad weather", "es": "Sólo en mal clima" } },
+        { "id": "c", "text": { "en": "At all times when riding", "es": "En todo momento al manejar" } },
+        { "id": "d", "text": { "en": "Only on highways", "es": "Sólo en autopistas" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Florida law requires motorcycle headlights to be on whenever the bike is operated, day or night. Modern bikes wire this so the headlight comes on with the engine.",
+        "es": "La ley de Florida exige el faro encendido siempre que la moto esté en marcha, de día o de noche. Las motos modernas lo conectan al encendido."
+      },
+      "handbookRef": { "section": "Florida Motorcycle Law", "page": null, "url": null },
+      "tags": ["law", "headlights"]
+    },
+    {
+      "id": "FLM-016", "category": "impair", "difficulty": 1,
+      "stem": { "en": "Alcohol affects motorcycle riders differently than car drivers because:", "es": "El alcohol afecta a los motociclistas de forma distinta a los conductores de auto porque:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Riders need balance, coordination, and judgment that are degraded even at low BAC", "es": "El motociclista necesita equilibrio, coordinación y juicio, que se degradan aún con BAC bajo" } },
+        { "id": "b", "text": { "en": "Motorcycle alcohol limits are higher", "es": "Los límites para motos son más altos" } },
+        { "id": "c", "text": { "en": "Motorcycles are heavier so impairment matters less", "es": "Las motos son más pesadas y la afectación importa menos" } },
+        { "id": "d", "text": { "en": "Wind clears alcohol faster", "es": "El viento elimina el alcohol más rápido" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "A motorcycle demands balance and split-second decisions. Even one drink can impair the skills needed to ride safely.",
+        "es": "La moto exige equilibrio y decisiones en fracciones de segundo. Aún una bebida puede afectar las habilidades para manejar con seguridad."
+      },
+      "handbookRef": { "section": "Alcohol", "page": 40, "url": null },
+      "tags": ["alcohol"]
+    },
+    {
+      "id": "FLM-017", "category": "gear", "difficulty": 2,
+      "stem": { "en": "Why are over-the-ankle leather boots recommended for riding?", "es": "¿Por qué se recomiendan botas de cuero por encima del tobillo?" },
+      "choices": [
+        { "id": "a", "text": { "en": "They protect ankles, support feet, and resist abrasion in a fall", "es": "Protegen tobillos, sostienen los pies y resisten la abrasión en una caída" } },
+        { "id": "b", "text": { "en": "They are required by federal law", "es": "Lo exige la ley federal" } },
+        { "id": "c", "text": { "en": "They are the only style that fits foot pegs", "es": "Es el único estilo que cabe en las estriberas" } },
+        { "id": "d", "text": { "en": "They make the bike faster", "es": "Hacen la moto más rápida" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Sturdy over-the-ankle boots protect against burns, abrasion, and twisted ankles in a fall. Sneakers, sandals, and high heels are dangerous on a bike.",
+        "es": "Las botas resistentes por encima del tobillo protegen de quemaduras, abrasión y torceduras. Zapatillas, sandalias y tacones son peligrosos."
+      },
+      "handbookRef": { "section": "Personal Protective Gear", "page": 13, "url": null },
+      "tags": ["gear"]
+    },
+    {
+      "id": "FLM-018", "category": "controls", "difficulty": 2,
+      "stem": { "en": "The 'friction zone' on a motorcycle clutch is:", "es": "La 'zona de fricción' del embrague de una moto es:" },
+      "choices": [
+        { "id": "a", "text": { "en": "The point where the clutch begins to engage and transfer power, used to control the bike at very low speeds", "es": "El punto donde el embrague empieza a engranar y transmitir fuerza, usado para controlar la moto a muy baja velocidad" } },
+        { "id": "b", "text": { "en": "The fully released position", "es": "La posición totalmente liberada" } },
+        { "id": "c", "text": { "en": "The fully pulled-in position", "es": "La posición totalmente apretada" } },
+        { "id": "d", "text": { "en": "Only used for emergency stops", "es": "Sólo para frenadas de emergencia" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "The friction zone is the narrow lever range where partial engagement happens. Use it with the throttle for smooth starts and tight low-speed maneuvers.",
+        "es": "Es el rango estrecho de la palanca donde hay engrane parcial. Úsala con el acelerador para arranques suaves y maniobras lentas cerradas."
+      },
+      "handbookRef": { "section": "Clutch Lever and Friction Zone", "page": 8, "url": null },
+      "tags": ["clutch"]
+    },
+    {
+      "id": "FLM-019", "category": "strategy", "difficulty": 2,
+      "stem": { "en": "An effective mental strategy for riding is summarized as:", "es": "Una estrategia mental efectiva para manejar se resume como:" },
+      "choices": [
+        { "id": "a", "text": { "en": "SEE: Search, Evaluate, Execute", "es": "SEE: Search (buscar), Evaluate (evaluar), Execute (ejecutar)" } },
+        { "id": "b", "text": { "en": "SLOW: Sit, Look, Observe, Wait", "es": "SLOW: Sentarse, Mirar, Observar, Esperar" } },
+        { "id": "c", "text": { "en": "GO: Gas, Observe, Onward", "es": "GO: Acelerar, Observar, Avanzar" } },
+        { "id": "d", "text": { "en": "There is no formal strategy — just react", "es": "No hay estrategia formal — sólo reacciona" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "MSF teaches SEE: SEARCH for hazards, EVALUATE how they could affect you, EXECUTE the right action (adjust speed, position, or communicate).",
+        "es": "MSF enseña SEE: SEARCH (buscar peligros), EVALUATE (evaluar cómo te afectan), EXECUTE (ejecutar la acción correcta)."
+      },
+      "handbookRef": { "section": "Mental Processing", "page": 24, "url": null },
+      "tags": ["strategy", "see"]
+    },
+    {
+      "id": "FLM-020", "category": "strategy", "difficulty": 2,
+      "stem": { "en": "Carrying a passenger affects your motorcycle by:", "es": "Llevar pasajero afecta tu moto al:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Increasing weight, lengthening stopping distance, and changing balance — slow down and allow more space", "es": "Aumentar peso, alargar la frenada y cambiar el equilibrio — reduce y deja más espacio" } },
+        { "id": "b", "text": { "en": "Making the bike easier to handle", "es": "Hacer la moto más fácil de manejar" } },
+        { "id": "c", "text": { "en": "Making no significant difference", "es": "No notar diferencia significativa" } },
+        { "id": "d", "text": { "en": "Reducing fuel consumption", "es": "Reducir el consumo" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Passengers add weight high on the bike, lengthening braking distance and altering handling. Brief them: hold on, look over your shoulder in the same direction you do, keep feet on pegs.",
+        "es": "Los pasajeros añaden peso alto, alargan la frenada y cambian el manejo. Indícales: agárrate, mira por encima del hombro en la misma dirección que tú, mantén los pies en las estriberas."
+      },
+      "handbookRef": { "section": "Carrying Passengers or Cargo", "page": 37, "url": null },
+      "tags": ["passenger"]
+    }
+  ]
+}

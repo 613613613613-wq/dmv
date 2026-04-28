@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
-import { useUserData } from "../engine/store";
-import { useContentPack } from "../engine/contentPack";
+import { useUserData, levelInfo } from "../engine/store";
+import { useContentPack, useLessonPack } from "../engine/contentPack";
 import { currentStreak, longestStreak, studiedToday } from "../engine/streak";
 import { categoryStats } from "../engine/practice";
 import { dueCards } from "../engine/srs";
+import { t } from "../i18n";
+import { loc } from "../engine/util";
+import type { Lang } from "../types";
 
 export default function HomeView() {
-  const { pack, error } = useContentPack();
   const { data } = useUserData();
+  const lang = (data.profile.language ?? "en") as Lang;
+  const { pack, error } = useContentPack(data.profile.vehicleClass);
+  const { lessons } = useLessonPack(data.profile.vehicleClass);
 
   if (error) return <ErrorPanel message={error} />;
   if (!pack) return <Skeleton />;
@@ -21,6 +26,8 @@ export default function HomeView() {
   const overallAcc = totalAttempts === 0 ? 0 : totalCorrect / totalAttempts;
   const due = dueCards(data.srsCards).length;
   const lastResult = data.mockResults[0];
+  const lvl = levelInfo(data.xp);
+  const nextLesson = lessons?.lessons.find((l) => !data.lessonsCompleted.includes(l.id));
 
   return (
     <div className="space-y-6">
@@ -31,21 +38,30 @@ export default function HomeView() {
               {pack.agency.name} · {pack.exam.officialName}
             </div>
             <h1 className="text-2xl font-bold leading-tight md:text-4xl">
-              Pass your Florida permit
-              <br />
-              the first time.
+              {lang === "es" ? (
+                <>Aprueba tu permiso<br />de Florida la 1.ª vez.</>
+              ) : (
+                <>Pass your Florida permit<br />the first time.</>
+              )}
             </h1>
             <p className="max-w-md text-sm text-ink-200 md:text-base">
-              {pack.exam.questionCount} questions · {pack.exam.passingPercent}% to pass · every wrong
-              answer cites the FLHSMV handbook.
+              {pack.exam.questionCount} {t("questions", lang)} · {pack.exam.passingPercent}% {t("passMark", lang).toLowerCase()} ·{" "}
+              {lang === "es"
+                ? "cada respuesta cita el manual."
+                : "every answer cites the handbook."}
             </p>
           </div>
           <div className="flex flex-col gap-2 md:items-end">
-            <Link to="/practice" className="btn-primary bg-sun-300 text-ink-900 hover:bg-sun-200">
-              Start practicing →
-            </Link>
-            <Link to="/mock" className="text-sm font-medium text-sun-200 hover:text-white">
-              Or take a full mock test
+            {nextLesson && (
+              <Link
+                to={`/learn/${nextLesson.id}`}
+                className="btn-primary bg-sun-300 text-ink-900 hover:bg-sun-200"
+              >
+                {nextLesson.emoji} {t("beginLesson", lang)} →
+              </Link>
+            )}
+            <Link to="/practice" className="text-sm font-medium text-sun-200 hover:text-white">
+              {t("beginPracticing", lang)} →
             </Link>
           </div>
         </div>
@@ -53,35 +69,61 @@ export default function HomeView() {
 
       <section className="grid gap-3 md:grid-cols-4">
         <StatCard
-          label="Day streak"
+          label={t("dayStreak", lang)}
           value={String(streak)}
-          sub={today ? "studied today" : "study today to keep it"}
+          sub={today ? t("studiedToday", lang) : t("studyTodayKeep", lang)}
           tone={today ? "good" : "warn"}
         />
         <StatCard
-          label="Questions answered"
-          value={String(totalAttempts)}
-          sub={`${Math.round(overallAcc * 100)}% accuracy`}
+          label={`${t("level", lang)} ${lvl.level}`}
+          value={`${data.xp} XP`}
+          sub={`${lvl.needed - lvl.into} ${t("toNextLevel", lang)}`}
+          tone="good"
         />
         <StatCard
-          label="Due for review"
+          label={t("dueForReview", lang)}
           value={String(due)}
-          sub={due > 0 ? "scheduled by SRS" : "all caught up"}
+          sub={due > 0 ? t("scheduledBySrs", lang) : t("allCaughtUp", lang)}
           tone={due > 0 ? "warn" : "good"}
         />
         <StatCard
-          label="Best streak"
-          value={String(longest)}
-          sub={longest === 0 ? "—" : "personal record"}
+          label={t("questionsAnswered", lang)}
+          value={String(totalAttempts)}
+          sub={`${Math.round(overallAcc * 100)}% ${t("accuracy", lang)}`}
         />
       </section>
+
+      {nextLesson && (
+        <section className="overflow-hidden rounded-2xl bg-gradient-to-br from-sun-100 to-coral-100 p-5 ring-1 ring-sun-200">
+          <div className="flex items-center gap-4">
+            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-white text-3xl shadow-card">
+              {nextLesson.emoji}
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-xs font-medium uppercase tracking-wider text-coral-700">
+                {t("learn", lang)}
+              </div>
+              <h3 className="mt-0.5 truncate text-base font-bold text-ink-900">
+                {loc(nextLesson.title, lang)}
+              </h3>
+              <p className="truncate text-sm text-ink-600">{loc(nextLesson.blurb, lang)}</p>
+            </div>
+            <Link
+              to={`/learn/${nextLesson.id}`}
+              className="btn-primary bg-ink-900 text-white"
+            >
+              +{nextLesson.xpReward} XP
+            </Link>
+          </div>
+        </section>
+      )}
 
       {lastResult && (
         <section className="card p-5">
           <div className="flex items-center justify-between gap-4">
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-ink-500">
-                Last mock test
+                {t("mockTest", lang)}
               </div>
               <div className="mt-1 flex items-baseline gap-2">
                 <span className="text-2xl font-bold text-ink-900">
@@ -94,15 +136,17 @@ export default function HomeView() {
                       : "bg-coral-400/10 text-coral-600"
                   }`}
                 >
-                  {lastResult.passed ? "Passed" : "Did not pass"}
+                  {lastResult.passed ? t("passed", lang) : t("didNotPass", lang)}
                 </span>
               </div>
               <div className="mt-1 text-sm text-ink-500">
-                Need {pack.exam.passingScore} of {pack.exam.questionCount} to pass on the real exam.
+                {lang === "es"
+                  ? `Necesitas ${pack.exam.passingScore} de ${pack.exam.questionCount} para aprobar.`
+                  : `Need ${pack.exam.passingScore} of ${pack.exam.questionCount} to pass on the real exam.`}
               </div>
             </div>
             <Link to="/mock" className="btn-secondary">
-              Try again
+              {t("tryAgain", lang)}
             </Link>
           </div>
         </section>
@@ -110,9 +154,9 @@ export default function HomeView() {
 
       <section className="card p-5">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold text-ink-900">Topics</h2>
+          <h2 className="text-base font-semibold text-ink-900">{t("topics", lang)}</h2>
           <Link to="/practice" className="text-sm font-medium text-gulf-500 hover:text-gulf-600">
-            Practice all →
+            {t("practiceAll", lang)} →
           </Link>
         </div>
         <div className="mt-4 space-y-3">
@@ -129,7 +173,7 @@ export default function HomeView() {
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm font-semibold text-ink-900">{cat.name}</span>
                     <span className="text-xs text-ink-500">
-                      {s.attempts === 0 ? `${totalQs} questions` : `${Math.round(s.accuracy * 100)}%`}
+                      {s.attempts === 0 ? `${totalQs} ${t("questions", lang)}` : `${Math.round(s.accuracy * 100)}%`}
                     </span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-ink-100">
@@ -156,67 +200,41 @@ export default function HomeView() {
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
-        <div className="card p-5">
-          <h3 className="text-base font-semibold text-ink-900">About the {pack.exam.officialName}</h3>
-          <ul className="mt-3 space-y-2 text-sm text-ink-600">
-            <li>
-              <span className="font-medium text-ink-900">{pack.exam.questionCount} questions</span>,{" "}
-              {pack.exam.passingPercent}% passing ({pack.exam.passingScore}/
-              {pack.exam.questionCount}).
-            </li>
-            <li>
-              <span className="font-medium text-ink-900">Retake:</span> {pack.exam.retakeRule}.
-            </li>
-            {pack.exam.feeRetake && (
-              <li>
-                <span className="font-medium text-ink-900">Retake fee:</span> ${pack.exam.feeRetake.toFixed(2)}.
-              </li>
-            )}
-            <li>
-              <span className="font-medium text-ink-900">Languages:</span>{" "}
-              {pack.languages.test.join(", ").toUpperCase()} on the official test.
-            </li>
-          </ul>
-          {pack.languages.note && (
-            <p className="mt-3 rounded-lg bg-sun-50 p-3 text-xs text-ink-700">{pack.languages.note}</p>
-          )}
-        </div>
+        <Link to="/signs" className="card p-5 text-left transition hover:-translate-y-0.5">
+          <div className="text-xs font-semibold uppercase tracking-wider text-gulf-600">
+            {t("signs", lang)} · {t("signRush", lang)} ⚡
+          </div>
+          <h3 className="mt-1 text-base font-semibold text-ink-900">{t("signsTitle", lang)}</h3>
+          <p className="mt-1 text-sm text-ink-600">{t("signsBlurb", lang)}</p>
+          <div className="mt-3 inline-flex items-baseline gap-2 text-sm">
+            <span className="font-bold text-coral-600">{t("bestScore", lang)}:</span>
+            <span className="font-bold text-ink-900">{data.bestSignRush}</span>
+          </div>
+        </Link>
 
         <div className="card p-5">
-          <h3 className="text-base font-semibold text-ink-900">Florida-specific rules</h3>
+          <h3 className="text-base font-semibold text-ink-900">
+            {lang === "es" ? "Florida en 4 reglas" : "Florida in 4 rules"}
+          </h3>
           <ul className="mt-3 space-y-2 text-sm text-ink-600">
-            {pack.specialNotes.map((n) => (
+            {pack.specialNotes.slice(0, 4).map((n) => (
               <li key={n} className="flex gap-2">
                 <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-gulf-400" />
                 <span>{n}</span>
               </li>
             ))}
           </ul>
-          <a
-            href={pack.handbook.url}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-4 inline-flex text-sm font-medium text-gulf-500 hover:text-gulf-600"
-          >
-            Open the official FLHSMV handbook ↗
-          </a>
         </div>
       </section>
+
+      <p className="pb-4 text-center text-[11px] text-ink-400">
+        {lang === "es" ? "Bestia Bilingüe" : "Bilingual"} · {pack.handbook.version}
+      </p>
     </div>
   );
 }
 
-function StatCard({
-  label,
-  value,
-  sub,
-  tone,
-}: {
-  label: string;
-  value: string;
-  sub?: string;
-  tone?: "good" | "warn";
-}) {
+function StatCard({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: "good" | "warn" }) {
   return (
     <div className="card p-4">
       <div className="text-xs font-medium uppercase tracking-wider text-ink-500">{label}</div>

@@ -1,17 +1,24 @@
 import { useEffect, useState, useCallback } from "react";
-import type { Attempt, MockTestResult, SRSCard, UserData } from "../types";
+import type { Attempt, MockTestResult, Profile, SRSCard, UserData, VehicleClass, Lang } from "../types";
 import { DEFAULT_USER_DATA } from "../types";
 import { newCard, qualityFromAnswer, updateSRS } from "./srs";
 
-const STORAGE_KEY = "dmvprep.fl.userdata.v1";
+const STORAGE_KEY = "dmvprep.fl.userdata.v2";
+const LEGACY_KEY = "dmvprep.fl.userdata.v1";
 
 function load(): UserData {
   if (typeof window === "undefined") return DEFAULT_USER_DATA;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw =
+      window.localStorage.getItem(STORAGE_KEY) ??
+      window.localStorage.getItem(LEGACY_KEY);
     if (!raw) return DEFAULT_USER_DATA;
     const parsed = JSON.parse(raw) as Partial<UserData>;
-    return { ...DEFAULT_USER_DATA, ...parsed };
+    return {
+      ...DEFAULT_USER_DATA,
+      ...parsed,
+      profile: { ...DEFAULT_USER_DATA.profile, ...(parsed.profile ?? {}) },
+    };
   } catch {
     return DEFAULT_USER_DATA;
   }
@@ -55,6 +62,7 @@ export function useUserData() {
         ...currentData,
         attempts: [...currentData.attempts, attempt],
         srsCards: { ...currentData.srsCards, [questionId]: updated },
+        xp: currentData.xp + (correct ? 10 : 2),
       });
     },
     [],
@@ -69,11 +77,52 @@ export function useUserData() {
   }, []);
 
   const recordMockResult = useCallback((result: MockTestResult) => {
-    publish({ ...currentData, mockResults: [result, ...currentData.mockResults].slice(0, 50) });
+    const xpBonus = result.passed ? 100 : 25;
+    publish({
+      ...currentData,
+      xp: currentData.xp + xpBonus,
+      mockResults: [result, ...currentData.mockResults].slice(0, 50),
+    });
   }, []);
 
-  const setLanguage = useCallback((lang: string) => {
-    publish({ ...currentData, language: lang });
+  const setLanguage = useCallback((lang: Lang) => {
+    publish({
+      ...currentData,
+      language: lang,
+      profile: { ...currentData.profile, language: lang },
+    });
+  }, []);
+
+  const setVehicleClass = useCallback((vc: VehicleClass) => {
+    publish({
+      ...currentData,
+      profile: { ...currentData.profile, vehicleClass: vc },
+    });
+  }, []);
+
+  const setProfile = useCallback((p: Profile) => {
+    publish({ ...currentData, profile: p, language: p.language });
+  }, []);
+
+  const completeLesson = useCallback((lessonId: string, xpReward: number) => {
+    if (currentData.lessonsCompleted.includes(lessonId)) {
+      // Re-completion still grants a small bonus.
+      publish({ ...currentData, xp: currentData.xp + Math.round(xpReward / 4) });
+      return;
+    }
+    publish({
+      ...currentData,
+      xp: currentData.xp + xpReward,
+      lessonsCompleted: [...currentData.lessonsCompleted, lessonId],
+    });
+  }, []);
+
+  const recordSignRush = useCallback((score: number) => {
+    publish({
+      ...currentData,
+      xp: currentData.xp + score * 5,
+      bestSignRush: Math.max(currentData.bestSignRush, score),
+    });
   }, []);
 
   const setPaywallUnlocked = useCallback((unlocked: boolean) => {
@@ -90,6 +139,10 @@ export function useUserData() {
     toggleBookmark,
     recordMockResult,
     setLanguage,
+    setVehicleClass,
+    setProfile,
+    completeLesson,
+    recordSignRush,
     setPaywallUnlocked,
     resetAll,
   };
@@ -97,4 +150,17 @@ export function useUserData() {
 
 export function getSRSCard(data: UserData, questionId: string): SRSCard {
   return data.srsCards[questionId] ?? newCard(questionId);
+}
+
+/** Level curve: every level needs 100 more XP than the previous (level 1 = 0..100, 2 = 100..300, etc). */
+export function levelInfo(xp: number): { level: number; into: number; needed: number; progress: number } {
+  let level = 1;
+  let needed = 100;
+  let into = xp;
+  while (into >= needed) {
+    into -= needed;
+    level += 1;
+    needed += 50;
+  }
+  return { level, into, needed, progress: into / needed };
 }

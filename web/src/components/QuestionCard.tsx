@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Question, ContentPack, UserData } from "../types";
+import type { Lang, Question, ContentPack, UserData } from "../types";
 import { categoryName } from "../engine/contentPack";
 import { loc } from "../engine/util";
+import { t } from "../i18n";
 
 type Mode = "practice" | "exam";
 
@@ -10,7 +11,7 @@ interface Props {
   question: Question;
   data: UserData;
   mode: Mode;
-  selectedId?: string | null; // for exam review (re-rendering past answers)
+  selectedId?: string | null;
   onAnswer: (choiceId: string, isCorrect: boolean, timeSpentSeconds: number) => void;
   onBookmark?: () => void;
   onNext?: () => void;
@@ -32,15 +33,13 @@ export default function QuestionCard({
   questionIndex,
   questionTotal,
 }: Props) {
+  const lang = (data.profile.language ?? "en") as Lang;
   const [chosen, setChosen] = useState<string | null>(selectedId);
-  const [answeredAt, setAnsweredAt] = useState<number | null>(null);
   const [shownAt, setShownAt] = useState<number>(() => Date.now());
-  const lang = data.language;
   const bookmarked = data.bookmarks.includes(question.id);
 
   useEffect(() => {
     setChosen(selectedId);
-    setAnsweredAt(null);
     setShownAt(Date.now());
   }, [question.id, selectedId]);
 
@@ -51,19 +50,28 @@ export default function QuestionCard({
     if (chosen !== null) return;
     setChosen(choiceId);
     const seconds = Math.max(0.1, (Date.now() - shownAt) / 1000);
-    setAnsweredAt(Date.now());
     onAnswer(choiceId, choiceId === question.correct, seconds);
   }
 
   return (
-    <div className="card p-5 md:p-7">
+    <div className={`card p-5 md:p-7 transition ${
+      showFeedback && chosen === question.correct
+        ? "ring-2 ring-emerald-300"
+        : showFeedback
+        ? "ring-2 ring-coral-300"
+        : ""
+    }`}>
       <div className="flex items-center justify-between text-xs">
         <div className="flex flex-wrap items-center gap-2">
           <span className="chip bg-gulf-50 text-gulf-600">{categoryName(pack, question.category)}</span>
           <span className="chip">
             <DifficultyDots level={question.difficulty} />
             <span className="ml-1">
-              {["Easy", "Easy", "Medium", "Hard", "Hard"][question.difficulty - 1] ?? "Medium"}
+              {question.difficulty <= 1
+                ? lang === "es" ? "Fácil" : "Easy"
+                : question.difficulty <= 2
+                ? lang === "es" ? "Medio" : "Medium"
+                : lang === "es" ? "Difícil" : "Hard"}
             </span>
           </span>
           {questionIndex !== undefined && questionTotal !== undefined && (
@@ -94,8 +102,7 @@ export default function QuestionCard({
         {question.choices.map((c) => {
           const isChosen = chosen === c.id;
           const isCorrect = c.id === question.correct;
-          let tone =
-            "bg-white text-ink-900 ring-ink-200 hover:ring-ink-400 hover:bg-ink-50";
+          let tone = "bg-white text-ink-900 ring-ink-200 hover:ring-ink-400 hover:bg-ink-50";
           if (showFeedback) {
             if (isCorrect) tone = "bg-emerald-50 text-emerald-900 ring-emerald-300";
             else if (isChosen) tone = "bg-coral-400/10 text-coral-700 ring-coral-400";
@@ -109,7 +116,9 @@ export default function QuestionCard({
                 type="button"
                 onClick={() => handlePick(c.id)}
                 disabled={chosen !== null && !isExam}
-                className={`group flex w-full items-start gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium ring-1 transition ${tone}`}
+                className={`group flex w-full items-start gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium ring-1 transition ${tone} ${
+                  showFeedback && isCorrect ? "scale-[1.02]" : ""
+                }`}
               >
                 <span
                   className={`mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold ring-1 ${
@@ -139,20 +148,24 @@ export default function QuestionCard({
               : "bg-sun-50 text-ink-800"
           }`}
         >
-          <div className="font-semibold">
-            {chosen === question.correct ? "Correct" : "Not quite"}
+          <div className="flex items-center gap-2 font-semibold">
+            <span className="text-lg">{chosen === question.correct ? "🎉" : "💡"}</span>
+            {chosen === question.correct ? t("correct", lang) : t("notQuite", lang)}
+            {chosen === question.correct && (
+              <span className="ml-auto text-xs font-bold text-emerald-700">+10 XP</span>
+            )}
           </div>
           <p className="mt-1 leading-relaxed">{loc(question.explanation, lang)}</p>
           {showHandbook && question.handbookRef && (
             <div className="mt-3 flex items-center gap-2 border-t border-current/10 pt-3 text-xs">
               <BookOpenIcon />
-              <span className="font-medium">FLHSMV Handbook · {question.handbookRef.section}</span>
+              <span className="font-medium">{pack.agency.name} · {question.handbookRef.section}</span>
               {question.handbookRef.page && <span>· p. {question.handbookRef.page}</span>}
             </div>
           )}
           {onNext && (
             <button type="button" onClick={onNext} className="btn-primary mt-4">
-              Next question →
+              {t("nextQuestion", lang)} →
             </button>
           )}
         </div>
@@ -178,16 +191,7 @@ function DifficultyDots({ level }: { level: number }) {
 
 function BookmarkIcon({ filled }: { filled: boolean }) {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill={filled ? "currentColor" : "none"}
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="18" height="18" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M6 3h12v18l-6-4-6 4Z" />
     </svg>
   );

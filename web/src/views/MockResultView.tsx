@@ -2,18 +2,22 @@ import { useMemo } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useContentPack, categoryName } from "../engine/contentPack";
 import { useUserData } from "../engine/store";
-import type { MockTestResult, Question } from "../types";
+import type { Lang, MockTestResult, Question } from "../types";
 import { formatDuration, loc } from "../engine/util";
+import { t } from "../i18n";
+import Confetti from "../components/Confetti";
 
 interface Snapshot {
   questionIds: string[];
   answers: Record<string, string>;
   result: MockTestResult;
+  forcedByHearts?: boolean;
 }
 
 export default function MockResultView() {
-  const { pack } = useContentPack();
   const { data } = useUserData();
+  const lang = (data.profile.language ?? "en") as Lang;
+  const { pack } = useContentPack(data.profile.vehicleClass);
 
   const snap = useMemo<Snapshot | null>(() => {
     try {
@@ -35,17 +39,17 @@ export default function MockResultView() {
   const right = items.length - wrong.length;
   const pct = Math.round((right / Math.max(items.length, 1)) * 100);
 
-  // Topic breakdown
   const topicTotals = new Map<string, { correct: number; total: number }>();
   for (const q of items) {
-    const t = topicTotals.get(q.category) ?? { correct: 0, total: 0 };
-    t.total += 1;
-    if (snap.answers[q.id] === q.correct) t.correct += 1;
-    topicTotals.set(q.category, t);
+    const tn = topicTotals.get(q.category) ?? { correct: 0, total: 0 };
+    tn.total += 1;
+    if (snap.answers[q.id] === q.correct) tn.correct += 1;
+    topicTotals.set(q.category, tn);
   }
 
   return (
     <div className="space-y-6">
+      <Confetti show={snap.result.passed} count={140} />
       <section
         className={`overflow-hidden rounded-3xl p-6 text-white shadow-card md:p-8 ${
           snap.result.passed
@@ -53,58 +57,59 @@ export default function MockResultView() {
             : "bg-gradient-to-br from-coral-500 via-coral-600 to-ink-800"
         }`}
       >
-        <div className="text-xs font-medium uppercase tracking-wider opacity-80">Mock test</div>
+        <div className="text-xs font-medium uppercase tracking-wider opacity-80">
+          {t("mockTest", lang)}
+        </div>
         <h1 className="mt-1 text-3xl font-bold md:text-4xl">
-          {snap.result.passed ? "You passed." : "Not yet — keep going."}
+          {snap.result.passed
+            ? lang === "es" ? "¡Aprobaste!" : "You passed."
+            : lang === "es" ? "Aún no — sigue adelante." : "Not yet — keep going."}
         </h1>
         <div className="mt-3 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm md:text-base">
           <span className="text-2xl font-bold md:text-3xl">
             {snap.result.score} / {snap.result.total}
           </span>
-          <span className="opacity-90">{pct}% correct</span>
+          <span className="opacity-90">{pct}%</span>
           <span className="opacity-80">· {formatDuration(snap.result.durationSeconds)}</span>
         </div>
         <p className="mt-3 max-w-xl text-sm opacity-90">
           {snap.result.passed
-            ? `On a real ${pack.exam.officialName}, ${pack.exam.passingScore} of ${pack.exam.questionCount} (${pack.exam.passingPercent}%) is the cutoff. You'd be issued the permit at this score.`
-            : `On the real exam you'd need ${pack.exam.passingScore} of ${pack.exam.questionCount} to pass. Drill the topics below and try again — ${pack.exam.retakeRule.toLowerCase()}.`}
+            ? lang === "es"
+              ? `En el examen real ${pack.exam.officialName}, ${pack.exam.passingScore} de ${pack.exam.questionCount} (${pack.exam.passingPercent}%) es el mínimo. ¡Te darían el permiso!`
+              : `On the real ${pack.exam.officialName}, ${pack.exam.passingScore} of ${pack.exam.questionCount} (${pack.exam.passingPercent}%) is the cutoff. You'd be issued the permit at this score.`
+            : lang === "es"
+              ? `Necesitas ${pack.exam.passingScore} de ${pack.exam.questionCount}. Repasa los temas abajo y vuelve a intentarlo.`
+              : `On the real exam you'd need ${pack.exam.passingScore} of ${pack.exam.questionCount} to pass. Drill the topics below and try again.`}
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            to="/mock/exam"
-            className="btn-primary bg-white text-ink-900 hover:bg-ink-100"
-          >
-            Take another mock test
+          <Link to="/mock/exam" className="btn-primary bg-white text-ink-900 hover:bg-ink-100">
+            {t("tryAgain", lang)}
           </Link>
           <Link to="/practice" className="btn-ghost text-white hover:bg-white/10">
-            Practice weak topics →
+            {t("practiceMode", lang)} →
           </Link>
         </div>
       </section>
 
       <section className="card p-5">
-        <h2 className="text-base font-semibold text-ink-900">By topic</h2>
+        <h2 className="text-base font-semibold text-ink-900">{t("byCategory", lang)}</h2>
         <ul className="mt-3 space-y-3">
           {Array.from(topicTotals.entries())
             .sort((a, b) => a[1].correct / a[1].total - b[1].correct / b[1].total)
-            .map(([cat, t]) => {
-              const acc = t.correct / t.total;
+            .map(([cat, tn]) => {
+              const acc = tn.correct / tn.total;
               return (
                 <li key={cat}>
                   <div className="flex items-baseline justify-between text-sm">
                     <span className="font-medium text-ink-900">{categoryName(pack, cat)}</span>
                     <span className="text-xs text-ink-500">
-                      {t.correct} / {t.total} · {Math.round(acc * 100)}%
+                      {tn.correct} / {tn.total} · {Math.round(acc * 100)}%
                     </span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-ink-100">
                     <div
                       className={`h-full ${
-                        acc >= 0.8
-                          ? "bg-emerald-400"
-                          : acc >= 0.6
-                          ? "bg-sun-300"
-                          : "bg-coral-400"
+                        acc >= 0.8 ? "bg-emerald-400" : acc >= 0.6 ? "bg-sun-300" : "bg-coral-400"
                       }`}
                       style={{ width: `${Math.round(acc * 100)}%` }}
                     />
@@ -117,10 +122,12 @@ export default function MockResultView() {
 
       <section className="card p-5">
         <h2 className="text-base font-semibold text-ink-900">
-          Review {wrong.length === 0 ? "(perfect score!)" : `${wrong.length} mistake${wrong.length === 1 ? "" : "s"}`}
+          {t("reviewYourMisses", lang)} {wrong.length === 0 ? "🎉" : `· ${wrong.length}`}
         </h2>
         {wrong.length === 0 ? (
-          <p className="mt-3 text-sm text-ink-500">No wrong answers — nothing to review.</p>
+          <p className="mt-3 text-sm text-ink-500">
+            {lang === "es" ? "Sin errores — nada que repasar." : "No wrong answers — nothing to review."}
+          </p>
         ) : (
           <ul className="mt-4 space-y-5">
             {wrong.map((q) => {
@@ -133,30 +140,26 @@ export default function MockResultView() {
                     {categoryName(pack, q.category)}
                   </div>
                   <h3 className="mt-1 text-sm font-semibold text-ink-900">
-                    {loc(q.stem, data.language)}
+                    {loc(q.stem, lang)}
                   </h3>
                   <div className="mt-3 space-y-2 text-sm">
                     {chosenChoice && (
                       <div className="flex gap-2 rounded-lg bg-coral-400/10 p-2.5 text-coral-700">
                         <span className="font-bold">✗</span>
-                        <span>
-                          You picked: <span className="font-medium">{loc(chosenChoice.text, data.language)}</span>
-                        </span>
+                        <span>{loc(chosenChoice.text, lang)}</span>
                       </div>
                     )}
                     <div className="flex gap-2 rounded-lg bg-emerald-50 p-2.5 text-emerald-900">
                       <span className="font-bold">✓</span>
-                      <span>
-                        Correct: <span className="font-medium">{loc(correctChoice.text, data.language)}</span>
-                      </span>
+                      <span>{loc(correctChoice.text, lang)}</span>
                     </div>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-ink-700">
-                    {loc(q.explanation, data.language)}
+                    {loc(q.explanation, lang)}
                   </p>
                   {q.handbookRef && (
                     <div className="mt-2 text-xs text-ink-500">
-                      FLHSMV Handbook · {q.handbookRef.section}
+                      {pack.agency.name} · {q.handbookRef.section}
                       {q.handbookRef.page ? ` · p. ${q.handbookRef.page}` : ""}
                     </div>
                   )}

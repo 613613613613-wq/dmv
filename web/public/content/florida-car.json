@@ -1,0 +1,559 @@
+{
+  "code": "FL-CAR",
+  "name": "Florida",
+  "vehicleClass": "car",
+  "agency": {
+    "name": "FLHSMV",
+    "fullName": "Florida Department of Highway Safety and Motor Vehicles",
+    "url": "https://www.flhsmv.gov"
+  },
+  "exam": {
+    "officialName": "Class E Knowledge Exam",
+    "questionCount": 50,
+    "passingScore": 40,
+    "passingPercent": 80,
+    "timeLimitMinutes": null,
+    "sectionFormat": "single",
+    "retakeRule": "After 48 hours; same-day retake also allowed for a fee",
+    "feeRetake": 11.74
+  },
+  "languages": {
+    "ui": ["en", "es"],
+    "test": ["en"],
+    "note": "The Class E Knowledge Exam is administered in English. Spanish is provided in study mode only."
+  },
+  "categories": [
+    { "id": "signs",    "name": "Road Signs",          "weight": 0.20 },
+    { "id": "row",      "name": "Right of Way",        "weight": 0.15 },
+    { "id": "rules",    "name": "Rules of the Road",   "weight": 0.18 },
+    { "id": "alcohol",  "name": "Alcohol & DUI",       "weight": 0.10 },
+    { "id": "parking",  "name": "Parking & Stopping",  "weight": 0.06 },
+    { "id": "fines",    "name": "Fines & Penalties",   "weight": 0.05 },
+    { "id": "moveOver", "name": "Move-Over Law",       "weight": 0.05 },
+    { "id": "license",  "name": "License Types & GDL", "weight": 0.06 },
+    { "id": "safety",   "name": "Safe Driving",        "weight": 0.15 }
+  ],
+  "handbook": {
+    "url": "https://www.flhsmv.gov/safety-center/driver-license-handbook/",
+    "version": "2023.08",
+    "lastReviewed": "2026-04-28"
+  },
+  "specialNotes": [
+    "TLSAE (Traffic Law and Substance Abuse Education) 4-hour course is required for all first-time applicants before the knowledge exam.",
+    "Permit holders must drive with a licensed driver age 21+ in the closest seat at all times. First 3 months: daylight only.",
+    "Move-Over: vacate the lane next to a stopped emergency, utility, sanitation or tow vehicle with flashing lights when safe.",
+    "Florida law requires you to signal a turn at least 100 feet before turning."
+  ],
+  "questions": [
+    {
+      "id": "FLC-001", "category": "signs", "difficulty": 1,
+      "stem": { "en": "What does a flashing red traffic signal mean?", "es": "¿Qué significa una señal roja intermitente?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Slow down and proceed with caution", "es": "Reduce y avanza con precaución" } },
+        { "id": "b", "text": { "en": "Stop completely, then proceed when safe", "es": "Detente por completo y avanza cuando sea seguro" } },
+        { "id": "c", "text": { "en": "Stop only if other vehicles are present", "es": "Detente sólo si hay otros vehículos" } },
+        { "id": "d", "text": { "en": "Treat the signal as green", "es": "Trata la señal como verde" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "A flashing red signal means stop. Treat it exactly like a stop sign: come to a full stop, then proceed when it is safe.",
+        "es": "Una señal roja intermitente significa alto. Trátala como un PARE: detente por completo y avanza cuando sea seguro."
+      },
+      "handbookRef": { "section": "Traffic Controls — Signal Lights", "page": null, "url": null },
+      "tags": ["signals", "stop"]
+    },
+    {
+      "id": "FLC-002", "category": "signs", "difficulty": 1,
+      "stem": { "en": "What does a flashing yellow traffic signal mean?", "es": "¿Qué significa una luz amarilla intermitente?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Stop and wait for green", "es": "Detente y espera el verde" } },
+        { "id": "b", "text": { "en": "Slow down and proceed with caution", "es": "Reduce y avanza con precaución" } },
+        { "id": "c", "text": { "en": "Yield only to pedestrians", "es": "Cede el paso sólo a peatones" } },
+        { "id": "d", "text": { "en": "Speed up to clear the intersection", "es": "Acelera para salir de la intersección" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "A flashing yellow means slow down, look both ways, and proceed through the intersection with caution.",
+        "es": "Amarillo intermitente significa reduce, mira a ambos lados y cruza la intersección con precaución."
+      },
+      "handbookRef": { "section": "Traffic Controls — Signal Lights", "page": null, "url": null },
+      "tags": ["signals"]
+    },
+    {
+      "id": "FLC-003", "category": "signs", "difficulty": 1,
+      "stem": { "en": "What shape is a yield sign?", "es": "¿Qué forma tiene una señal de ceda el paso?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Octagon", "es": "Octágono" } },
+        { "id": "b", "text": { "en": "Diamond", "es": "Rombo" } },
+        { "id": "c", "text": { "en": "Downward-pointing triangle", "es": "Triángulo invertido" } },
+        { "id": "d", "text": { "en": "Pentagon", "es": "Pentágono" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Yield signs are downward-pointing triangles, white with a red border. Slow down and give right of way.",
+        "es": "Las señales de ceda son triángulos invertidos blancos con borde rojo. Reduce y cede el paso."
+      },
+      "handbookRef": { "section": "Traffic Controls — Sign Shapes", "page": null, "url": null },
+      "tags": ["signs", "shapes"]
+    },
+    {
+      "id": "FLC-004", "category": "signs", "difficulty": 2,
+      "stem": { "en": "An orange diamond-shaped sign tells you about:", "es": "Una señal naranja en forma de rombo indica:" },
+      "choices": [
+        { "id": "a", "text": { "en": "A regulatory speed limit", "es": "Un límite de velocidad reglamentario" } },
+        { "id": "b", "text": { "en": "A school zone", "es": "Una zona escolar" } },
+        { "id": "c", "text": { "en": "A construction or maintenance work zone", "es": "Una zona de obras o mantenimiento" } },
+        { "id": "d", "text": { "en": "A scenic route", "es": "Una ruta turística" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Orange signs warn of road work or maintenance. Slow down, watch for workers, and obey flaggers.",
+        "es": "Las señales naranjas advierten zonas de obras o mantenimiento. Reduce, cuida a los trabajadores y obedece a los señaleros."
+      },
+      "handbookRef": { "section": "Traffic Controls — Construction Signs", "page": null, "url": null },
+      "tags": ["signs", "construction"]
+    },
+    {
+      "id": "FLC-005", "category": "signs", "difficulty": 1,
+      "stem": { "en": "A pentagon-shaped, yellow-green sign means:", "es": "Una señal pentagonal de color amarillo-verde indica:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Hospital ahead", "es": "Hospital adelante" } },
+        { "id": "b", "text": { "en": "School zone or school crossing", "es": "Zona escolar o cruce escolar" } },
+        { "id": "c", "text": { "en": "Bicycle route", "es": "Ruta de bicicletas" } },
+        { "id": "d", "text": { "en": "Rest area", "es": "Área de descanso" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Yellow-green pentagon = school zone or school crossing. Be ready for children and obey reduced speed limits.",
+        "es": "Pentágono amarillo-verde = zona escolar o cruce escolar. Atento a los niños y respeta los límites reducidos."
+      },
+      "handbookRef": { "section": "Traffic Controls — School Signs", "page": null, "url": null },
+      "tags": ["signs", "school"]
+    },
+    {
+      "id": "FLC-006", "category": "row", "difficulty": 2,
+      "stem": { "en": "Two cars arrive at a four-way stop at the same time. Which has the right of way?", "es": "Dos autos llegan a un alto de cuatro vías al mismo tiempo. ¿Cuál tiene el derecho de paso?" },
+      "choices": [
+        { "id": "a", "text": { "en": "The car going straight", "es": "El que va recto" } },
+        { "id": "b", "text": { "en": "The car on the right", "es": "El que está a la derecha" } },
+        { "id": "c", "text": { "en": "The car on the left", "es": "El que está a la izquierda" } },
+        { "id": "d", "text": { "en": "The larger vehicle", "es": "El vehículo más grande" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "When two vehicles arrive at a four-way stop at the same time, the vehicle on the right has the right of way.",
+        "es": "Cuando dos vehículos llegan a la vez a un alto de cuatro vías, el de la derecha tiene el derecho de paso."
+      },
+      "handbookRef": { "section": "Right of Way — Intersections", "page": null, "url": null },
+      "tags": ["row"]
+    },
+    {
+      "id": "FLC-007", "category": "row", "difficulty": 2,
+      "stem": { "en": "On a two-lane undivided road, an oncoming school bus stops with red lights flashing. You must:", "es": "En una vía no dividida de dos carriles, un autobús escolar en sentido contrario se detiene con luces rojas intermitentes. Debes:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Continue — only same-direction traffic stops", "es": "Continuar — sólo el tráfico en tu sentido se detiene" } },
+        { "id": "b", "text": { "en": "Slow to 10 mph and proceed", "es": "Reducir a 10 mph y avanzar" } },
+        { "id": "c", "text": { "en": "Stop completely until the bus moves or the lights stop flashing", "es": "Detenerte por completo hasta que el bus se mueva o se apaguen las luces" } },
+        { "id": "d", "text": { "en": "Honk and continue", "es": "Tocar la bocina y continuar" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "On a two-lane undivided road, traffic in BOTH directions must stop. Only on a divided highway with an unpaved median or barrier may oncoming traffic continue.",
+        "es": "En una vía no dividida de dos carriles, el tráfico en AMBOS sentidos debe detenerse. Sólo en una autopista dividida con mediana sin pavimentar o barrera puede continuar el tráfico contrario."
+      },
+      "handbookRef": { "section": "School Buses and School Zones", "page": null, "url": null },
+      "tags": ["school-bus", "row"]
+    },
+    {
+      "id": "FLC-008", "category": "row", "difficulty": 2,
+      "stem": { "en": "A pedestrian using a white cane or guide dog at an intersection has:", "es": "Un peatón con bastón blanco o perro guía en una intersección tiene:" },
+      "choices": [
+        { "id": "a", "text": { "en": "The right of way at all times — you must stop", "es": "El derecho de paso siempre — debes detenerte" } },
+        { "id": "b", "text": { "en": "No special right of way", "es": "Ningún derecho de paso especial" } },
+        { "id": "c", "text": { "en": "Right of way only at marked crosswalks", "es": "Derecho de paso sólo en cruces marcados" } },
+        { "id": "d", "text": { "en": "Right of way only when accompanied", "es": "Derecho de paso sólo si va acompañado" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Florida law requires drivers to come to a complete stop and yield the right of way to a blind pedestrian who is using a white cane or guide dog.",
+        "es": "La ley de Florida exige detenerte por completo y ceder el paso a un peatón ciego que use bastón blanco o perro guía."
+      },
+      "handbookRef": { "section": "Pedestrians", "page": null, "url": null },
+      "tags": ["row", "pedestrians"]
+    },
+    {
+      "id": "FLC-009", "category": "rules", "difficulty": 1,
+      "stem": { "en": "Under good conditions, what is the minimum following distance you should keep?", "es": "En buenas condiciones, ¿cuál es la distancia mínima de seguimiento?" },
+      "choices": [
+        { "id": "a", "text": { "en": "One car length per 10 mph", "es": "Un largo de auto por cada 10 mph" } },
+        { "id": "b", "text": { "en": "At least 2 seconds", "es": "Al menos 2 segundos" } },
+        { "id": "c", "text": { "en": "10 feet at any speed", "es": "10 pies a cualquier velocidad" } },
+        { "id": "d", "text": { "en": "Half a second", "es": "Medio segundo" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Use the two-second rule: pick a fixed object the car ahead passes, then count 'one-thousand-one, one-thousand-two.' Increase the gap in rain, fog, or at higher speeds.",
+        "es": "Usa la regla de los 2 segundos: elige un punto fijo que pase el auto delantero y cuenta 'mil uno, mil dos.' Aumenta el espacio bajo lluvia, niebla o alta velocidad."
+      },
+      "handbookRef": { "section": "Safe Driving — Following Distance", "page": null, "url": null },
+      "tags": ["following-distance"]
+    },
+    {
+      "id": "FLC-010", "category": "rules", "difficulty": 1,
+      "stem": { "en": "How far before a turn must you signal in Florida?", "es": "¿Con cuánta anticipación debes señalizar un giro en Florida?" },
+      "choices": [
+        { "id": "a", "text": { "en": "At least 50 feet", "es": "Al menos 50 pies" } },
+        { "id": "b", "text": { "en": "At least 100 feet", "es": "Al menos 100 pies" } },
+        { "id": "c", "text": { "en": "At least 250 feet", "es": "Al menos 250 pies" } },
+        { "id": "d", "text": { "en": "Only when other traffic is present", "es": "Sólo cuando hay otros vehículos" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Florida law requires you to signal at least 100 feet (about 30 m) before the turn.",
+        "es": "La ley de Florida exige señalizar al menos 100 pies (unos 30 m) antes del giro."
+      },
+      "handbookRef": { "section": "Rules of the Road — Turning", "page": null, "url": null },
+      "tags": ["signaling"]
+    },
+    {
+      "id": "FLC-011", "category": "rules", "difficulty": 2,
+      "stem": { "en": "Your turn signals are not working. What hand signal indicates a left turn?", "es": "Tus direccionales no funcionan. ¿Qué señal con la mano indica giro a la izquierda?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Left arm extended straight out", "es": "Brazo izquierdo extendido recto" } },
+        { "id": "b", "text": { "en": "Left arm bent up 90°", "es": "Brazo izquierdo doblado hacia arriba 90°" } },
+        { "id": "c", "text": { "en": "Left arm bent down 90°", "es": "Brazo izquierdo doblado hacia abajo 90°" } },
+        { "id": "d", "text": { "en": "Right arm pointing left across the dashboard", "es": "Brazo derecho apuntando a la izquierda" } }
+      ],
+      "correct": "a",
+      "explanation": {
+        "en": "Left turn: arm straight out. Right turn: arm bent up. Stop or slow: arm bent down.",
+        "es": "Giro izquierdo: brazo recto. Giro derecho: brazo doblado hacia arriba. Detener/reducir: brazo doblado hacia abajo."
+      },
+      "handbookRef": { "section": "Hand Signals", "page": null, "url": null },
+      "tags": ["hand-signals"]
+    },
+    {
+      "id": "FLC-012", "category": "rules", "difficulty": 1,
+      "stem": { "en": "Speed limit in a Florida school zone when children are present (unless posted otherwise):", "es": "Límite de velocidad en zona escolar de Florida cuando hay niños (salvo otra indicación):" },
+      "choices": [
+        { "id": "a", "text": { "en": "15 mph", "es": "15 mph" } },
+        { "id": "b", "text": { "en": "20 mph", "es": "20 mph" } },
+        { "id": "c", "text": { "en": "25 mph", "es": "25 mph" } },
+        { "id": "d", "text": { "en": "30 mph", "es": "30 mph" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Default Florida school zone speed is 20 mph when children are present or during posted hours.",
+        "es": "El límite predeterminado en zona escolar de Florida es 20 mph cuando hay niños o en los horarios indicados."
+      },
+      "handbookRef": { "section": "Speed Limits — School Zones", "page": null, "url": null },
+      "tags": ["school-zone", "speed"]
+    },
+    {
+      "id": "FLC-013", "category": "rules", "difficulty": 1,
+      "stem": { "en": "Default Florida speed limit on a rural interstate (unless posted otherwise):", "es": "Límite predeterminado en una autopista interestatal rural de Florida (salvo otra indicación):" },
+      "choices": [
+        { "id": "a", "text": { "en": "55 mph", "es": "55 mph" } },
+        { "id": "b", "text": { "en": "65 mph", "es": "65 mph" } },
+        { "id": "c", "text": { "en": "70 mph", "es": "70 mph" } },
+        { "id": "d", "text": { "en": "75 mph", "es": "75 mph" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Florida rural interstates default to 70 mph; some sections are posted at 75 mph. Urban interstates default to 55-65 mph.",
+        "es": "Las interestatales rurales de Florida son 70 mph por defecto; algunos tramos a 75 mph. Las urbanas son 55-65 mph."
+      },
+      "handbookRef": { "section": "Speed Limits", "page": null, "url": null },
+      "tags": ["speed"]
+    },
+    {
+      "id": "FLC-014", "category": "rules", "difficulty": 1,
+      "stem": { "en": "Default speed limit in a Florida residential area (unless posted otherwise):", "es": "Límite predeterminado en zona residencial de Florida (salvo otra indicación):" },
+      "choices": [
+        { "id": "a", "text": { "en": "20 mph", "es": "20 mph" } },
+        { "id": "b", "text": { "en": "30 mph", "es": "30 mph" } },
+        { "id": "c", "text": { "en": "35 mph", "es": "35 mph" } },
+        { "id": "d", "text": { "en": "45 mph", "es": "45 mph" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Default speed in a Florida business or residential area is 30 mph.",
+        "es": "El límite predeterminado en zonas comerciales o residenciales de Florida es 30 mph."
+      },
+      "handbookRef": { "section": "Speed Limits", "page": null, "url": null },
+      "tags": ["speed"]
+    },
+    {
+      "id": "FLC-015", "category": "alcohol", "difficulty": 1,
+      "stem": { "en": "Legal BAC limit for a non-commercial Florida driver age 21 or older:", "es": "Límite legal de BAC para conductor no comercial de Florida, 21 años o más:" },
+      "choices": [
+        { "id": "a", "text": { "en": "0.02%", "es": "0.02%" } },
+        { "id": "b", "text": { "en": "0.05%", "es": "0.05%" } },
+        { "id": "c", "text": { "en": "0.08%", "es": "0.08%" } },
+        { "id": "d", "text": { "en": "0.10%", "es": "0.10%" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Drivers 21+ are legally impaired at 0.08% BAC. Under 21: 0.02% (zero tolerance). Commercial: 0.04%.",
+        "es": "21+: 0.08%. Menores de 21: 0.02% (cero tolerancia). Comerciales: 0.04%."
+      },
+      "handbookRef": { "section": "Alcohol, Other Drugs, and Driving", "page": null, "url": null },
+      "tags": ["dui", "bac"]
+    },
+    {
+      "id": "FLC-016", "category": "alcohol", "difficulty": 2,
+      "stem": { "en": "BAC limit for Florida drivers under age 21:", "es": "Límite de BAC para conductores menores de 21 en Florida:" },
+      "choices": [
+        { "id": "a", "text": { "en": "0.00%", "es": "0.00%" } },
+        { "id": "b", "text": { "en": "0.02%", "es": "0.02%" } },
+        { "id": "c", "text": { "en": "0.05%", "es": "0.05%" } },
+        { "id": "d", "text": { "en": "0.08%", "es": "0.08%" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Florida applies zero-tolerance for drivers under 21: 0.02% BAC = automatic 6-month license suspension.",
+        "es": "Florida aplica cero tolerancia a menores de 21: 0.02% de BAC = suspensión automática de 6 meses."
+      },
+      "handbookRef": { "section": "Alcohol — Under 21", "page": null, "url": null },
+      "tags": ["dui", "under-21"]
+    },
+    {
+      "id": "FLC-017", "category": "alcohol", "difficulty": 2,
+      "stem": { "en": "If you refuse to take a breath test in Florida, what happens to your license?", "es": "Si rechazas la prueba de aliento en Florida, ¿qué pasa con tu licencia?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Nothing — you have the right to refuse", "es": "Nada — tienes derecho a rehusar" } },
+        { "id": "b", "text": { "en": "Suspended for 1 year on the first refusal", "es": "Suspendida 1 año en el primer rechazo" } },
+        { "id": "c", "text": { "en": "Suspended for 30 days", "es": "Suspendida 30 días" } },
+        { "id": "d", "text": { "en": "Revoked permanently", "es": "Revocada permanentemente" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Florida's Implied Consent law: a first refusal = 1-year suspension. A second or subsequent refusal = 18 months and a misdemeanor charge.",
+        "es": "Ley de Consentimiento Implícito: primer rechazo = 1 año. Segundo o más = 18 meses y delito menor."
+      },
+      "handbookRef": { "section": "Implied Consent", "page": null, "url": null },
+      "tags": ["dui", "implied-consent"]
+    },
+    {
+      "id": "FLC-018", "category": "moveOver", "difficulty": 2,
+      "stem": { "en": "Florida's Move Over Law on a multi-lane road requires you to:", "es": "La Ley Move Over de Florida en una vía de varios carriles exige:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Continue at posted speed; the vehicle is on the shoulder", "es": "Continuar al límite; el vehículo está en el acotamiento" } },
+        { "id": "b", "text": { "en": "Move into a non-adjacent lane if safe; otherwise slow to 20 mph below the posted limit", "es": "Cambiar a un carril no contiguo si es seguro; si no, reduce a 20 mph por debajo del límite" } },
+        { "id": "c", "text": { "en": "Stop completely until the vehicle leaves", "es": "Detenerte por completo hasta que el vehículo se vaya" } },
+        { "id": "d", "text": { "en": "Honk to acknowledge the vehicle", "es": "Tocar la bocina" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Move over for stopped emergency, law-enforcement, sanitation, utility, tow or wrecker vehicles with flashing lights. If you can't, slow to 20 mph below the posted speed (or 5 mph if the limit is 20 or less).",
+        "es": "Cede el carril a vehículos de emergencia, policía, sanidad, servicios públicos, grúas o reparación con luces intermitentes. Si no puedes, reduce a 20 mph bajo el límite (o 5 mph si el límite es 20 o menos)."
+      },
+      "handbookRef": { "section": "Move Over Law", "page": null, "url": null },
+      "tags": ["move-over"]
+    },
+    {
+      "id": "FLC-019", "category": "safety", "difficulty": 2,
+      "stem": { "en": "Your car begins to hydroplane in heavy rain. What should you do?", "es": "Tu auto comienza a hidroplanear en lluvia fuerte. ¿Qué debes hacer?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Brake hard to slow down quickly", "es": "Frenar fuerte para reducir rápido" } },
+        { "id": "b", "text": { "en": "Steer sharply to regain control", "es": "Girar bruscamente para recuperar control" } },
+        { "id": "c", "text": { "en": "Ease off the accelerator and steer straight until traction returns", "es": "Suelta el acelerador suavemente y mantén el volante recto hasta recuperar tracción" } },
+        { "id": "d", "text": { "en": "Accelerate to push through the water", "es": "Acelerar para atravesar el agua" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Ease off the gas, keep the wheel pointed straight, avoid hard braking. Sudden inputs cause skids.",
+        "es": "Suelta el acelerador, mantén el volante recto y evita frenar fuerte. Las maniobras bruscas causan derrapes."
+      },
+      "handbookRef": { "section": "Driving in Bad Weather", "page": null, "url": null },
+      "tags": ["hydroplane", "weather"]
+    },
+    {
+      "id": "FLC-020", "category": "safety", "difficulty": 2,
+      "stem": { "en": "If your car begins to skid, you should:", "es": "Si tu auto empieza a derrapar, debes:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Slam on the brakes", "es": "Pisar el freno a fondo" } },
+        { "id": "b", "text": { "en": "Steer in the direction you want the front of the car to go", "es": "Gira el volante en la dirección hacia donde quieres ir" } },
+        { "id": "c", "text": { "en": "Steer in the opposite direction", "es": "Girar en la dirección contraria" } },
+        { "id": "d", "text": { "en": "Accelerate hard", "es": "Acelerar fuerte" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Steer gently in the direction you want the front of the car to go and ease off the gas. Avoid hard braking.",
+        "es": "Gira suavemente en la dirección hacia donde quieres ir y suelta el acelerador. Evita frenar fuerte."
+      },
+      "handbookRef": { "section": "Skids", "page": null, "url": null },
+      "tags": ["skid"]
+    },
+    {
+      "id": "FLC-021", "category": "safety", "difficulty": 1,
+      "stem": { "en": "When can you legally use high-beam headlights?", "es": "¿Cuándo puedes usar luces altas legalmente?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Any time at night", "es": "En cualquier momento de noche" } },
+        { "id": "b", "text": { "en": "Only on roads without oncoming traffic; switch to low beams within 500 ft of an oncoming car or 300 ft when following another car", "es": "Sólo sin tráfico contrario; cambia a luces bajas a 500 pies de un auto que viene o 300 pies si vas detrás" } },
+        { "id": "c", "text": { "en": "Whenever it is raining", "es": "Cuando llueve" } },
+        { "id": "d", "text": { "en": "Inside city limits only", "es": "Sólo dentro de la ciudad" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Use high beams only when no other traffic is near. Florida law: switch to low beams within 500 ft of an oncoming vehicle or 300 ft when following.",
+        "es": "Usa luces altas solo si no hay tráfico cerca. Cambia a bajas a 500 pies del auto contrario o 300 pies si lo sigues."
+      },
+      "handbookRef": { "section": "Headlights", "page": null, "url": null },
+      "tags": ["headlights", "night"]
+    },
+    {
+      "id": "FLC-022", "category": "safety", "difficulty": 1,
+      "stem": { "en": "When must you turn on your headlights in Florida?", "es": "¿Cuándo debes encender los faros en Florida?" },
+      "choices": [
+        { "id": "a", "text": { "en": "Only after dark", "es": "Sólo después del anochecer" } },
+        { "id": "b", "text": { "en": "Sunset to sunrise, in fog, smoke, or rain (whenever windshield wipers are needed)", "es": "Del atardecer al amanecer, con niebla, humo o lluvia (siempre que necesites limpiaparabrisas)" } },
+        { "id": "c", "text": { "en": "Only on highways", "es": "Sólo en autopistas" } },
+        { "id": "d", "text": { "en": "Only when the vehicle is older than 10 years", "es": "Sólo en vehículos de más de 10 años" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Florida law: headlights on from sunset to sunrise, and any time windshield wipers are needed for rain, smoke or fog.",
+        "es": "La ley exige faros encendidos del atardecer al amanecer y siempre que uses limpiaparabrisas por lluvia, humo o niebla."
+      },
+      "handbookRef": { "section": "Headlights — When Required", "page": null, "url": null },
+      "tags": ["headlights", "weather"]
+    },
+    {
+      "id": "FLC-023", "category": "parking", "difficulty": 1,
+      "stem": { "en": "How close to a fire hydrant may you legally park in Florida?", "es": "¿A qué distancia mínima de un hidrante puedes estacionar en Florida?" },
+      "choices": [
+        { "id": "a", "text": { "en": "5 feet", "es": "5 pies" } },
+        { "id": "b", "text": { "en": "10 feet", "es": "10 pies" } },
+        { "id": "c", "text": { "en": "15 feet", "es": "15 pies" } },
+        { "id": "d", "text": { "en": "25 feet", "es": "25 pies" } }
+      ],
+      "correct": "c",
+      "explanation": {
+        "en": "Never park within 15 feet of a fire hydrant in Florida.",
+        "es": "Nunca estaciones a menos de 15 pies de un hidrante en Florida."
+      },
+      "handbookRef": { "section": "Parking — Where Prohibited", "page": null, "url": null },
+      "tags": ["parking"]
+    },
+    {
+      "id": "FLC-024", "category": "parking", "difficulty": 2,
+      "stem": { "en": "When parking uphill next to a curb, your front wheels should be turned:", "es": "Al estacionar cuesta arriba junto a la acera, las ruedas delanteras deben girar:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Toward the curb", "es": "Hacia la acera" } },
+        { "id": "b", "text": { "en": "Away from the curb", "es": "Hacia afuera de la acera" } },
+        { "id": "c", "text": { "en": "Straight ahead", "es": "Rectas" } },
+        { "id": "d", "text": { "en": "It doesn't matter", "es": "No importa" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Uphill with a curb: turn wheels AWAY from the curb so the car rolls back into it if brakes fail. Downhill or uphill with no curb: turn TOWARD the edge.",
+        "es": "Cuesta arriba con acera: gira las ruedas HACIA AFUERA para que el auto retroceda contra la acera si fallan los frenos. Cuesta abajo o sin acera: gira HACIA el borde."
+      },
+      "handbookRef": { "section": "Parking on a Hill", "page": null, "url": null },
+      "tags": ["parking"]
+    },
+    {
+      "id": "FLC-025", "category": "license", "difficulty": 2,
+      "stem": { "en": "A Florida Learner's License holder must drive with:", "es": "El titular de un permiso de aprendizaje en Florida debe conducir con:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Any licensed driver age 18+ anywhere in the vehicle", "es": "Cualquier conductor con licencia de 18+ en cualquier asiento" } },
+        { "id": "b", "text": { "en": "A licensed driver age 21+ in the closest seat to the driver", "es": "Un conductor con licencia de 21+ en el asiento más cercano al conductor" } },
+        { "id": "c", "text": { "en": "A parent or guardian only", "es": "Sólo con padre o tutor" } },
+        { "id": "d", "text": { "en": "No supervision required after the first month", "es": "Sin supervisión tras el primer mes" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Permit holders must always have a licensed driver age 21+ in the closest seat. First 3 months: daylight only; afterward, until 10 PM.",
+        "es": "Los permisos requieren un conductor con licencia de 21+ en el asiento más cercano siempre. Primeros 3 meses: sólo de día; después, hasta las 10 PM."
+      },
+      "handbookRef": { "section": "Graduated Driver License — Learner's License", "page": null, "url": null },
+      "tags": ["permit", "gdl"]
+    },
+    {
+      "id": "FLC-026", "category": "license", "difficulty": 2,
+      "stem": { "en": "Before taking the Class E knowledge exam, all first-time Florida applicants must complete:", "es": "Antes del examen de Clase E, todos los solicitantes por primera vez en Florida deben completar:" },
+      "choices": [
+        { "id": "a", "text": { "en": "A 30-hour behind-the-wheel course", "es": "Un curso de 30 horas tras el volante" } },
+        { "id": "b", "text": { "en": "The TLSAE 4-hour Traffic Law and Substance Abuse Education course", "es": "El curso TLSAE de 4 horas (Ley de Tráfico y Abuso de Sustancias)" } },
+        { "id": "c", "text": { "en": "A defensive driving course", "es": "Un curso de manejo defensivo" } },
+        { "id": "d", "text": { "en": "Six months of permit driving", "es": "Seis meses de conducción con permiso" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "All first-time Florida applicants must complete TLSAE — a 4-hour Traffic Law and Substance Abuse Education course — before the knowledge exam.",
+        "es": "Todos los solicitantes por primera vez deben completar TLSAE — curso de 4 horas — antes del examen de conocimientos."
+      },
+      "handbookRef": { "section": "Required Courses", "page": null, "url": null },
+      "tags": ["tlsae"]
+    },
+    {
+      "id": "FLC-027", "category": "fines", "difficulty": 2,
+      "stem": { "en": "First-conviction DUI penalty in Florida (BAC 0.08% or higher) typically includes:", "es": "Primera condena por DUI en Florida (BAC 0.08% o más) suele incluir:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Warning only", "es": "Sólo advertencia" } },
+        { "id": "b", "text": { "en": "Fine $500-$1,000, license revocation 6-12 months, possible 6 months in jail", "es": "Multa $500-$1,000, revocación 6-12 meses, hasta 6 meses de cárcel" } },
+        { "id": "c", "text": { "en": "$50 fine and a class", "es": "Multa de $50 y un curso" } },
+        { "id": "d", "text": { "en": "Mandatory life sentence", "es": "Cadena perpetua" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "First DUI: $500-$1,000 fine, 6-12 month license revocation, up to 6 months jail (more if BAC ≥ 0.15 or a minor in the car), 50 hours community service, plus DUI school.",
+        "es": "Primer DUI: multa $500-$1,000, revocación 6-12 meses, hasta 6 meses cárcel (más si BAC ≥ 0.15 o un menor en el auto), 50 horas servicio comunitario y escuela DUI."
+      },
+      "handbookRef": { "section": "DUI Penalties", "page": null, "url": null },
+      "tags": ["dui", "fines"]
+    },
+    {
+      "id": "FLC-028", "category": "rules", "difficulty": 2,
+      "stem": { "en": "What does a solid yellow line on your side of the center stripe mean?", "es": "¿Qué significa una línea amarilla continua en tu lado de la franja central?" },
+      "choices": [
+        { "id": "a", "text": { "en": "You may pass if oncoming traffic is clear", "es": "Puedes rebasar si no viene tráfico" } },
+        { "id": "b", "text": { "en": "Do not pass — passing is prohibited", "es": "No rebasar — está prohibido" } },
+        { "id": "c", "text": { "en": "You may pass only on a hill", "es": "Puedes rebasar sólo en una colina" } },
+        { "id": "d", "text": { "en": "Passing is allowed at any time", "es": "Se permite rebasar en cualquier momento" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "A solid yellow on YOUR side means no passing. A broken yellow on your side means passing is allowed when safe.",
+        "es": "Línea amarilla CONTINUA en tu lado = no rebasar. Línea discontinua amarilla = puedes rebasar cuando sea seguro."
+      },
+      "handbookRef": { "section": "Pavement Markings", "page": null, "url": null },
+      "tags": ["passing", "markings"]
+    },
+    {
+      "id": "FLC-029", "category": "row", "difficulty": 2,
+      "stem": { "en": "You hear an emergency vehicle siren approaching from behind. You should:", "es": "Escuchas la sirena de un vehículo de emergencia detrás. Debes:" },
+      "choices": [
+        { "id": "a", "text": { "en": "Speed up to get out of its way", "es": "Acelerar para apartarte" } },
+        { "id": "b", "text": { "en": "Pull as close as possible to the right edge of the road and stop until it passes", "es": "Orillarte a la derecha y detenerte hasta que pase" } },
+        { "id": "c", "text": { "en": "Stop in your lane immediately", "es": "Detenerte en tu carril de inmediato" } },
+        { "id": "d", "text": { "en": "Continue at your current speed", "es": "Continuar a la misma velocidad" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Move to the right edge of the road and stop. Stay stopped until all emergency vehicles have passed. Never block intersections.",
+        "es": "Orillate a la derecha y detente. Permanece detenido hasta que pasen todos los vehículos de emergencia. Nunca bloquees intersecciones."
+      },
+      "handbookRef": { "section": "Emergency Vehicles", "page": null, "url": null },
+      "tags": ["emergency"]
+    },
+    {
+      "id": "FLC-030", "category": "safety", "difficulty": 2,
+      "stem": { "en": "It is illegal in Florida to text and drive. The current law is:", "es": "Enviar mensajes mientras conduces es ilegal en Florida. La ley actual es:" },
+      "choices": [
+        { "id": "a", "text": { "en": "A secondary offense — only ticketed if stopped for something else", "es": "Una infracción secundaria — sólo si te detienen por otra cosa" } },
+        { "id": "b", "text": { "en": "A primary offense — officers can pull you over for texting alone, and it is hands-free in school and work zones", "es": "Una infracción primaria — la policía puede detenerte sólo por enviar mensajes; manos libres obligatorias en zonas escolares y de obras" } },
+        { "id": "c", "text": { "en": "Allowed at red lights", "es": "Permitida en semáforos rojos" } },
+        { "id": "d", "text": { "en": "Allowed if you use voice-to-text only", "es": "Permitida si usas dictado por voz" } }
+      ],
+      "correct": "b",
+      "explanation": {
+        "en": "Since 2019, texting while driving is a primary offense in Florida. Since Oct 2019, all handheld device use is banned in active school and work zones — must use hands-free.",
+        "es": "Desde 2019, enviar mensajes al manejar es infracción primaria. Desde octubre 2019, prohibido usar dispositivos en mano en zonas escolares y de obras — sólo manos libres."
+      },
+      "handbookRef": { "section": "Distracted Driving", "page": null, "url": null },
+      "tags": ["distracted"]
+    }
+  ]
+}

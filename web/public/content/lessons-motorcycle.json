@@ -1,0 +1,145 @@
+{
+  "vehicleClass": "motorcycle",
+  "lessons": [
+    {
+      "id": "mc-l1-gear",
+      "vehicleClass": "motorcycle",
+      "emoji": "🪖",
+      "title": { "en": "Gear Up: ATGATT", "es": "Equípate: ATGATT" },
+      "blurb": { "en": "All The Gear, All The Time. Why every ride matters.", "es": "Todo el Equipo, Todo el Tiempo. Por qué cada viaje importa." },
+      "xpReward": 50,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Skin doesn't grow back", "es": "La piel no vuelve a crecer" }, "body": { "en": "Every motorcycle crash that breaks skin trades 'a few minutes of inconvenience' for 'months of recovery'. Pros wear gear every single ride — even to the corner store. The mantra: ATGATT — All The Gear, All The Time.", "es": "Cada caída sin equipo cambia 'unos minutos de molestia' por 'meses de recuperación'. Los profesionales usan equipo en CADA viaje — hasta a la tienda de la esquina. El lema: ATGATT — Todo el Equipo, Todo el Tiempo." }, "imageEmoji": "🛡️" },
+        { "kind": "concept", "title": { "en": "Helmet — DOT-approved, full-face preferred", "es": "Casco — aprobado DOT, integral preferido" }, "body": { "en": "A full-face helmet protects your jaw and chin (most-impacted area in a crash). Look for a 'DOT' sticker on the back. Replace any helmet that has been dropped or in a crash.", "es": "Un casco integral protege mandíbula y mentón (lo que más se golpea). Busca el sello 'DOT' atrás. Reemplaza cualquier casco que se haya caído o estado en un choque." } },
+        { "kind": "concept", "title": { "en": "Eye protection always", "es": "Protección ocular siempre" }, "body": { "en": "Florida law requires eye protection — even with a windshield. A bug at 60 mph hits like a small rock.", "es": "La ley de Florida exige protección ocular — aunque tengas parabrisas. Un insecto a 60 mph golpea como una piedrita." } },
+        { "kind": "concept", "title": { "en": "Jacket, pants, gloves, boots", "es": "Chaqueta, pantalón, guantes, botas" }, "body": { "en": "Abrasion-resistant jacket and pants (textile or leather), full-finger gloves, and over-the-ankle boots. Avoid sneakers, shorts, and tank tops on a motorcycle.", "es": "Chaqueta y pantalón resistentes a abrasión (textil o cuero), guantes de dedos completos y botas por encima del tobillo. Evita tenis, shorts y camisetas sin mangas." } },
+        { "kind": "concept", "title": { "en": "Be SEEN", "es": "Hazte VER" }, "body": { "en": "Most car-vs-motorcycle crashes happen because the car driver 'didn't see' the motorcycle. Bright colors, retro-reflective material, and a clean visor at night.", "es": "La mayoría de choques auto-moto pasan porque el conductor 'no vio' la moto. Colores brillantes, material reflectante y visera limpia de noche." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-MC-1-CK",
+            "category": "gear",
+            "difficulty": 1,
+            "stem": { "en": "Florida law requires eye protection when riding a motorcycle:", "es": "La ley de Florida exige protección ocular al manejar moto:" },
+            "choices": [
+              { "id": "a", "text": { "en": "Only at night", "es": "Sólo de noche" } },
+              { "id": "b", "text": { "en": "Always — even with a windshield", "es": "Siempre — aunque tengas parabrisas" } },
+              { "id": "c", "text": { "en": "Only on highways", "es": "Sólo en autopistas" } },
+              { "id": "d", "text": { "en": "Never required", "es": "Nunca requerido" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "All motorcycle riders in Florida must wear eye protection at all times, regardless of windshield.", "es": "Todos los motociclistas en Florida deben usar protección ocular en todo momento, sin importar el parabrisas." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Geared up", "es": "Equipado" }, "body": { "en": "You just bought yourself a much better outcome in any crash.", "es": "Acabas de comprar un mejor desenlace en cualquier caída." } }
+      ]
+    },
+    {
+      "id": "mc-l2-controls",
+      "vehicleClass": "motorcycle",
+      "emoji": "🤘",
+      "title": { "en": "Knowing the Controls", "es": "Conoce los Controles" },
+      "blurb": { "en": "Right hand, left hand, right foot, left foot — what each does.", "es": "Mano derecha, mano izquierda, pie derecho, pie izquierdo — qué hace cada uno." },
+      "xpReward": 40,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Four extremities, four jobs", "es": "Cuatro extremidades, cuatro trabajos" }, "body": { "en": "Almost every modern street motorcycle places the controls in the same four places. Memorize them and the bike feels intuitive.", "es": "Casi toda moto moderna ubica los controles en los mismos cuatro lugares. Memorízalos y la moto se sentirá intuitiva." } },
+        { "kind": "concept", "title": { "en": "Right hand: throttle + front brake", "es": "Mano derecha: acelerador + freno delantero" }, "body": { "en": "Twist toward you to accelerate. Pull the lever to apply the front brake (the strongest brake — about 70% of stopping power).", "es": "Gira hacia ti para acelerar. Tira de la palanca para el freno delantero (el más fuerte — ~70% de la frenada)." } },
+        { "kind": "concept", "title": { "en": "Left hand: clutch", "es": "Mano izquierda: embrague" }, "body": { "en": "Pull in to disengage the engine from the wheel (for shifting and stops). Slowly let out to engage. The 'friction zone' is where partial engagement happens — your low-speed superpower.", "es": "Tira para desconectar el motor de la rueda (para cambiar y parar). Suelta despacio para conectar. La 'zona de fricción' es donde hay engrane parcial — tu superpoder a baja velocidad." } },
+        { "kind": "concept", "title": { "en": "Right foot: rear brake", "es": "Pie derecho: freno trasero" }, "body": { "en": "Press to apply the rear brake. Use both brakes for every stop, but rely on the front for the strongest.", "es": "Presiona para el freno trasero. Usa ambos frenos siempre, pero confía en el delantero para la mayor frenada." } },
+        { "kind": "concept", "title": { "en": "Left foot: shifter", "es": "Pie izquierdo: cambios" }, "body": { "en": "1 down (first gear), then up for 2, 3, 4, 5, 6. Neutral lives between 1 and 2 — find it by clicking up half a step from first.", "es": "1 abajo (primera), luego arriba para 2, 3, 4, 5, 6. Neutro vive entre 1 y 2 — encuéntralo subiendo medio paso desde primera." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-MC-2-CK",
+            "category": "controls",
+            "difficulty": 1,
+            "stem": { "en": "The clutch lever is operated by your:", "es": "La palanca del embrague la opera tu:" },
+            "choices": [
+              { "id": "a", "text": { "en": "Right hand", "es": "Mano derecha" } },
+              { "id": "b", "text": { "en": "Left hand", "es": "Mano izquierda" } },
+              { "id": "c", "text": { "en": "Right foot", "es": "Pie derecho" } },
+              { "id": "d", "text": { "en": "Left foot", "es": "Pie izquierdo" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "Left hand = clutch. Right hand = throttle + front brake.", "es": "Mano izquierda = embrague. Mano derecha = acelerador + freno delantero." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Wired in", "es": "Conectado" }, "body": { "en": "Now drilling these until they're muscle memory pays off in every ride.", "es": "Ahora repetir esto hasta que sea memoria muscular paga en cada viaje." } }
+      ]
+    },
+    {
+      "id": "mc-l3-corner",
+      "vehicleClass": "motorcycle",
+      "emoji": "🌀",
+      "title": { "en": "Cornering: Slow, Look, Press, Roll", "es": "Curvas: Reduce, Mira, Empuja, Acelera" },
+      "blurb": { "en": "The four-step process that makes every curve smooth.", "es": "El proceso de cuatro pasos para curvas suaves." },
+      "xpReward": 50,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Curves spook beginners — they shouldn't", "es": "Las curvas asustan a los novatos — no deberían" }, "body": { "en": "Run this 4-step process and you'll be smoother than most drivers in cars.", "es": "Aplica este proceso de 4 pasos y serás más suave que la mayoría de los autos." }, "sign": "curve" },
+        { "kind": "concept", "title": { "en": "1. SLOW — before the curve", "es": "1. REDUCE — antes de la curva" }, "body": { "en": "Get your speed set BEFORE you enter. Brake while still upright, downshift if needed. Trying to slow while leaned is dangerous.", "es": "Ajusta la velocidad ANTES de entrar. Frena mientras vas vertical, baja marcha si hace falta. Reducir inclinado es peligroso." } },
+        { "kind": "concept", "title": { "en": "2. LOOK — through the curve", "es": "2. MIRA — a través de la curva" }, "body": { "en": "Turn your head and look where you want to go (the exit, not your front tire). Your bike goes where your eyes go.", "es": "Gira la cabeza y mira hacia donde quieres ir (la salida, no tu rueda). La moto va a donde miran tus ojos." } },
+        { "kind": "concept", "title": { "en": "3. PRESS — countersteer to lean", "es": "3. EMPUJA — contradirección para inclinar" }, "body": { "en": "Above ~12 mph, push forward on the inside handlebar — push LEFT to go LEFT, push RIGHT to go RIGHT. The bike leans and turns.", "es": "Sobre ~12 mph, empuja el manubrio interior — empuja IZQUIERDA para ir a la IZQUIERDA, DERECHA para ir a la DERECHA. La moto se inclina y gira." } },
+        { "kind": "concept", "title": { "en": "4. ROLL — gentle throttle through and out", "es": "4. ACELERA — suave a través y a la salida" }, "body": { "en": "From the apex outward, roll on the throttle smoothly. This stabilizes the bike and pulls you out of the corner.", "es": "Desde el ápex hacia afuera, abre acelerador suavemente. Estabiliza la moto y te saca de la curva." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-MC-3-CK",
+            "category": "cornering",
+            "difficulty": 2,
+            "stem": { "en": "To make your motorcycle lean RIGHT in a curve, you should:", "es": "Para inclinar la moto a la DERECHA en una curva, debes:" },
+            "choices": [
+              { "id": "a", "text": { "en": "Push forward on the LEFT bar", "es": "Empujar el manubrio IZQUIERDO" } },
+              { "id": "b", "text": { "en": "Push forward on the RIGHT bar", "es": "Empujar el manubrio DERECHO" } },
+              { "id": "c", "text": { "en": "Lean only your body", "es": "Sólo inclinar el cuerpo" } },
+              { "id": "d", "text": { "en": "Pull back on both bars", "es": "Tirar de ambos manubrios" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "Push RIGHT to go RIGHT. This is countersteering, and it works on every modern motorcycle above ~12 mph.", "es": "Empuja DERECHA para ir DERECHA. Esto es contradirección, funciona en toda moto moderna sobre ~12 mph." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Apex incoming", "es": "Llega el ápex" }, "body": { "en": "Slow, Look, Press, Roll. Drill it in a parking lot first.", "es": "Reduce, Mira, Empuja, Acelera. Practícalo primero en un estacionamiento." } }
+      ]
+    },
+    {
+      "id": "mc-l4-fl-law",
+      "vehicleClass": "motorcycle",
+      "emoji": "⚖️",
+      "title": { "en": "Florida Motorcycle Law", "es": "Ley de Motocicletas de Florida" },
+      "blurb": { "en": "Helmet rules, lane rules, headlights, and the BRC.", "es": "Reglas de casco, carriles, faros y el BRC." },
+      "xpReward": 50,
+      "steps": [
+        { "kind": "intro", "title": { "en": "Riding in Florida — what's actually the law", "es": "Manejar en Florida — lo que realmente dice la ley" }, "body": { "en": "Five rules every Florida rider needs to know cold.", "es": "Cinco reglas que todo motociclista de Florida debe saber al pie de la letra." } },
+        { "kind": "concept", "title": { "en": "Helmet (s. 316.211 F.S.)", "es": "Casco (s. 316.211 F.S.)" }, "body": { "en": "Under 21: helmet required. 21+: helmet optional ONLY IF you carry at least $10,000 in motorcycle medical insurance. Eye protection: always required.", "es": "Menores de 21: casco obligatorio. 21+: casco opcional SÓLO SI llevas al menos $10,000 de seguro médico de moto. Protección ocular: siempre obligatoria." } },
+        { "kind": "concept", "title": { "en": "Lane rules", "es": "Reglas de carril" }, "body": { "en": "Lane-splitting (riding between lanes) is ILLEGAL in Florida. Two motorcycles MAY ride two-abreast in a single lane — three or more cannot.", "es": "El lane-splitting (entre carriles) es ILEGAL en Florida. Dos motos PUEDEN ir lado a lado en un carril — tres o más no." } },
+        { "kind": "concept", "title": { "en": "Headlight always on", "es": "Faro siempre encendido" }, "body": { "en": "Florida law: motorcycle headlights must be on whenever the motorcycle is operated, day and night.", "es": "Ley de Florida: el faro de la moto debe estar encendido siempre que esté en marcha, de día y de noche." } },
+        { "kind": "concept", "title": { "en": "Endorsement: take the BRC", "es": "Endoso: toma el BRC" }, "body": { "en": "To add a motorcycle endorsement to your Florida license, the standard path is the MSF Basic RiderCourse (BRC) — about 15 hours, classroom + range.", "es": "Para añadir el endoso de moto a tu licencia, la vía estándar es el Curso Básico (BRC) de MSF — unas 15 horas, aula + práctica." } },
+        {
+          "kind": "checkpoint",
+          "question": {
+            "id": "L-MC-4-CK",
+            "category": "law",
+            "difficulty": 2,
+            "stem": { "en": "A 24-year-old Florida rider may ride without a helmet IF:", "es": "Un motociclista de 24 años en Florida puede ir sin casco SI:" },
+            "choices": [
+              { "id": "a", "text": { "en": "It is daylight", "es": "Es de día" } },
+              { "id": "b", "text": { "en": "They carry at least $10,000 in motorcycle medical insurance", "es": "Lleva al menos $10,000 de seguro médico de moto" } },
+              { "id": "c", "text": { "en": "They are riding in their neighborhood", "es": "Va por su barrio" } },
+              { "id": "d", "text": { "en": "Never — Florida requires helmets for all riders", "es": "Nunca — Florida exige casco a todos" } }
+            ],
+            "correct": "b",
+            "explanation": { "en": "21+ may opt out of helmets only with at least $10,000 of motorcycle medical insurance. Eye protection still required.", "es": "21+ puede no usar casco sólo con seguro médico de moto de $10,000+. La protección ocular sigue siendo obligatoria." },
+            "handbookRef": null,
+            "tags": []
+          }
+        },
+        { "kind": "outro", "title": { "en": "Florida-tested", "es": "Probado en Florida" }, "body": { "en": "These rules apply on every road in the state.", "es": "Estas reglas aplican en toda vía del estado." } }
+      ]
+    }
+  ]
+}

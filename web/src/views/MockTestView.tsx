@@ -2,67 +2,64 @@ import { Link } from "react-router-dom";
 import { useUserData } from "../engine/store";
 import { useContentPack } from "../engine/contentPack";
 import { formatRelativeDate, formatDuration } from "../engine/util";
+import { t } from "../i18n";
+import type { Lang } from "../types";
 
 export default function MockTestView() {
-  const { pack } = useContentPack();
   const { data } = useUserData();
+  const lang = (data.profile.language ?? "en") as Lang;
+  const { pack } = useContentPack(data.profile.vehicleClass);
   if (!pack) return <div className="card h-72 animate-pulse" />;
 
   const sampleSize = Math.min(pack.exam.questionCount, pack.questions.length);
-  const tooSmall = pack.questions.length < pack.exam.questionCount;
 
   return (
     <div className="space-y-6">
       <section className="card p-6 md:p-8">
         <div className="text-xs font-medium uppercase tracking-wider text-ink-500">
-          Mock test mode
+          {t("mockTestMode", lang)}
         </div>
         <h1 className="mt-1 text-2xl font-bold text-ink-900 md:text-3xl">
           {pack.exam.officialName}
         </h1>
         <p className="mt-2 text-sm text-ink-600 md:text-base">
-          A real-format simulation. {pack.exam.questionCount} questions, sampled by category weight
-          to mirror what FLHSMV actually puts on the test. Pass at {pack.exam.passingScore}/
-          {pack.exam.questionCount} ({pack.exam.passingPercent}%).
+          {lang === "es"
+            ? `Una simulación con formato real. ${pack.exam.questionCount} preguntas, muestreadas por categoría como hace FLHSMV. Aprueba con ${pack.exam.passingScore}/${pack.exam.questionCount} (${pack.exam.passingPercent}%).`
+            : `A real-format simulation. ${pack.exam.questionCount} questions, sampled by category weight to mirror FLHSMV. Pass at ${pack.exam.passingScore}/${pack.exam.questionCount} (${pack.exam.passingPercent}%).`}
         </p>
 
         <div className="mt-5 grid gap-3 md:grid-cols-3">
-          <Spec label="Questions" value={String(sampleSize)} />
+          <Spec label={t("questions", lang)} value={String(sampleSize)} />
           <Spec
-            label="Pass mark"
+            label={t("passMark", lang)}
             value={`${Math.ceil((sampleSize * pack.exam.passingPercent) / 100)} / ${sampleSize}`}
           />
           <Spec
-            label="Time limit"
-            value={pack.exam.timeLimitMinutes ? `${pack.exam.timeLimitMinutes} min` : "Untimed"}
+            label={t("timeLimit", lang)}
+            value={pack.exam.timeLimitMinutes ? `${pack.exam.timeLimitMinutes} min` : t("untimed", lang)}
           />
         </div>
 
-        {tooSmall && (
-          <p className="mt-4 rounded-xl bg-sun-50 p-3 text-xs text-ink-700">
-            <strong>Demo note:</strong> the bundled Florida pack has {pack.questions.length} sample
-            questions. Real mock tests will use the full {pack.exam.questionCount}-question bank
-            once content is finalized.
-          </p>
-        )}
+        <div className="mt-3 rounded-xl bg-coral-50 p-3 text-xs text-coral-800">
+          ❤️ {lang === "es"
+            ? "Modo vidas: 3 corazones. Si fallas 3 preguntas, el examen termina."
+            : "Hearts mode: you have 3 hearts. Lose them all and the exam ends."}
+        </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link to="/mock/exam" className="btn-primary">
-            Begin mock test
+            {t("beginMockTest", lang)}
           </Link>
           <Link to="/practice" className="btn-secondary">
-            Practice mode instead
+            {t("practiceModeInstead", lang)}
           </Link>
         </div>
       </section>
 
       <section className="card p-5">
-        <h2 className="text-base font-semibold text-ink-900">Past attempts</h2>
+        <h2 className="text-base font-semibold text-ink-900">{t("pastAttempts", lang)}</h2>
         {data.mockResults.length === 0 ? (
-          <p className="mt-3 text-sm text-ink-500">
-            No mock tests yet. The first one usually doesn't pass — that's expected. Use it to find
-            your weak topics, then come back.
-          </p>
+          <p className="mt-3 text-sm text-ink-500">{t("noMockYet", lang)}</p>
         ) : (
           <ul className="mt-3 divide-y divide-ink-100">
             {data.mockResults.map((r) => (
@@ -79,7 +76,7 @@ export default function MockTestView() {
                           : "bg-coral-400/10 text-coral-600"
                       }`}
                     >
-                      {r.passed ? "Passed" : "Failed"}
+                      {r.passed ? t("passed", lang) : t("didNotPass", lang)}
                     </span>
                   </div>
                   <div className="mt-0.5 text-xs text-ink-500">

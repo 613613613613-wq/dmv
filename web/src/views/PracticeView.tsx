@@ -4,19 +4,22 @@ import { useContentPack } from "../engine/contentPack";
 import { useUserData } from "../engine/store";
 import { nextPracticeQuestion } from "../engine/practice";
 import QuestionCard from "../components/QuestionCard";
-import type { Question } from "../types";
+import Confetti from "../components/Confetti";
+import { t } from "../i18n";
+import type { Lang, Question } from "../types";
 
 export default function PracticeView() {
-  const { pack } = useContentPack();
   const { data, recordAttempt, toggleBookmark } = useUserData();
+  const lang = (data.profile.language ?? "en") as Lang;
+  const { pack } = useContentPack(data.profile.vehicleClass);
   const [params, setParams] = useSearchParams();
   const filterCategory = params.get("category") ?? undefined;
 
   const recentRef = useRef<Set<string>>(new Set());
   const [question, setQuestion] = useState<Question | null>(null);
   const [sessionStats, setSessionStats] = useState({ answered: 0, correct: 0 });
+  const [confetti, setConfetti] = useState(false);
 
-  // Pick the first/next question whenever the pack or filter changes.
   useEffect(() => {
     if (!pack) return;
     recentRef.current = new Set();
@@ -31,16 +34,16 @@ export default function PracticeView() {
     return pack.categories.find((c) => c.id === filterCategory)?.name ?? null;
   }, [pack, filterCategory]);
 
-  if (!pack) {
-    return <div className="card h-72 animate-pulse" />;
-  }
+  if (!pack) return <div className="card h-72 animate-pulse" />;
 
   if (!question) {
     return (
       <div className="card p-6">
-        <h2 className="text-lg font-semibold text-ink-900">No questions for this topic yet.</h2>
+        <h2 className="text-lg font-semibold text-ink-900">
+          {lang === "es" ? "Aún no hay preguntas para este tema." : "No questions for this topic yet."}
+        </h2>
         <Link to="/practice" className="btn-secondary mt-4">
-          Practice all topics
+          {t("practiceAll", lang)}
         </Link>
       </div>
     );
@@ -53,13 +56,16 @@ export default function PracticeView() {
       answered: s.answered + 1,
       correct: s.correct + (isCorrect ? 1 : 0),
     }));
+    if (isCorrect) {
+      setConfetti(true);
+      setTimeout(() => setConfetti(false), 800);
+    }
   }
 
   function handleNext() {
     if (!pack || !question) return;
     recentRef.current.add(question.id);
     if (recentRef.current.size > 10) {
-      // Cap recently-seen so we don't run out of variety in a tiny pack.
       const arr = Array.from(recentRef.current);
       recentRef.current = new Set(arr.slice(arr.length - 10));
     }
@@ -69,25 +75,28 @@ export default function PracticeView() {
 
   return (
     <div className="space-y-4">
+      <Confetti show={confetti} count={20} />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="text-xs font-medium uppercase tracking-wider text-ink-500">
-            Practice mode
+            {t("practiceMode", lang)}
           </div>
           <h1 className="text-xl font-bold text-ink-900">
-            {categoryLabel ? categoryLabel : "Adaptive practice"}
+            {categoryLabel ? categoryLabel : t("adaptivePractice", lang)}
           </h1>
           <p className="text-sm text-ink-500">
             {categoryLabel
-              ? "Drilling just this topic — no SRS bias."
-              : "Picks from your weakest topics and questions you're about to forget."}
+              ? lang === "es"
+                ? "Repasando solo este tema."
+                : "Drilling just this topic."
+              : t("adaptivePracticeBlurb", lang)}
           </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <div className="text-xs text-ink-500">This session</div>
+            <div className="text-xs text-ink-500">{t("thisSession", lang)}</div>
             <div className="text-sm font-semibold text-ink-900">
-              {sessionStats.correct} / {sessionStats.answered} correct
+              {sessionStats.correct} / {sessionStats.answered}
             </div>
           </div>
           {filterCategory && (
@@ -96,7 +105,7 @@ export default function PracticeView() {
               onClick={() => setParams({})}
               className="btn-ghost text-xs"
             >
-              Clear topic
+              {lang === "es" ? "Quitar tema" : "Clear topic"}
             </button>
           )}
         </div>
@@ -113,8 +122,8 @@ export default function PracticeView() {
       />
 
       <div className="flex items-center justify-between text-xs text-ink-500">
-        <span>Question id · {question.id}</span>
-        <span>{pack.questions.length} questions in this pack</span>
+        <span>{t("questionId", lang)} · {question.id}</span>
+        <span>{pack.questions.length} {t("inThisPack", lang)}</span>
       </div>
     </div>
   );
