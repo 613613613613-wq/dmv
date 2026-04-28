@@ -24,7 +24,10 @@ const MANIFEST_FILE = path.join(ROOT, "web/src/data/video-manifest.json");
 const MODEL = process.env.VEO_MODEL || "veo-3.1-fast-generate-preview";
 const POLL_INTERVAL_MS = 10_000;
 const MAX_POLL_ATTEMPTS = 60; // up to 10 minutes per video
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 6;
+// Backoff schedule (seconds) for transient errors. 429 capacity errors get
+// long waits so Vertex AI's serving queue can recover.
+const RETRY_BACKOFF_S = [30, 60, 120, 240, 480, 600];
 
 function sceneToFilename(sceneId) {
   return sceneId.replace(/[:/\\]/g, "-") + ".mp4";
@@ -39,8 +42,14 @@ function loadManifest() {
 }
 
 function saveManifest(manifest) {
+  // Atomic write: serialize to a temp file in the same directory then rename.
+  // Prevents JSON corruption if the process is killed mid-write during a long
+  // background run. The app reads this file via Vite import, so corruption
+  // would crash the dev server until manually fixed.
   fs.mkdirSync(path.dirname(MANIFEST_FILE), { recursive: true });
-  fs.writeFileSync(MANIFEST_FILE, JSON.stringify(manifest, null, 2) + "\n");
+  const tmp = MANIFEST_FILE + ".tmp";
+  fs.writeFileSync(tmp, JSON.stringify(manifest, null, 2) + "\n");
+  fs.renameSync(tmp, MANIFEST_FILE);
 }
 
 function addToManifest(sceneId) {
@@ -82,12 +91,24 @@ async function generateOne(ai, sceneId, prompt, outPath) {
   const video = op.response?.generatedVideos?.[0]?.video;
   if (!video) throw new Error(`No video returned for ${sceneId}: ${JSON.stringify(op.response)}`);
 
-  // The SDK exposes a download helper that accepts a File object and a path.
-  await ai.files.download({ file: video, downloadPath: outPath });
-  if (!fs.existsSync(outPath) || fs.statSync(outPath).size < 1024) {
-    throw new Error(`Downloaded file looks empty for ${sceneId}`);
+  // Download has its own retry loop separate from generation. Since the video
+  // is already paid for and rendered server-side, a failed download should
+  // never trigger a new (paid) generation — just re-fetch the same asset.
+  const DOWNLOAD_RETRIES = 4;
+  for (let dl = 1; dl <= DOWNLOAD_RETRIES; dl++) {
+    try {
+      await ai.files.download({ file: video, downloadPath: outPath });
+      if (!fs.existsSync(outPath) || fs.statSync(outPath).size < 1024) {
+        throw new Error(`empty file (got ${fs.existsSync(outPath) ? fs.statSync(outPath).size : 0} bytes)`);
+      }
+      console.log(`  saved → ${path.relative(ROOT, outPath)} (${(fs.statSync(outPath).size / 1024).toFixed(0)} KB)`);
+      return;
+    } catch (dlErr) {
+      console.error(`  download attempt ${dl}/${DOWNLOAD_RETRIES} failed: ${dlErr?.message || dlErr}`);
+      if (dl >= DOWNLOAD_RETRIES) throw new Error(`download failed after ${DOWNLOAD_RETRIES} tries: ${dlErr?.message || dlErr}`);
+      await sleep(10_000 * dl);
+    }
   }
-  console.log(`  saved → ${path.relative(ROOT, outPath)} (${(fs.statSync(outPath).size / 1024).toFixed(0)} KB)`);
 }
 
 async function main() {
@@ -122,12 +143,15 @@ async function main() {
         done++;
         break;
       } catch (err) {
-        console.error(`[${sceneId}] attempt ${attempt} failed:`, err?.message || err);
+        const msg = err?.message || String(err);
+        console.error(`[${sceneId}] attempt ${attempt} failed:`, msg);
         if (attempt >= MAX_RETRIES) {
           failed++;
           console.error(`[${sceneId}] giving up after ${MAX_RETRIES} attempts`);
         } else {
-          await sleep(15_000 * attempt); // back off
+          const waitS = RETRY_BACKOFF_S[attempt - 1] ?? 600;
+          console.log(`[${sceneId}] backing off ${waitS}s before retry…`);
+          await sleep(waitS * 1000);
         }
       }
     }

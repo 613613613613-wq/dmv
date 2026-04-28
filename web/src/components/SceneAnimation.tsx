@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import type { Lang, SignKind } from "../types";
 import Sign from "./Sign";
@@ -16,6 +16,10 @@ const sceneToFilename = (s: string) => s.replace(/[:/\\]/g, "-") + ".mp4";
 
 export default function SceneAnimation(props: Props) {
   const [videoFailed, setVideoFailed] = useState(false);
+  // Reset failure state whenever the scene changes — without this, a single
+  // failed video would force the inline animation fallback for every
+  // subsequent step in the same lesson (component instance is reused).
+  useEffect(() => setVideoFailed(false), [props.scene]);
   const hasVideo = generatedVideos.has(props.scene);
 
   if (hasVideo && !videoFailed) {

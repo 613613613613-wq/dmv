@@ -1,3 +1,9 @@
 {
-  "videos": []
+  "videos": [
+    "sign-spotlight:construction",
+    "sign-spotlight:curve",
+    "sign-spotlight:school-zone",
+    "sign-spotlight:stop",
+    "sign-spotlight:yield"
+  ]
 }
