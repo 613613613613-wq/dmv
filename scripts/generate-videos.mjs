@@ -15,7 +15,10 @@ const PROMPTS_FILE = path.join(__dirname, "video-prompts.json");
 const VIDEO_DIR = path.join(ROOT, "web/public/videos");
 const MANIFEST_FILE = path.join(ROOT, "web/src/data/video-manifest.json");
 
-const MODEL = process.env.VEO_MODEL || "veo-2.0-generate-001";
+// Veo 3 Fast is available via AI Studio API keys (the paid tier). Veo 2 requires
+// a separate Google Cloud Platform billing setup, which most AI Studio users
+// don't have. Override with VEO_MODEL env var if you have GCP billing wired up.
+const MODEL = process.env.VEO_MODEL || "veo-3.0-fast-generate-001";
 const POLL_INTERVAL_MS = 10_000;
 const MAX_POLL_ATTEMPTS = 60; // up to 10 minutes per video
 const MAX_RETRIES = 3;
@@ -59,7 +62,7 @@ async function generateOne(ai, sceneId, prompt, outPath) {
       aspectRatio: "16:9",
       durationSeconds: 8,
       numberOfVideos: 1,
-      personGeneration: "allow_adult",
+      personGeneration: "allow_all",
     },
   });
 
