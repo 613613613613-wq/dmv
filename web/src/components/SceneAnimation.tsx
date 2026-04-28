@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import type { Lang, SignKind } from "../types";
 import Sign from "./Sign";
-import videoManifest from "../data/video-manifest.json";
+import { hasGeneratedVideo, sceneVideoUrl } from "../engine/videoAssets";
 
 interface Props {
   scene: string;
@@ -11,28 +11,41 @@ interface Props {
   fallbackSignValue?: number;
 }
 
-const generatedVideos = new Set<string>(videoManifest.videos);
-const sceneToFilename = (s: string) => s.replace(/[:/\\]/g, "-") + ".mp4";
-
 export default function SceneAnimation(props: Props) {
   const [videoFailed, setVideoFailed] = useState(false);
-  // Reset failure state whenever the scene changes — without this, a single
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  // Reset both states whenever the scene changes — without this, a single
   // failed video would force the inline animation fallback for every
-  // subsequent step in the same lesson (component instance is reused).
-  useEffect(() => setVideoFailed(false), [props.scene]);
-  const hasVideo = generatedVideos.has(props.scene);
+  // subsequent step in the same lesson (component instance is reused),
+  // and the loading shimmer would be skipped on subsequent step changes.
+  useEffect(() => {
+    setVideoFailed(false);
+    setVideoLoaded(false);
+  }, [props.scene]);
+  const hasVideo = hasGeneratedVideo(props.scene);
 
   if (hasVideo && !videoFailed) {
     return (
-      <div className="relative w-full overflow-hidden rounded-2xl bg-ink-900 ring-1 ring-ink-100 aspect-[16/9]">
+      <div className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-gulf-100 via-sun-50 to-coral-100 ring-1 ring-ink-100 aspect-[16/9]">
+        {!videoLoaded && (
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            role="status"
+            aria-label={props.lang === "es" ? "Cargando video" : "Loading video"}
+          >
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-gulf-300 border-t-gulf-600" />
+          </div>
+        )}
         <video
-          src={`/videos/${sceneToFilename(props.scene)}`}
-          className="h-full w-full object-cover"
+          key={props.scene}
+          src={sceneVideoUrl(props.scene)}
+          className={`h-full w-full object-cover transition-opacity duration-300 ${videoLoaded ? "opacity-100" : "opacity-0"}`}
           autoPlay
           loop
           muted
           playsInline
           preload="metadata"
+          onLoadedData={() => setVideoLoaded(true)}
           onError={() => setVideoFailed(true)}
         />
       </div>

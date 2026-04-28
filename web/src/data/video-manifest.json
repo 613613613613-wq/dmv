@@ -1,5 +1,7 @@
 {
   "videos": [
+    "bac:0.02",
+    "bac:0.08",
     "four-way-stop",
     "left-turn-yield",
     "ped-crosswalk",
@@ -9,6 +11,9 @@
     "sign-spotlight:stop",
     "sign-spotlight:yield",
     "speedometer:20",
+    "speedometer:30",
+    "speedometer:55",
+    "speedometer:70",
     "t-intersection"
   ]
 }

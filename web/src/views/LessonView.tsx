@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUserData } from "../engine/store";
 import { useLessonPack } from "../engine/contentPack";
@@ -6,6 +6,7 @@ import { t } from "../i18n";
 import { loc } from "../engine/util";
 import Sign from "../components/Sign";
 import SceneAnimation from "../components/SceneAnimation";
+import { hasGeneratedVideo, sceneVideoUrl } from "../engine/videoAssets";
 import Confetti from "../components/Confetti";
 import type { Lang, LessonStep } from "../types";
 
@@ -32,6 +33,20 @@ export default function LessonView() {
   const total = lesson.steps.length;
   const progress = ((stepIdx + 1) / total) * 100;
 
+  // Preload the NEXT step's video (if any) so tapping Continue plays instantly.
+  // We use a real <video preload="auto"> element rather than <link rel=preload>
+  // because the latter has spotty cross-browser support for video resources.
+  const nextStep = lesson.steps[stepIdx + 1];
+  const nextVideoUrl =
+    nextStep?.scene && hasGeneratedVideo(nextStep.scene)
+      ? sceneVideoUrl(nextStep.scene)
+      : null;
+  // Reset the answer-pick state whenever the step changes, in case a parent
+  // ever swaps the lesson without remounting (defensive — current flow remounts).
+  useEffect(() => {
+    setChosen(null);
+  }, [stepIdx]);
+
   function next() {
     if (stepIdx < total - 1) {
       setStepIdx((i) => i + 1);
@@ -57,6 +72,18 @@ export default function LessonView() {
   return (
     <div className="min-h-[calc(100vh-6rem)] -m-4 md:m-0">
       <Confetti show={confetti} count={completed ? 120 : 40} />
+      {nextVideoUrl && (
+        <video
+          key={nextVideoUrl}
+          src={nextVideoUrl}
+          preload="auto"
+          muted
+          playsInline
+          className="absolute h-px w-px opacity-0"
+          aria-hidden="true"
+          tabIndex={-1}
+        />
+      )}
       <div className="sticky top-0 z-10 bg-white/95 px-4 py-3 backdrop-blur md:rounded-t-2xl">
         <div className="mx-auto flex max-w-3xl items-center gap-3">
           <button

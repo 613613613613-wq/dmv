@@ -21,7 +21,7 @@ const MANIFEST_FILE = path.join(ROOT, "web/src/data/video-manifest.json");
 //   - veo-3.1-lite-generate-preview (cheapest, lower fidelity)
 //   - veo-3.0-fast-generate-001     (stable non-preview fallback)
 // Veo 2 requires separate Google Cloud Platform billing.
-const MODEL = process.env.VEO_MODEL || "veo-3.1-lite-generate-preview";
+const MODEL = process.env.VEO_MODEL || "veo-3.1-generate-preview";
 const POLL_INTERVAL_MS = 10_000;
 const MAX_POLL_ATTEMPTS = 60; // up to 10 minutes per video
 const MAX_RETRIES = 6;
