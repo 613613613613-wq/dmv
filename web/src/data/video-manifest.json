@@ -1,9 +1,11 @@
 {
   "videos": [
     "bac:0.02",
+    "bac:0.04",
     "bac:0.08",
     "four-way-stop",
     "left-turn-yield",
+    "license-revoke",
     "ped-crosswalk",
     "sign-spotlight:construction",
     "sign-spotlight:curve",
