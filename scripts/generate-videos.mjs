@@ -15,10 +15,13 @@ const PROMPTS_FILE = path.join(__dirname, "video-prompts.json");
 const VIDEO_DIR = path.join(ROOT, "web/public/videos");
 const MANIFEST_FILE = path.join(ROOT, "web/src/data/video-manifest.json");
 
-// Veo 3 Fast is available via AI Studio API keys (the paid tier). Veo 2 requires
-// a separate Google Cloud Platform billing setup, which most AI Studio users
-// don't have. Override with VEO_MODEL env var if you have GCP billing wired up.
-const MODEL = process.env.VEO_MODEL || "veo-3.0-fast-generate-001";
+// Veo 3.1 Fast (preview) — newer than 3.0, balanced cost/quality.
+// Other options for VEO_MODEL override:
+//   - veo-3.1-generate-preview      (highest quality, most expensive)
+//   - veo-3.1-lite-generate-preview (cheapest, lower fidelity)
+//   - veo-3.0-fast-generate-001     (stable non-preview fallback)
+// Veo 2 requires separate Google Cloud Platform billing.
+const MODEL = process.env.VEO_MODEL || "veo-3.1-fast-generate-preview";
 const POLL_INTERVAL_MS = 10_000;
 const MAX_POLL_ATTEMPTS = 60; // up to 10 minutes per video
 const MAX_RETRIES = 3;
