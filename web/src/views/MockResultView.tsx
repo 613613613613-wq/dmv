@@ -61,9 +61,7 @@ export default function MockResultView() {
           {t("mockTest", lang)}
         </div>
         <h1 className="mt-1 text-3xl font-bold md:text-4xl">
-          {snap.result.passed
-            ? lang === "es" ? "¡Aprobaste!" : "You passed."
-            : lang === "es" ? "Aún no — sigue adelante." : "Not yet — keep going."}
+          {snap.result.passed ? t("youPassed", lang) : t("notYetKeepGoing", lang)}
         </h1>
         <div className="mt-3 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm md:text-base">
           <span className="text-2xl font-bold md:text-3xl">
@@ -125,9 +123,7 @@ export default function MockResultView() {
           {t("reviewYourMisses", lang)} {wrong.length === 0 ? "🎉" : `· ${wrong.length}`}
         </h2>
         {wrong.length === 0 ? (
-          <p className="mt-3 text-sm text-ink-500">
-            {lang === "es" ? "Sin errores — nada que repasar." : "No wrong answers — nothing to review."}
-          </p>
+          <p className="mt-3 text-sm text-ink-500">{t("noWrongNothingToReview", lang)}</p>
         ) : (
           <ul className="mt-4 space-y-5">
             {wrong.map((q) => {

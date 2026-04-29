@@ -52,7 +52,7 @@ export default function BookmarksView() {
                   type="button"
                   onClick={() => toggleBookmark(q.id)}
                   className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-sun-50 text-sun-500"
-                  aria-label="Remove bookmark"
+                  aria-label={t("removeBookmark", lang)}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M6 3h12v18l-6-4-6 4Z" />

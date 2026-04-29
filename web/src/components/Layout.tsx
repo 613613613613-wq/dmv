@@ -71,7 +71,7 @@ export default function Layout() {
               type="button"
               onClick={() => setLanguage(lang === "en" ? "es" : "en")}
               className="rounded-md border border-ink-200 px-2 py-1 text-[11px] font-bold uppercase text-ink-700 hover:bg-ink-50"
-              aria-label="Toggle language"
+              aria-label={t("toggleLanguage", lang)}
             >
               {lang === "en" ? "EN" : "ES"}
             </button>

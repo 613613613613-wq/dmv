@@ -78,12 +78,10 @@ export default function ReviewView() {
 
       <section className="card p-5">
         <h2 className="text-base font-semibold text-ink-900">
-          {lang === "es" ? "Errores" : "Mistakes"} · {wrongIds.length}
+          {t("mistakes", lang)} · {wrongIds.length}
         </h2>
         {wrongIds.length === 0 ? (
-          <p className="mt-3 text-sm text-ink-500">
-            {lang === "es" ? "Sin errores pendientes. ¡Bien hecho!" : "No outstanding wrong answers. Nice work."}
-          </p>
+          <p className="mt-3 text-sm text-ink-500">{t("noMistakes", lang)}</p>
         ) : (
           <ul className="mt-3 divide-y divide-ink-100">
             {wrongIds.slice(0, 12).map((id) => {
@@ -106,9 +104,7 @@ export default function ReviewView() {
       </section>
 
       <section className="card p-5">
-        <h2 className="text-base font-semibold text-ink-900">
-          {lang === "es" ? "Actividad reciente" : "Recent activity"}
-        </h2>
+        <h2 className="text-base font-semibold text-ink-900">{t("recentActivity", lang)}</h2>
         <ul className="mt-3 divide-y divide-ink-100">
           {recent.map((a, i) => {
             const q = qById.get(a.questionId);
@@ -144,7 +140,7 @@ function QuestionRow({
 }: {
   q: Question;
   pack: import("../types").ContentPack;
-  lang: string;
+  lang: Lang;
   bookmarked: boolean;
   onBookmark: () => void;
   showCorrect?: boolean;
@@ -168,7 +164,7 @@ function QuestionRow({
           className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition ${
             bookmarked ? "bg-sun-50 text-sun-500" : "text-ink-400 hover:bg-ink-100 hover:text-ink-700"
           }`}
-          aria-label="Bookmark"
+          aria-label={bookmarked ? t("removeBookmark", lang) : t("addBookmark", lang)}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill={bookmarked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 3h12v18l-6-4-6 4Z" />

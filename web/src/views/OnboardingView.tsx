@@ -32,11 +32,19 @@ export default function OnboardingView() {
             {step === "lang" ? "Welcome / Bienvenido" : t("pickClass", lang)}
           </h1>
           <p className="mt-2 text-sm text-ink-200 md:text-base">
-            {step === "lang"
-              ? "Florida Permit Prep · gamified, bilingual, every answer cites the FLHSMV handbook."
-              : lang === "es"
-              ? "Personalizamos tus preguntas, lecciones y señales según el examen que vas a tomar."
-              : "We tailor your questions, lessons, and signs to the test you'll actually take."}
+            {step === "lang" ? (
+              // Pre-language screen — show both versions side-by-side so neither
+              // EN nor ES users land on a string they can't read.
+              <>
+                {t("welcomeBlurb", "en")}
+                <br />
+                <span className="opacity-80">{t("welcomeBlurb", "es")}</span>
+              </>
+            ) : lang === "es" ? (
+              "Personalizamos tus preguntas, lecciones y señales según el examen que vas a tomar."
+            ) : (
+              "We tailor your questions, lessons, and signs to the test you'll actually take."
+            )}
           </p>
         </header>
 

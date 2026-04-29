@@ -161,6 +161,69 @@ const STRINGS: Dict = {
   schoolZone: { en: "School zone", es: "Zona escolar" },
   guide: { en: "Guide", es: "Informativa" },
   loading: { en: "Loading…", es: "Cargando…" },
+  // --- Audit additions: replace hardcoded English ternaries ---
+  privacy: { en: "Privacy", es: "Privacidad" },
+  privacyBlurb: {
+    en: "This app does not collect, transmit, or share any data. Your progress lives only in this browser.",
+    es: "Esta app no recolecta, transmite ni comparte datos. Tu progreso vive sólo en este navegador.",
+  },
+  privacyEmphasis: { en: "No accounts. No analytics.", es: "Sin cuentas. Sin analítica." },
+  contentSection: { en: "Content", es: "Contenido" },
+  questionPack: { en: "Question pack", es: "Paquete" },
+  handbookVersion: { en: "Handbook version", es: "Versión del manual" },
+  lastReviewed: { en: "Last reviewed", es: "Última revisión" },
+  source: { en: "Source", es: "Fuente" },
+  yesWipeEverything: { en: "Yes, wipe everything", es: "Sí, borrar todo" },
+  cancel: { en: "Cancel", es: "Cancelar" },
+  bilingual: { en: "Bilingual", es: "Bilingüe" },
+  noQuestionsForTopic: {
+    en: "No questions for this topic yet.",
+    es: "Aún no hay preguntas para este tema.",
+  },
+  drillingThisTopic: { en: "Drilling just this topic.", es: "Repasando solo este tema." },
+  clearTopic: { en: "Clear topic", es: "Quitar tema" },
+  couldntLoadPack: { en: "Couldn't load the question pack", es: "No se pudo cargar el paquete de preguntas" },
+  couldntLoadLessons: { en: "Couldn't load lessons", es: "No se pudieron cargar las lecciones" },
+  map: { en: "Map", es: "Mapa" },
+  questionStatusUnanswered: { en: "unanswered", es: "sin responder" },
+  questionStatusCorrect: { en: "correct", es: "correcta" },
+  questionStatusWrong: { en: "wrong", es: "incorrecta" },
+  questionStatusCurrent: { en: "current", es: "actual" },
+  mistakes: { en: "Mistakes", es: "Errores" },
+  noMistakes: { en: "No outstanding wrong answers. Nice work.", es: "Sin errores pendientes. ¡Bien hecho!" },
+  recentActivity: { en: "Recent activity", es: "Actividad reciente" },
+  bookmark: { en: "Bookmark", es: "Marcador" },
+  removeBookmark: { en: "Remove bookmark", es: "Quitar marcador" },
+  toggleLanguage: { en: "Toggle language", es: "Cambiar idioma" },
+  jumpToQuestion: { en: "Jump to question", es: "Ir a pregunta" },
+  // Difficulty labels — were inline ternaries in QuestionCard.
+  difficultyEasy: { en: "Easy", es: "Fácil" },
+  difficultyMedium: { en: "Medium", es: "Medio" },
+  difficultyHard: { en: "Hard", es: "Difícil" },
+  // QuestionCard bookmark a11y — was English-only.
+  addBookmark: { en: "Bookmark this question", es: "Marcar esta pregunta" },
+  // MockResult / HomeView headlines and short blurbs that don't interpolate.
+  youPassed: { en: "You passed.", es: "¡Aprobaste!" },
+  notYetKeepGoing: { en: "Not yet — keep going.", es: "Aún no — sigue adelante." },
+  noWrongNothingToReview: {
+    en: "No wrong answers — nothing to review.",
+    es: "Sin errores — nada que repasar.",
+  },
+  heroHeadline: {
+    en: "Pass your Florida permit\nthe first time.",
+    es: "Aprueba tu permiso\nde Florida la 1.ª vez.",
+  },
+  everyAnswerCitesHandbook: {
+    en: "every answer cites the handbook.",
+    es: "cada respuesta cita el manual.",
+  },
+  videoLessons: { en: "video lessons", es: "lecciones en video" },
+  floridaInRules: { en: "Florida in 4 rules", es: "Florida en 4 reglas" },
+  // Onboarding lang-step welcome blurb — was English-only on the pre-language screen.
+  welcomeBlurb: {
+    en: "Florida Permit Prep · gamified, bilingual, every answer cites the FLHSMV handbook.",
+    es: "Preparación Permiso Florida · gamificada, bilingüe, cada respuesta cita el manual del FLHSMV.",
+  },
 };
 
 export function t(key: keyof typeof STRINGS, lang: Lang = "en"): string {

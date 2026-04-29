@@ -87,47 +87,30 @@ export default function SettingsView() {
       </section>
 
       <section className="card p-5">
-        <h2 className="text-base font-semibold text-ink-900">
-          {lang === "es" ? "Privacidad" : "Privacy"}
-        </h2>
+        <h2 className="text-base font-semibold text-ink-900">{t("privacy", lang)}</h2>
         <p className="mt-2 text-sm text-ink-600">
-          {lang === "es"
-            ? "Esta app no recolecta, transmite ni comparte datos. Tu progreso vive sólo en este navegador."
-            : "This app does not collect, transmit, or share any data. Your progress lives only in this browser."}
-          {" "}
-          <span className="font-medium text-ink-900">
-            {lang === "es" ? "Sin cuentas. Sin analítica." : "No accounts. No analytics."}
-          </span>
+          {t("privacyBlurb", lang)}{" "}
+          <span className="font-medium text-ink-900">{t("privacyEmphasis", lang)}</span>
         </p>
       </section>
 
       <section className="card p-5">
-        <h2 className="text-base font-semibold text-ink-900">
-          {lang === "es" ? "Contenido" : "Content"}
-        </h2>
+        <h2 className="text-base font-semibold text-ink-900">{t("contentSection", lang)}</h2>
         <dl className="mt-3 grid gap-y-2 text-sm md:grid-cols-2">
           <div>
-            <dt className="text-xs uppercase tracking-wider text-ink-500">
-              {lang === "es" ? "Paquete" : "Question pack"}
-            </dt>
+            <dt className="text-xs uppercase tracking-wider text-ink-500">{t("questionPack", lang)}</dt>
             <dd className="text-ink-900">{pack.code} · {pack.questions.length} {t("questions", lang)}</dd>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-wider text-ink-500">
-              {lang === "es" ? "Versión del manual" : "Handbook version"}
-            </dt>
+            <dt className="text-xs uppercase tracking-wider text-ink-500">{t("handbookVersion", lang)}</dt>
             <dd className="text-ink-900">{pack.handbook.version}</dd>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-wider text-ink-500">
-              {lang === "es" ? "Última revisión" : "Last reviewed"}
-            </dt>
+            <dt className="text-xs uppercase tracking-wider text-ink-500">{t("lastReviewed", lang)}</dt>
             <dd className="text-ink-900">{pack.handbook.lastReviewed}</dd>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-wider text-ink-500">
-              {lang === "es" ? "Fuente" : "Source"}
-            </dt>
+            <dt className="text-xs uppercase tracking-wider text-ink-500">{t("source", lang)}</dt>
             <dd>
               <a
                 href={pack.handbook.url}
@@ -161,14 +144,14 @@ export default function SettingsView() {
                 onClick={() => { resetAll(); setConfirmingReset(false); navigate("/start"); }}
                 className="btn-primary bg-coral-500 hover:bg-coral-600"
               >
-                {lang === "es" ? "Sí, borrar todo" : "Yes, wipe everything"}
+                {t("yesWipeEverything", lang)}
               </button>
               <button
                 type="button"
                 onClick={() => setConfirmingReset(false)}
                 className="btn-ghost"
               >
-                {lang === "es" ? "Cancelar" : "Cancel"}
+                {t("cancel", lang)}
               </button>
             </>
           )}
@@ -176,7 +159,7 @@ export default function SettingsView() {
       </section>
 
       <p className="pb-8 text-center text-xs text-ink-400">
-        Florida Permit Prep · web v0.2 · {lang === "es" ? "Bilingüe" : "Bilingual"}
+        Florida Permit Prep · web v0.2 · {t("bilingual", lang)}
       </p>
     </div>
   );

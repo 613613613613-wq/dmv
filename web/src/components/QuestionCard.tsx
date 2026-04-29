@@ -69,10 +69,10 @@ export default function QuestionCard({
             <DifficultyDots level={question.difficulty} />
             <span className="ml-1">
               {question.difficulty <= 1
-                ? lang === "es" ? "Fácil" : "Easy"
+                ? t("difficultyEasy", lang)
                 : question.difficulty <= 2
-                ? lang === "es" ? "Medio" : "Medium"
-                : lang === "es" ? "Difícil" : "Hard"}
+                ? t("difficultyMedium", lang)
+                : t("difficultyHard", lang)}
             </span>
           </span>
           {questionIndex !== undefined && questionTotal !== undefined && (
@@ -88,7 +88,7 @@ export default function QuestionCard({
             className={`flex h-9 w-9 items-center justify-center rounded-full transition ${
               bookmarked ? "bg-sun-50 text-sun-500" : "text-ink-400 hover:bg-ink-100 hover:text-ink-700"
             }`}
-            aria-label={bookmarked ? "Remove bookmark" : "Bookmark this question"}
+            aria-label={bookmarked ? t("removeBookmark", lang) : t("addBookmark", lang)}
           >
             <BookmarkIcon filled={bookmarked} />
           </button>

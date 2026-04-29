@@ -168,6 +168,7 @@ export default function MockExamView() {
           questionIds={test.questions.map((x) => x.id)}
           correctMap={Object.fromEntries(test.questions.map((x) => [x.id, x.correct]))}
           onJump={setIndex}
+          lang={lang}
         />
       </div>
 
@@ -197,7 +198,7 @@ export default function MockExamView() {
 }
 
 function NavGrid({
-  total, current, answers, questionIds, correctMap, onJump,
+  total, current, answers, questionIds, correctMap, onJump, lang,
 }: {
   total: number;
   current: number;
@@ -205,20 +206,39 @@ function NavGrid({
   questionIds: string[];
   correctMap: Record<string, string>;
   onJump: (i: number) => void;
+  lang: Lang;
 }) {
   return (
     <div className="card mt-6 p-4">
-      <div className="text-xs font-medium uppercase tracking-wider text-ink-500">Map</div>
-      <div className="mt-2 grid grid-cols-10 gap-1.5">
+      <div className="text-xs font-medium uppercase tracking-wider text-ink-500">{t("map", lang)}</div>
+      <div
+        className="mt-2 grid grid-cols-10 gap-1.5"
+        role="navigation"
+        aria-label={t("jumpToQuestion", lang)}
+      >
         {questionIds.map((id, i) => {
           const ans = answers[id];
           const isCurrent = i === current;
           const correct = ans !== undefined ? ans === correctMap[id] : null;
+          // Build a clear status label: "Question 5: correct" / ": wrong" /
+          // ": unanswered" / ": current" so screen-reader users (and anyone
+          // tabbing through) know what each button represents instead of
+          // hearing a meaningless number.
+          const statusKey = isCurrent
+            ? "questionStatusCurrent"
+            : correct === true
+            ? "questionStatusCorrect"
+            : correct === false
+            ? "questionStatusWrong"
+            : "questionStatusUnanswered";
+          const label = `${t("question", lang)} ${i + 1}: ${t(statusKey, lang)}`;
           return (
             <button
               key={id}
               type="button"
               onClick={() => onJump(i)}
+              aria-label={label}
+              aria-current={isCurrent ? "step" : undefined}
               className={`flex h-8 items-center justify-center rounded text-[11px] font-semibold transition ${
                 isCurrent
                   ? "bg-ink-900 text-white"

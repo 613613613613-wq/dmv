@@ -13,7 +13,7 @@ export default function LearnView() {
   if (error)
     return (
       <div className="card p-6 text-coral-600">
-        Couldn't load lessons: {error}
+        {t("couldntLoadLessons", lang)}: {error}
       </div>
     );
   if (!lessons) return <div className="card h-72 animate-pulse" />;

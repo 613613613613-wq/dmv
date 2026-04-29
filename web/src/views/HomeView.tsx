@@ -15,7 +15,7 @@ export default function HomeView() {
   const { pack, error } = useContentPack(data.profile.vehicleClass);
   const { lessons } = useLessonPack(data.profile.vehicleClass);
 
-  if (error) return <ErrorPanel message={error} />;
+  if (error) return <ErrorPanel message={error} lang={lang} />;
   if (!pack) return <Skeleton />;
 
   const streak = currentStreak(data.attempts);
@@ -39,24 +39,22 @@ export default function HomeView() {
               {pack.agency.name} · {pack.exam.officialName}
             </div>
             <h1 className="text-2xl font-bold leading-tight md:text-4xl">
-              {lang === "es" ? (
-                <>Aprueba tu permiso<br />de Florida la 1.ª vez.</>
-              ) : (
-                <>Pass your Florida permit<br />the first time.</>
-              )}
+              {t("heroHeadline", lang).trimEnd().split("\n").map((line, i, arr) => (
+                <span key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </span>
+              ))}
             </h1>
             <p className="max-w-md text-sm text-ink-200 md:text-base">
               {pack.exam.questionCount} {t("questions", lang)} · {pack.exam.passingPercent}% {t("passMark", lang).toLowerCase()} ·{" "}
-              {lang === "es"
-                ? "cada respuesta cita el manual."
-                : "every answer cites the handbook."}
+              {t("everyAnswerCitesHandbook", lang)}
             </p>
             {videoManifest.videos.length > 0 && (
               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-sun-200 ring-1 ring-white/20 backdrop-blur">
                 <span aria-hidden>▶</span>
                 <span>
-                  {videoManifest.videos.length}{" "}
-                  {lang === "es" ? "lecciones en video" : "video lessons"}
+                  {videoManifest.videos.length} {t("videoLessons", lang)}
                 </span>
               </div>
             )}
@@ -229,9 +227,7 @@ export default function HomeView() {
         </Link>
 
         <div className="card p-5">
-          <h3 className="text-base font-semibold text-ink-900">
-            {lang === "es" ? "Florida en 4 reglas" : "Florida in 4 rules"}
-          </h3>
+          <h3 className="text-base font-semibold text-ink-900">{t("floridaInRules", lang)}</h3>
           <ul className="mt-3 space-y-2 text-sm text-ink-600">
             {pack.specialNotes.slice(0, 4).map((n) => (
               <li key={n} className="flex gap-2">
@@ -244,7 +240,7 @@ export default function HomeView() {
       </section>
 
       <p className="pb-4 text-center text-[11px] text-ink-400">
-        {lang === "es" ? "Bestia Bilingüe" : "Bilingual"} · {pack.handbook.version}
+        {t("bilingual", lang)} · {pack.handbook.version}
       </p>
     </div>
   );
@@ -281,10 +277,10 @@ function Skeleton() {
   );
 }
 
-function ErrorPanel({ message }: { message: string }) {
+function ErrorPanel({ message, lang }: { message: string; lang: Lang }) {
   return (
     <div className="card p-6">
-      <h2 className="text-lg font-semibold text-coral-600">Couldn't load the question pack</h2>
+      <h2 className="text-lg font-semibold text-coral-600">{t("couldntLoadPack", lang)}</h2>
       <p className="mt-2 text-sm text-ink-600">{message}</p>
     </div>
   );

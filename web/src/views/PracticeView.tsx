@@ -39,9 +39,7 @@ export default function PracticeView() {
   if (!question) {
     return (
       <div className="card p-6">
-        <h2 className="text-lg font-semibold text-ink-900">
-          {lang === "es" ? "Aún no hay preguntas para este tema." : "No questions for this topic yet."}
-        </h2>
+        <h2 className="text-lg font-semibold text-ink-900">{t("noQuestionsForTopic", lang)}</h2>
         <Link to="/practice" className="btn-secondary mt-4">
           {t("practiceAll", lang)}
         </Link>
@@ -85,11 +83,7 @@ export default function PracticeView() {
             {categoryLabel ? categoryLabel : t("adaptivePractice", lang)}
           </h1>
           <p className="text-sm text-ink-500">
-            {categoryLabel
-              ? lang === "es"
-                ? "Repasando solo este tema."
-                : "Drilling just this topic."
-              : t("adaptivePracticeBlurb", lang)}
+            {categoryLabel ? t("drillingThisTopic", lang) : t("adaptivePracticeBlurb", lang)}
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -105,7 +99,7 @@ export default function PracticeView() {
               onClick={() => setParams({})}
               className="btn-ghost text-xs"
             >
-              {lang === "es" ? "Quitar tema" : "Clear topic"}
+              {t("clearTopic", lang)}
             </button>
           )}
         </div>
