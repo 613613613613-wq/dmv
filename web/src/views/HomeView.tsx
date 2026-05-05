@@ -16,6 +16,24 @@ export default function HomeView() {
   const { pack, error } = useContentPack(data.profile.vehicleClass);
   const { lessons } = useLessonPack(data.profile.vehicleClass);
 
+  // IMPORTANT: All hooks must run BEFORE any conditional early return,
+  // otherwise hook count differs across renders → React error #310
+  // ("Rendered more hooks than during previous render"). The previous
+  // version placed this useMemo after the `if (!pack) return` guard,
+  // which crashed on first paint for any user without a cached pack.
+  const watchableClipCount = useMemo(() => {
+    if (!lessons) return 0;
+    const scenes = new Set<string>();
+    for (const lesson of lessons.lessons) {
+      for (const step of lesson.steps) {
+        if (step.scene && hasGeneratedVideo(step.scene)) {
+          scenes.add(step.scene);
+        }
+      }
+    }
+    return scenes.size;
+  }, [lessons]);
+
   if (error) return <ErrorPanel message={error} lang={lang} />;
   if (!pack) return <Skeleton />;
 
@@ -30,24 +48,6 @@ export default function HomeView() {
   const lastResult = data.mockResults[0];
   const lvl = levelInfo(data.xp);
   const nextLesson = lessons?.lessons.find((l) => !data.lessonsCompleted.includes(l.id));
-
-  // Count of animated clips that are (a) actually referenced by a lesson step
-  // for the user's vehicle class AND (b) actually generated and watchable.
-  // This number is stable: it only changes when lesson content changes, NOT
-  // every time the video-generation worker writes a new MP4 to the manifest.
-  // Fixes the "27 → 37 → climbing" mismatch the user saw in dev/HMR.
-  const watchableClipCount = useMemo(() => {
-    if (!lessons) return 0;
-    const scenes = new Set<string>();
-    for (const lesson of lessons.lessons) {
-      for (const step of lesson.steps) {
-        if (step.scene && hasGeneratedVideo(step.scene)) {
-          scenes.add(step.scene);
-        }
-      }
-    }
-    return scenes.size;
-  }, [lessons]);
 
   return (
     <div className="space-y-6">
