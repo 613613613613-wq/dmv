@@ -3,7 +3,7 @@ import type { Lang } from "./types";
 type Dict = Record<string, { en: string; es: string }>;
 
 const STRINGS: Dict = {
-  appTitle: { en: "Florida Permit Prep", es: "Preparación Permiso Florida" },
+  appTitle: { en: "Florida Permit Prep", es: "Preparación para el Permiso de Florida" },
   car: { en: "Car (Class E)", es: "Auto (Clase E)" },
   motorcycle: { en: "Motorcycle", es: "Motocicleta" },
   cdl: { en: "Truck / CDL", es: "Camión / CDL" },
@@ -240,7 +240,7 @@ const STRINGS: Dict = {
   // Onboarding lang-step welcome blurb — was English-only on the pre-language screen.
   welcomeBlurb: {
     en: "Florida Permit Prep · gamified, bilingual, every answer cites the FLHSMV handbook.",
-    es: "Preparación Permiso Florida · gamificada, bilingüe, cada respuesta cita el manual del FLHSMV.",
+    es: "Preparación para el Permiso de Florida · gamificada, bilingüe, cada respuesta cita el manual del FLHSMV.",
   },
 };
 

@@ -41,10 +41,10 @@ export default function Layout() {
             </div>
             <div className="leading-tight">
               <div className="text-sm font-semibold text-ink-900">
-                {pack?.name ?? "Florida"} {t("appTitle", lang).split(" ").slice(-2).join(" ")}
+                {t("appTitle", lang)}
               </div>
               <div className="text-xs text-ink-500">
-                {pack?.agency.name ?? "FLHSMV"} · {pack?.exam.officialName ?? ""}
+                {pack?.agency.name ?? "FLHSMV"} · {pack?.exam.officialName?.[lang] ?? ""}
               </div>
             </div>
           </NavLink>

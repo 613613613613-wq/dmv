@@ -36,7 +36,7 @@ export interface Agency {
 }
 
 export interface ExamFormat {
-  officialName: string;
+  officialName: { en: string; es: string };
   questionCount: number;
   passingScore: number;
   passingPercent: number;
@@ -54,7 +54,7 @@ export interface LanguageSupport {
 
 export interface Category {
   id: string;
-  name: string;
+  name: { en: string; es: string };
   weight: number;
 }
 
@@ -73,7 +73,7 @@ export interface ContentPack {
   languages: LanguageSupport;
   categories: Category[];
   handbook: HandbookSource;
-  specialNotes: string[];
+  specialNotes: { en: string; es: string }[];
   questions: Question[];
 }
 

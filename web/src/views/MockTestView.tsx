@@ -22,7 +22,7 @@ export default function MockTestView() {
           {t("mockTestMode", lang)}
         </div>
         <h1 className="mt-1 text-2xl font-bold text-ink-900 md:text-3xl">
-          {pack.exam.officialName}
+          {pack.exam.officialName[lang]}
         </h1>
         <p className="mt-2 text-sm text-ink-600 md:text-base">
           {lang === "es"

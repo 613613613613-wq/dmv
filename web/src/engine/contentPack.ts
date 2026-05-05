@@ -141,6 +141,10 @@ export function useLessonPack(vehicleClass: VehicleClass | null) {
   return { lessons, error };
 }
 
-export function categoryName(pack: { categories: { id: string; name: string }[] }, id: string): string {
-  return pack.categories.find((c) => c.id === id)?.name ?? id;
+export function categoryName(
+  pack: { categories: { id: string; name: { en: string; es: string } }[] },
+  id: string,
+  lang: "en" | "es" = "en",
+): string {
+  return pack.categories.find((c) => c.id === id)?.name[lang] ?? id;
 }

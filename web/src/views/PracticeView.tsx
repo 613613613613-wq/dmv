@@ -31,8 +31,8 @@ export default function PracticeView() {
 
   const categoryLabel = useMemo(() => {
     if (!filterCategory || !pack) return null;
-    return pack.categories.find((c) => c.id === filterCategory)?.name ?? null;
-  }, [pack, filterCategory]);
+    return pack.categories.find((c) => c.id === filterCategory)?.name[lang] ?? null;
+  }, [pack, filterCategory, lang]);
 
   if (!pack) return <div className="card h-72 animate-pulse" />;
 

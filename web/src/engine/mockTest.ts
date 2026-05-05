@@ -5,7 +5,7 @@ export interface MockTest {
   questions: Question[];
   passingScore: number;
   timeLimitMinutes: number | null;
-  officialName: string;
+  officialName: { en: string; es: string };
   /** Total questions the real exam has (used for proportional pass-mark scaling). */
   officialQuestionCount: number;
 }

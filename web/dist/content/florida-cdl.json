@@ -8,7 +8,10 @@
     "url": "https://www.flhsmv.gov"
   },
   "exam": {
-    "officialName": "CDL General Knowledge Exam",
+    "officialName": {
+      "en": "CDL General Knowledge Exam",
+      "es": "Examen General de Conocimiento CDL"
+    },
     "questionCount": 50,
     "passingScore": 40,
     "passingPercent": 80,
@@ -31,42 +34,66 @@
   "categories": [
     {
       "id": "vehicle",
-      "name": "Vehicle Inspection",
+      "name": {
+        "en": "Vehicle Inspection",
+        "es": "Inspección del Vehículo"
+      },
       "weight": 0.2
     },
     {
       "id": "control",
-      "name": "Vehicle Control",
+      "name": {
+        "en": "Vehicle Control",
+        "es": "Control del Vehículo"
+      },
       "weight": 0.15
     },
     {
       "id": "safety",
-      "name": "Safe Driving",
+      "name": {
+        "en": "Safe Driving",
+        "es": "Conducción Segura"
+      },
       "weight": 0.2
     },
     {
       "id": "airbrakes",
-      "name": "Air Brakes",
+      "name": {
+        "en": "Air Brakes",
+        "es": "Frenos de Aire"
+      },
       "weight": 0.1
     },
     {
       "id": "haz",
-      "name": "Hazards & Emergency",
+      "name": {
+        "en": "Hazards & Emergency",
+        "es": "Peligros y Emergencias"
+      },
       "weight": 0.1
     },
     {
       "id": "rail",
-      "name": "Railroad & Bridges",
+      "name": {
+        "en": "Railroad & Bridges",
+        "es": "Ferrocarril y Puentes"
+      },
       "weight": 0.05
     },
     {
       "id": "law",
-      "name": "CDL Law",
+      "name": {
+        "en": "CDL Law",
+        "es": "Ley CDL"
+      },
       "weight": 0.1
     },
     {
       "id": "alcohol",
-      "name": "Alcohol & Drugs",
+      "name": {
+        "en": "Alcohol & Drugs",
+        "es": "Alcohol y Drogas"
+      },
       "weight": 0.1
     }
   ],
@@ -76,10 +103,22 @@
     "lastReviewed": "2026-04-28"
   },
   "specialNotes": [
-    "Florida CDL applicants must hold a Commercial Learner's Permit (CLP) for a minimum of 14 days before taking the skills test.",
-    "CDL holders are limited to BAC 0.04% (half the regular limit). Refusing a test = 1-year disqualification.",
-    "Federal regulations require an English language proficiency standard for CDL holders.",
-    "Pre-trip inspections are mandatory before each trip, every 24 hours, and every 150 miles or 8 hours."
+    {
+      "en": "Florida CDL applicants must hold a Commercial Learner's Permit (CLP) for a minimum of 14 days before taking the skills test.",
+      "es": "Los solicitantes de CDL en Florida deben tener un Permiso de Aprendiz Comercial (CLP) por un mínimo de 14 días antes del examen de habilidades."
+    },
+    {
+      "en": "CDL holders are limited to BAC 0.04% (half the regular limit). Refusing a test = 1-year disqualification.",
+      "es": "Los titulares de CDL están limitados a 0.04% de BAC (la mitad del límite normal). Negarse a la prueba = 1 año de descalificación."
+    },
+    {
+      "en": "Federal regulations require an English language proficiency standard for CDL holders.",
+      "es": "Las regulaciones federales exigen un estándar de competencia en inglés para los titulares de CDL."
+    },
+    {
+      "en": "Pre-trip inspections are mandatory before each trip, every 24 hours, and every 150 miles or 8 hours.",
+      "es": "Las inspecciones previas al viaje son obligatorias antes de cada viaje, cada 24 horas y cada 150 millas u 8 horas."
+    }
   ],
   "questions": [
     {

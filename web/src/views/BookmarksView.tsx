@@ -42,7 +42,7 @@ export default function BookmarksView() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="text-xs font-medium uppercase tracking-wider text-ink-500">
-                    {categoryName(pack, q.category)}
+                    {categoryName(pack, q.category, lang)}
                   </div>
                   <h3 className="mt-1 text-sm font-semibold text-ink-900">
                     {loc(q.stem, lang)}

@@ -73,8 +73,8 @@ export default function MockResultView() {
         <p className="mt-3 max-w-xl text-sm opacity-90">
           {snap.result.passed
             ? lang === "es"
-              ? `En el examen real ${pack.exam.officialName}, ${pack.exam.passingScore} de ${pack.exam.questionCount} (${pack.exam.passingPercent}%) es el mínimo. ¡Te darían el permiso!`
-              : `On the real ${pack.exam.officialName}, ${pack.exam.passingScore} of ${pack.exam.questionCount} (${pack.exam.passingPercent}%) is the cutoff. You'd be issued the permit at this score.`
+              ? `En el examen real ${pack.exam.officialName.es}, ${pack.exam.passingScore} de ${pack.exam.questionCount} (${pack.exam.passingPercent}%) es el mínimo. ¡Te darían el permiso!`
+              : `On the real ${pack.exam.officialName.en}, ${pack.exam.passingScore} of ${pack.exam.questionCount} (${pack.exam.passingPercent}%) is the cutoff. You'd be issued the permit at this score.`
             : lang === "es"
               ? `Necesitas ${pack.exam.passingScore} de ${pack.exam.questionCount}. Repasa los temas abajo y vuelve a intentarlo.`
               : `On the real exam you'd need ${pack.exam.passingScore} of ${pack.exam.questionCount} to pass. Drill the topics below and try again.`}
@@ -99,7 +99,7 @@ export default function MockResultView() {
               return (
                 <li key={cat}>
                   <div className="flex items-baseline justify-between text-sm">
-                    <span className="font-medium text-ink-900">{categoryName(pack, cat)}</span>
+                    <span className="font-medium text-ink-900">{categoryName(pack, cat, lang)}</span>
                     <span className="text-xs text-ink-500">
                       {tn.correct} / {tn.total} · {Math.round(acc * 100)}%
                     </span>
@@ -133,7 +133,7 @@ export default function MockResultView() {
               return (
                 <li key={q.id} className="border-t border-ink-100 pt-5 first:border-t-0 first:pt-0">
                   <div className="text-xs font-medium uppercase tracking-wider text-ink-500">
-                    {categoryName(pack, q.category)}
+                    {categoryName(pack, q.category, lang)}
                   </div>
                   <h3 className="mt-1 text-sm font-semibold text-ink-900">
                     {loc(q.stem, lang)}

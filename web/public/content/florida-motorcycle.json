@@ -8,7 +8,10 @@
     "url": "https://www.flhsmv.gov"
   },
   "exam": {
-    "officialName": "Motorcycle Endorsement (Class E + Motorcycle)",
+    "officialName": {
+      "en": "Motorcycle Endorsement (Class E + Motorcycle)",
+      "es": "Endoso de Motocicleta (Clase E + Motocicleta)"
+    },
     "questionCount": 25,
     "passingScore": 20,
     "passingPercent": 80,
@@ -30,42 +33,66 @@
   "categories": [
     {
       "id": "gear",
-      "name": "Gear & Inspection",
+      "name": {
+        "en": "Gear & Inspection",
+        "es": "Equipo e Inspección"
+      },
       "weight": 0.15
     },
     {
       "id": "controls",
-      "name": "Controls & Posture",
+      "name": {
+        "en": "Controls & Posture",
+        "es": "Controles y Postura"
+      },
       "weight": 0.15
     },
     {
       "id": "braking",
-      "name": "Braking & Stopping",
+      "name": {
+        "en": "Braking & Stopping",
+        "es": "Frenado y Detención"
+      },
       "weight": 0.15
     },
     {
       "id": "cornering",
-      "name": "Cornering & Curves",
+      "name": {
+        "en": "Cornering & Curves",
+        "es": "Curvas y Esquinas"
+      },
       "weight": 0.15
     },
     {
       "id": "strategy",
-      "name": "Street Strategy",
+      "name": {
+        "en": "Street Strategy",
+        "es": "Estrategia en Calle"
+      },
       "weight": 0.15
     },
     {
       "id": "emergency",
-      "name": "Emergency Maneuvers",
+      "name": {
+        "en": "Emergency Maneuvers",
+        "es": "Maniobras de Emergencia"
+      },
       "weight": 0.1
     },
     {
       "id": "law",
-      "name": "Florida Law",
+      "name": {
+        "en": "Florida Law",
+        "es": "Ley de Florida"
+      },
       "weight": 0.1
     },
     {
       "id": "impair",
-      "name": "Impairment",
+      "name": {
+        "en": "Impairment",
+        "es": "Deterioro"
+      },
       "weight": 0.05
     }
   ],
@@ -75,10 +102,22 @@
     "lastReviewed": "2026-04-28"
   },
   "specialNotes": [
-    "Florida requires the MSF Basic RiderCourse to add a motorcycle endorsement.",
-    "Florida riders 21+ may legally ride without a helmet IF they carry at least $10,000 of medical insurance. Under 21: helmet required by law.",
-    "Lane-splitting is illegal in Florida. Two motorcycles may ride side-by-side in a single lane.",
-    "Headlight must be on at all times when riding, day or night."
+    {
+      "en": "Florida requires the MSF Basic RiderCourse to add a motorcycle endorsement.",
+      "es": "Florida requiere el Curso Básico MSF para añadir el endoso de motocicleta."
+    },
+    {
+      "en": "Florida riders 21+ may legally ride without a helmet IF they carry at least $10,000 of medical insurance. Under 21: helmet required by law.",
+      "es": "Los conductores de Florida mayores de 21 pueden conducir sin casco SI llevan al menos $10,000 de seguro médico. Menores de 21: casco obligatorio por ley."
+    },
+    {
+      "en": "Lane-splitting is illegal in Florida. Two motorcycles may ride side-by-side in a single lane.",
+      "es": "Compartir carril (lane-splitting) es ilegal en Florida. Dos motocicletas pueden ir lado a lado en un solo carril."
+    },
+    {
+      "en": "Headlight must be on at all times when riding, day or night.",
+      "es": "El faro delantero debe estar encendido siempre al conducir, de día o de noche."
+    }
   ],
   "questions": [
     {

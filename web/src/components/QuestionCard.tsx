@@ -64,7 +64,7 @@ export default function QuestionCard({
     }`}>
       <div className="flex items-center justify-between text-xs">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="chip bg-gulf-50 text-gulf-600">{categoryName(pack, question.category)}</span>
+          <span className="chip bg-gulf-50 text-gulf-600">{categoryName(pack, question.category, lang)}</span>
           <span className="chip">
             <DifficultyDots level={question.difficulty} />
             <span className="ml-1">

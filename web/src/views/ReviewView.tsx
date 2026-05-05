@@ -123,7 +123,7 @@ export default function ReviewView() {
                     <span className="truncate text-sm text-ink-700">{loc(q.stem, lang)}</span>
                   </div>
                   <div className="ml-7 mt-0.5 text-xs text-ink-500">
-                    {categoryName(pack, q.category)} · {formatRelativeDate(a.timestamp)}
+                    {categoryName(pack, q.category, lang)} · {formatRelativeDate(a.timestamp)}
                   </div>
                 </div>
               </li>
@@ -151,7 +151,7 @@ function QuestionRow({
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="text-xs font-medium uppercase tracking-wider text-ink-500">
-            {categoryName(pack, q.category)}
+            {categoryName(pack, q.category, lang)}
           </div>
           <p className="mt-0.5 text-sm font-medium text-ink-900">{loc(q.stem, lang)}</p>
           {showCorrect && correctChoice && (

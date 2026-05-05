@@ -8,7 +8,10 @@
     "url": "https://www.flhsmv.gov"
   },
   "exam": {
-    "officialName": "Class E Knowledge Exam",
+    "officialName": {
+      "en": "Class E Knowledge Exam",
+      "es": "Examen de Conocimiento Clase E"
+    },
     "questionCount": 50,
     "passingScore": 40,
     "passingPercent": 80,
@@ -30,47 +33,74 @@
   "categories": [
     {
       "id": "signs",
-      "name": "Road Signs",
+      "name": {
+        "en": "Road Signs",
+        "es": "Señales de Tránsito"
+      },
       "weight": 0.2
     },
     {
       "id": "row",
-      "name": "Right of Way",
+      "name": {
+        "en": "Right of Way",
+        "es": "Derecho de Paso"
+      },
       "weight": 0.15
     },
     {
       "id": "rules",
-      "name": "Rules of the Road",
+      "name": {
+        "en": "Rules of the Road",
+        "es": "Normas Viales"
+      },
       "weight": 0.18
     },
     {
       "id": "alcohol",
-      "name": "Alcohol & DUI",
+      "name": {
+        "en": "Alcohol & DUI",
+        "es": "Alcohol y DUI"
+      },
       "weight": 0.1
     },
     {
       "id": "parking",
-      "name": "Parking & Stopping",
+      "name": {
+        "en": "Parking & Stopping",
+        "es": "Estacionamiento y Detención"
+      },
       "weight": 0.06
     },
     {
       "id": "fines",
-      "name": "Fines & Penalties",
+      "name": {
+        "en": "Fines & Penalties",
+        "es": "Multas y Sanciones"
+      },
       "weight": 0.05
     },
     {
       "id": "moveOver",
-      "name": "Move-Over Law",
+      "name": {
+        "en": "Move-Over Law",
+        "es": "Ley Cédele el Paso"
+      },
       "weight": 0.05
     },
     {
       "id": "license",
-      "name": "License Types & GDL",
+      "name": {
+        "en": "License Types & GDL",
+        "es": "Tipos de Licencia y GDL"
+      },
       "weight": 0.06
     },
     {
       "id": "safety",
-      "name": "Safe Driving",
+      "name": {
+        "en": "Safe Driving",
+        "es": "Conducción Segura"
+      },
       "weight": 0.15
     }
   ],
@@ -80,10 +110,22 @@
     "lastReviewed": "2026-04-28"
   },
   "specialNotes": [
-    "TLSAE (Traffic Law and Substance Abuse Education) 4-hour course is required for all first-time applicants before the knowledge exam.",
-    "Permit holders must drive with a licensed driver age 21+ in the closest seat at all times. First 3 months: daylight only.",
-    "Move-Over: vacate the lane next to a stopped emergency, utility, sanitation or tow vehicle with flashing lights when safe.",
-    "Florida law requires you to signal a turn at least 100 feet before turning."
+    {
+      "en": "TLSAE (Traffic Law and Substance Abuse Education) 4-hour course is required for all first-time applicants before the knowledge exam.",
+      "es": "El curso TLSAE (Educación sobre Leyes de Tránsito y Abuso de Sustancias) de 4 horas es obligatorio para todos los solicitantes por primera vez antes del examen de conocimiento."
+    },
+    {
+      "en": "Permit holders must drive with a licensed driver age 21+ in the closest seat at all times. First 3 months: daylight only.",
+      "es": "Los titulares del permiso deben conducir siempre con un conductor licenciado mayor de 21 años en el asiento más cercano. Primeros 3 meses: solo de día."
+    },
+    {
+      "en": "Move-Over: vacate the lane next to a stopped emergency, utility, sanitation or tow vehicle with flashing lights when safe.",
+      "es": "Cédele el Paso: desocupa el carril junto a un vehículo de emergencia, servicio público, sanitario o grúa detenido con luces intermitentes cuando sea seguro."
+    },
+    {
+      "en": "Florida law requires you to signal a turn at least 100 feet before turning.",
+      "es": "La ley de Florida exige señalizar una vuelta al menos 100 pies antes de girar."
+    }
   ],
   "questions": [
     {
