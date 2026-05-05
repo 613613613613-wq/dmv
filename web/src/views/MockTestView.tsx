@@ -30,11 +30,22 @@ export default function MockTestView() {
             : `A real-format simulation. ${sampleSize} questions, sampled by category weight to mirror FLHSMV. Pass at ${passMark}/${sampleSize} (${pack.exam.passingPercent}%).`}
         </p>
         {undersized && (
-          <p className="mt-1 text-xs text-ink-500">
-            {lang === "es"
-              ? `El examen oficial es de ${pack.exam.questionCount} preguntas; estamos creciendo el banco de preguntas. El umbral del ${pack.exam.passingPercent}% se mantiene.`
-              : `The real exam has ${pack.exam.questionCount} questions; we're still growing the question bank. The ${pack.exam.passingPercent}% threshold is preserved.`}
-          </p>
+          <div
+            role="note"
+            className="mt-4 flex items-start gap-3 rounded-xl border border-sun-300 bg-sun-50 p-4 text-sm text-ink-800"
+          >
+            <span aria-hidden className="text-xl leading-none">⚠️</span>
+            <div>
+              <div className="font-semibold text-ink-900">
+                {t("growingQuestionBank", lang)}
+              </div>
+              <p className="mt-1 leading-relaxed">
+                {lang === "es"
+                  ? `El examen oficial de FLHSMV tiene ${pack.exam.questionCount} preguntas. Esta simulación usa ${sampleSize} (todo el banco actual), muestreadas por categoría. Mantenemos el umbral del ${pack.exam.passingPercent}% para que practiques al mismo nivel.`
+                  : `The official FLHSMV exam has ${pack.exam.questionCount} questions. This simulation uses ${sampleSize} (the full bank we have today), sampled by category weight. We keep the ${pack.exam.passingPercent}% pass threshold so you practice at the same difficulty.`}
+              </p>
+            </div>
+          </div>
         )}
 
         <div className="mt-5 grid gap-3 md:grid-cols-3">

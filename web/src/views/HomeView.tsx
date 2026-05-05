@@ -50,13 +50,19 @@ export default function HomeView() {
               {pack.exam.questionCount} {t("questions", lang)} · {pack.exam.passingPercent}% {t("passMark", lang).toLowerCase()} ·{" "}
               {t("everyAnswerCitesHandbook", lang)}
             </p>
-            {videoManifest.videos.length > 0 && (
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-sun-200 ring-1 ring-white/20 backdrop-blur">
+            {videoManifest.videos.length > 0 && lessons && lessons.lessons.length > 0 && (
+              // Was a non-interactive div labeled "27 video lessons" — but
+              // the 27 figure was the video-clip count, not the lesson
+              // count (6). Now: a real Link to /learn with accurate copy.
+              <Link
+                to="/learn"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-sun-200 ring-1 ring-white/20 backdrop-blur transition hover:bg-white/20"
+              >
                 <span aria-hidden>▶</span>
                 <span>
-                  {videoManifest.videos.length} {t("videoLessons", lang)}
+                  {videoManifest.videos.length} {t("animatedClipsInLessons", lang)} →
                 </span>
-              </div>
+              </Link>
             )}
           </div>
           <div className="flex flex-col gap-2 md:items-end">

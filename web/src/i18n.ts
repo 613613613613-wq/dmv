@@ -218,6 +218,20 @@ const STRINGS: Dict = {
     es: "cada respuesta cita el manual.",
   },
   videoLessons: { en: "video lessons", es: "lecciones en video" },
+  // Video badge on home — clarifies these are short animated clips
+  // embedded inside the lessons (24+ clips across 6 lessons), not 27 separate
+  // standalone videos. Tappable to jump straight into the lesson list.
+  animatedClipsInLessons: {
+    en: "animated clips across the lessons",
+    es: "clips animados en las lecciones",
+  },
+  // Mock test undersized-bank disclaimer headline (was a tiny gray line).
+  growingQuestionBank: {
+    en: "We're still growing the question bank",
+    es: "Aún estamos ampliando el banco de preguntas",
+  },
+  // Songs error retry button.
+  retry: { en: "Retry", es: "Reintentar" },
   floridaInRules: { en: "Florida in 4 rules", es: "Florida en 4 reglas" },
   // Onboarding lang-step welcome blurb — was English-only on the pre-language screen.
   welcomeBlurb: {

@@ -152,10 +152,32 @@ export default function SongsView() {
       />
 
       {loadError && (
-        <div role="alert" className="card border border-coral-200 bg-coral-50 p-4 text-sm text-coral-700">
-          {lang === "es"
-            ? "No se pudo cargar la canción. Comprueba tu conexión y vuelve a intentarlo."
-            : "Couldn't load this song. Check your connection and try again."}
+        <div
+          role="alert"
+          className="card flex flex-wrap items-center justify-between gap-3 border border-coral-200 bg-coral-50 p-4 text-sm text-coral-700"
+        >
+          <span>
+            {lang === "es"
+              ? "No se pudo cargar la canción. Comprueba tu conexión y vuelve a intentarlo."
+              : "Couldn't load this song. Check your connection and try again."}
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              // Clear the error first so the audio element re-renders without
+              // the disabled state, then force a re-fetch via load(). The
+              // onCanPlay/onLoadedMetadata handlers will repopulate duration.
+              setLoadError(false);
+              const a = audioRef.current;
+              if (a) {
+                a.load();
+                a.play().catch(() => setLoadError(true));
+              }
+            }}
+            className="rounded-full bg-coral-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-coral-700"
+          >
+            {t("retry", lang)}
+          </button>
         </div>
       )}
 
