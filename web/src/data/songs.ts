@@ -12,7 +12,7 @@ export interface Song {
 export const SONGS: Song[] = [
   {
     id: "eight-colors",
-    audioFile: "/songs/eight-colors.mp3",
+    audioFile: "/songs/eight-colors.m4a",
     title: { en: "Eight Colors", es: "Ocho Colores" },
     topic: { en: "Sign Colors", es: "Colores de Señales" },
     description: {
@@ -46,7 +46,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "all-way-stop",
-    audioFile: "/songs/all-way-stop.mp3",
+    audioFile: "/songs/all-way-stop.m4a",
     title: { en: "All-Way Stop", es: "Pare de Cuatro Vías" },
     topic: {
       en: "Right-of-way at 4-way stops",
@@ -77,7 +77,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "yellow-diamond",
-    audioFile: "/songs/yellow-diamond.mp3",
+    audioFile: "/songs/yellow-diamond.m4a",
     title: { en: "Yellow Diamond", es: "Diamante Amarillo" },
     topic: {
       en: "Warning signs (yellow diamonds)",
@@ -108,7 +108,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "speed-limit-beat",
-    audioFile: "/songs/speed-limit-beat.mp3",
+    audioFile: "/songs/speed-limit-beat.m4a",
     title: { en: "Speed Limit Beat", es: "Ritmo del Límite" },
     topic: {
       en: "Florida default speed limits",
@@ -141,7 +141,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "four-seconds-back",
-    audioFile: "/songs/four-seconds-back.mp3",
+    audioFile: "/songs/four-seconds-back.m4a",
     title: { en: "Four Seconds Back", es: "Cuatro Segundos Atrás" },
     topic: {
       en: "Safe following distance",
@@ -172,7 +172,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "move-over-slow-down",
-    audioFile: "/songs/move-over-slow-down.mp3",
+    audioFile: "/songs/move-over-slow-down.m4a",
     title: { en: "Move Over, Slow Down", es: "Cambia de Carril, Reduce" },
     topic: { en: "Florida Move Over Law", es: "Ley de Cambio de Carril de Florida" },
     description: {
@@ -200,7 +200,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "school-bus-freeze",
-    audioFile: "/songs/school-bus-freeze.mp3",
+    audioFile: "/songs/school-bus-freeze.m4a",
     title: { en: "School Bus Freeze", es: "Alto al Bus Escolar" },
     topic: { en: "Stopping for school buses", es: "Detenerse ante buses escolares" },
     description: {
@@ -230,7 +230,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "lines-on-the-road",
-    audioFile: "/songs/lines-on-the-road.mp3",
+    audioFile: "/songs/lines-on-the-road.m4a",
     title: { en: "Lines on the Road", es: "Líneas en la Vía" },
     topic: { en: "Pavement markings", es: "Marcas del pavimento" },
     description: {
@@ -260,7 +260,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "traffic-light",
-    audioFile: "/songs/traffic-light.mp3",
+    audioFile: "/songs/traffic-light.m4a",
     title: { en: "Traffic Light Permit", es: "Permiso del Semáforo" },
     topic: { en: "Traffic signals", es: "Semáforos" },
     description: {
@@ -292,7 +292,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "shape-parade",
-    audioFile: "/songs/shape-parade.mp3",
+    audioFile: "/songs/shape-parade.m4a",
     title: { en: "Shape Parade", es: "Desfile de Formas" },
     topic: { en: "Sign shapes", es: "Formas de las señales" },
     description: {
@@ -326,7 +326,7 @@ export const SONGS: Song[] = [
   },
   {
     id: "fluorescent-green",
-    audioFile: "/songs/fluorescent-green.mp3",
+    audioFile: "/songs/fluorescent-green.m4a",
     title: { en: "Fluorescent Green", es: "Verde Fluorescente" },
     topic: {
       en: "Yellow-green signs (school, ped, bike)",
