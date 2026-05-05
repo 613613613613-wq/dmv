@@ -4,6 +4,8 @@
     "bac:0.04",
     "bac:0.08",
     "four-way-stop",
+    "gear:body",
+    "gear:eyes",
     "gear:helmet",
     "left-turn-yield",
     "license-revoke",
