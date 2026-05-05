@@ -14,11 +14,22 @@ import OnboardingView from "./views/OnboardingView";
 import SignsView from "./views/SignsView";
 import SignRushView from "./views/SignRushView";
 import SongsView from "./views/SongsView";
+import { useEffect } from "react";
 import { useUserData } from "./engine/store";
+import { prefetchClassContent } from "./engine/contentPack";
 
 export default function App() {
   const { data } = useUserData();
   const onboarded = !!data.profile.vehicleClass;
+
+  // Warm the question pack and lesson pack the moment the user has a class
+  // selected. Subsequent route navigations then read from cache synchronously
+  // and skip the loading skeleton entirely.
+  useEffect(() => {
+    if (data.profile.vehicleClass) {
+      prefetchClassContent(data.profile.vehicleClass);
+    }
+  }, [data.profile.vehicleClass]);
 
   return (
     <Routes>

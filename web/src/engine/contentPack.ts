@@ -13,8 +13,67 @@ const LESSON_URLS: Record<VehicleClass, string> = {
   cdl: "/content/lessons-cdl.json",
 };
 
+// Module-level caches keyed by VehicleClass. Once a pack/lesson set has been
+// fetched, every later route navigation gets it synchronously — no more
+// "flash of skeleton" between pages just because the component re-mounted.
+const packCache: Partial<Record<VehicleClass, ContentPack>> = {};
+const packInflight: Partial<Record<VehicleClass, Promise<ContentPack>>> = {};
+const lessonCache: Partial<Record<VehicleClass, LessonPack>> = {};
+const lessonInflight: Partial<Record<VehicleClass, Promise<LessonPack>>> = {};
+
+function fetchPack(vc: VehicleClass): Promise<ContentPack> {
+  const existing = packInflight[vc];
+  if (existing) return existing;
+  const p = fetch(PACK_URLS[vc])
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json() as Promise<ContentPack>;
+    })
+    .then((json) => {
+      packCache[vc] = json;
+      delete packInflight[vc];
+      return json;
+    })
+    .catch((e) => {
+      delete packInflight[vc];
+      throw e;
+    });
+  packInflight[vc] = p;
+  return p;
+}
+
+function fetchLessons(vc: VehicleClass): Promise<LessonPack> {
+  const existing = lessonInflight[vc];
+  if (existing) return existing;
+  const p = fetch(LESSON_URLS[vc])
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json() as Promise<LessonPack>;
+    })
+    .then((json) => {
+      lessonCache[vc] = json;
+      delete lessonInflight[vc];
+      return json;
+    })
+    .catch((e) => {
+      delete lessonInflight[vc];
+      throw e;
+    });
+  lessonInflight[vc] = p;
+  return p;
+}
+
+/** Eagerly warm both caches for the active class — call once at app boot. */
+export function prefetchClassContent(vc: VehicleClass): void {
+  if (!packCache[vc] && !packInflight[vc]) void fetchPack(vc).catch(() => {});
+  if (!lessonCache[vc] && !lessonInflight[vc]) void fetchLessons(vc).catch(() => {});
+}
+
 export function useContentPack(vehicleClass: VehicleClass | null) {
-  const [pack, setPack] = useState<ContentPack | null>(null);
+  // Initialize state *synchronously* from the cache so cached navigations
+  // don't render a `null` (skeleton) frame at all.
+  const cached = vehicleClass ? packCache[vehicleClass] ?? null : null;
+  const [pack, setPack] = useState<ContentPack | null>(cached);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -22,16 +81,20 @@ export function useContentPack(vehicleClass: VehicleClass | null) {
       setPack(null);
       return;
     }
-    let cancelled = false;
+    const hit = packCache[vehicleClass];
+    if (hit) {
+      setPack(hit);
+      setError(null);
+      return;
+    }
+    // Cache miss on a class switch — clear stale prior-class data so the UI
+    // doesn't briefly render Car content while Motorcycle is loading.
     setPack(null);
+    let cancelled = false;
     setError(null);
-    fetch(PACK_URLS[vehicleClass])
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
+    fetchPack(vehicleClass)
       .then((json) => {
-        if (!cancelled) setPack(json as ContentPack);
+        if (!cancelled) setPack(json);
       })
       .catch((e: Error) => {
         if (!cancelled) setError(e.message);
@@ -45,7 +108,8 @@ export function useContentPack(vehicleClass: VehicleClass | null) {
 }
 
 export function useLessonPack(vehicleClass: VehicleClass | null) {
-  const [lessons, setLessons] = useState<LessonPack | null>(null);
+  const cached = vehicleClass ? lessonCache[vehicleClass] ?? null : null;
+  const [lessons, setLessons] = useState<LessonPack | null>(cached);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -53,16 +117,18 @@ export function useLessonPack(vehicleClass: VehicleClass | null) {
       setLessons(null);
       return;
     }
-    let cancelled = false;
+    const hit = lessonCache[vehicleClass];
+    if (hit) {
+      setLessons(hit);
+      setError(null);
+      return;
+    }
     setLessons(null);
+    let cancelled = false;
     setError(null);
-    fetch(LESSON_URLS[vehicleClass])
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
+    fetchLessons(vehicleClass)
       .then((json) => {
-        if (!cancelled) setLessons(json as LessonPack);
+        if (!cancelled) setLessons(json);
       })
       .catch((e: Error) => {
         if (!cancelled) setError(e.message);

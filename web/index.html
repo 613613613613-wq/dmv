@@ -11,7 +11,63 @@
     />
   </head>
   <body class="bg-ink-50 text-ink-900 antialiased">
-    <div id="root"></div>
+    <style>
+      /* Pre-paint loader — visible before React boots so users never see a
+         blank white page during the initial JS bundle parse. Removed by
+         the React render the moment <App /> mounts. */
+      #boot-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background: #f6f7fb;
+        color: #10141d;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        z-index: 9999;
+      }
+      #boot-loader .badge {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: #fcd34d;
+        color: #10141d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 22px;
+        box-shadow: 0 6px 24px rgba(16, 20, 29, 0.08);
+      }
+      #boot-loader .ring {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 3px solid #d6dae5;
+        border-top-color: #10141d;
+        animation: bl-spin 0.7s linear infinite;
+      }
+      #boot-loader .label {
+        font-size: 13px;
+        color: #5a6378;
+        letter-spacing: 0.02em;
+      }
+      @keyframes bl-spin { to { transform: rotate(360deg); } }
+      @media (prefers-color-scheme: dark) {
+        #boot-loader { background: #10141d; color: #f6f7fb; }
+        #boot-loader .label { color: #a5acbd; }
+        #boot-loader .ring { border-color: #2a3142; border-top-color: #fcd34d; }
+      }
+    </style>
+    <div id="root">
+      <div id="boot-loader" role="status" aria-live="polite">
+        <div class="badge">FL</div>
+        <div class="ring" aria-hidden="true"></div>
+        <div class="label">Loading… / Cargando…</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
