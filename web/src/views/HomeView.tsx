@@ -1,12 +1,13 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useUserData, levelInfo } from "../engine/store";
 import { useContentPack, useLessonPack } from "../engine/contentPack";
 import { currentStreak, longestStreak, studiedToday } from "../engine/streak";
 import { categoryStats } from "../engine/practice";
 import { dueCards } from "../engine/srs";
+import { hasGeneratedVideo } from "../engine/videoAssets";
 import { t } from "../i18n";
 import { loc } from "../engine/util";
-import videoManifest from "../data/video-manifest.json";
 import type { Lang } from "../types";
 
 export default function HomeView() {
@@ -30,6 +31,24 @@ export default function HomeView() {
   const lvl = levelInfo(data.xp);
   const nextLesson = lessons?.lessons.find((l) => !data.lessonsCompleted.includes(l.id));
 
+  // Count of animated clips that are (a) actually referenced by a lesson step
+  // for the user's vehicle class AND (b) actually generated and watchable.
+  // This number is stable: it only changes when lesson content changes, NOT
+  // every time the video-generation worker writes a new MP4 to the manifest.
+  // Fixes the "27 → 37 → climbing" mismatch the user saw in dev/HMR.
+  const watchableClipCount = useMemo(() => {
+    if (!lessons) return 0;
+    const scenes = new Set<string>();
+    for (const lesson of lessons.lessons) {
+      for (const step of lesson.steps) {
+        if (step.scene && hasGeneratedVideo(step.scene)) {
+          scenes.add(step.scene);
+        }
+      }
+    }
+    return scenes.size;
+  }, [lessons]);
+
   return (
     <div className="space-y-6">
       <section className="overflow-hidden rounded-3xl bg-gradient-to-br from-ink-900 via-ink-800 to-gulf-600 p-6 text-white shadow-card md:p-8">
@@ -50,17 +69,14 @@ export default function HomeView() {
               {pack.exam.questionCount} {t("questions", lang)} · {pack.exam.passingPercent}% {t("passMark", lang).toLowerCase()} ·{" "}
               {t("everyAnswerCitesHandbook", lang)}
             </p>
-            {videoManifest.videos.length > 0 && lessons && lessons.lessons.length > 0 && (
-              // Was a non-interactive div labeled "27 video lessons" — but
-              // the 27 figure was the video-clip count, not the lesson
-              // count (6). Now: a real Link to /learn with accurate copy.
+            {watchableClipCount > 0 && (
               <Link
                 to="/learn"
                 className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-sun-200 ring-1 ring-white/20 backdrop-blur transition hover:bg-white/20"
               >
                 <span aria-hidden>▶</span>
                 <span>
-                  {videoManifest.videos.length} {t("animatedClipsInLessons", lang)} →
+                  {watchableClipCount} {t("animatedClipsInLessons", lang)} →
                 </span>
               </Link>
             )}

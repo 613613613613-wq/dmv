@@ -23,7 +23,7 @@ export default function Layout() {
     { to: "/practice", label: t("practice", lang), icon: TargetIcon },
     { to: "/signs", label: t("signs", lang), icon: SignIcon },
     { to: "/songs", label: t("songs", lang), icon: MusicIcon },
-    { to: "/mock", label: t("mockTest", lang), icon: ClipboardIcon },
+    { to: "/mock", label: t("mockNav", lang), icon: ClipboardIcon },
     { to: "/review", label: t("review", lang), icon: HistoryIcon },
     { to: "/settings", label: t("settings", lang), icon: GearIcon },
   ];

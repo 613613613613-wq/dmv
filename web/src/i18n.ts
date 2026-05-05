@@ -232,6 +232,10 @@ const STRINGS: Dict = {
   },
   // Songs error retry button.
   retry: { en: "Retry", es: "Reintentar" },
+  // Short bottom-nav label — "Mock Test" truncated to "Mock T..." on
+  // iPhone SE (375px) when squeezed across 8 nav slots. Use this in nav only;
+  // page headings still use the full mockTest label.
+  mockNav: { en: "Mock", es: "Examen" },
   floridaInRules: { en: "Florida in 4 rules", es: "Florida en 4 reglas" },
   // Onboarding lang-step welcome blurb — was English-only on the pre-language screen.
   welcomeBlurb: {

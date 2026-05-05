@@ -5,7 +5,9 @@ import { SONGS, type Song } from "../data/songs";
 import type { Lang } from "../types";
 
 function fmt(sec: number) {
-  if (!isFinite(sec) || sec < 0) return "0:00";
+  // Show a placeholder ("--:--") instead of 0:00 when the audio metadata
+  // hasn't loaded yet, so the player doesn't look broken on first render.
+  if (!isFinite(sec) || sec <= 0) return "--:--";
   const m = Math.floor(sec / 60);
   const s = Math.floor(sec % 60);
   return `${m}:${s.toString().padStart(2, "0")}`;
