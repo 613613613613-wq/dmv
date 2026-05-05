@@ -73,8 +73,8 @@ export default function MockResultView() {
         <p className="mt-3 max-w-xl text-sm opacity-90">
           {snap.result.passed
             ? lang === "es"
-              ? `En el examen real ${pack.exam.officialName.es}, ${pack.exam.passingScore} de ${pack.exam.questionCount} (${pack.exam.passingPercent}%) es el mínimo. ¡Te darían el permiso!`
-              : `On the real ${pack.exam.officialName.en}, ${pack.exam.passingScore} of ${pack.exam.questionCount} (${pack.exam.passingPercent}%) is the cutoff. You'd be issued the permit at this score.`
+              ? `En el examen real ${loc(pack.exam.officialName, "es")}, ${pack.exam.passingScore} de ${pack.exam.questionCount} (${pack.exam.passingPercent}%) es el mínimo. ¡Te darían el permiso!`
+              : `On the real ${loc(pack.exam.officialName, "en")}, ${pack.exam.passingScore} of ${pack.exam.questionCount} (${pack.exam.passingPercent}%) is the cutoff. You'd be issued the permit at this score.`
             : lang === "es"
               ? `Necesitas ${pack.exam.passingScore} de ${pack.exam.questionCount}. Repasa los temas abajo y vuelve a intentarlo.`
               : `On the real exam you'd need ${pack.exam.passingScore} of ${pack.exam.questionCount} to pass. Drill the topics below and try again.`}

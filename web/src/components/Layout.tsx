@@ -3,6 +3,7 @@ import { useUserData, levelInfo } from "../engine/store";
 import { useContentPack } from "../engine/contentPack";
 import { currentStreak } from "../engine/streak";
 import { t } from "../i18n";
+import { loc } from "../engine/util";
 import type { Lang } from "../types";
 
 export default function Layout() {
@@ -44,7 +45,7 @@ export default function Layout() {
                 {t("appTitle", lang)}
               </div>
               <div className="text-xs text-ink-500">
-                {pack?.agency.name ?? "FLHSMV"} · {pack?.exam.officialName?.[lang] ?? ""}
+                {pack?.agency.name ?? "FLHSMV"} · {pack ? loc(pack.exam.officialName, lang) : ""}
               </div>
             </div>
           </NavLink>

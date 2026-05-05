@@ -23,6 +23,13 @@ export function formatRelativeDate(ts: number, now: number = Date.now()): string
   return new Date(ts).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
-export function loc(localized: Record<string, string>, lang: string): string {
-  return localized[lang] ?? localized["en"] ?? Object.values(localized)[0] ?? "";
+export function loc(localized: unknown, lang: string): string {
+  if (localized == null) return "";
+  if (typeof localized === "string") return localized;
+  if (typeof localized === "object") {
+    const obj = localized as Record<string, unknown>;
+    const pick = obj[lang] ?? obj["en"] ?? Object.values(obj)[0];
+    return typeof pick === "string" ? pick : "";
+  }
+  return "";
 }

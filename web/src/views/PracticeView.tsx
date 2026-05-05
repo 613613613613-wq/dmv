@@ -6,6 +6,7 @@ import { nextPracticeQuestion } from "../engine/practice";
 import QuestionCard from "../components/QuestionCard";
 import Confetti from "../components/Confetti";
 import { t } from "../i18n";
+import { loc } from "../engine/util";
 import type { Lang, Question } from "../types";
 
 export default function PracticeView() {
@@ -31,7 +32,8 @@ export default function PracticeView() {
 
   const categoryLabel = useMemo(() => {
     if (!filterCategory || !pack) return null;
-    return pack.categories.find((c) => c.id === filterCategory)?.name[lang] ?? null;
+    const cat = pack.categories.find((c) => c.id === filterCategory);
+    return cat ? loc(cat.name, lang) : null;
   }, [pack, filterCategory, lang]);
 
   if (!pack) return <div className="card h-72 animate-pulse" />;

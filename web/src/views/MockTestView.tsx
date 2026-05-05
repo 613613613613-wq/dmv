@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useUserData } from "../engine/store";
 import { useContentPack } from "../engine/contentPack";
-import { formatRelativeDate, formatDuration } from "../engine/util";
+import { formatRelativeDate, formatDuration, loc } from "../engine/util";
 import { t } from "../i18n";
 import type { Lang } from "../types";
 
@@ -22,7 +22,7 @@ export default function MockTestView() {
           {t("mockTestMode", lang)}
         </div>
         <h1 className="mt-1 text-2xl font-bold text-ink-900 md:text-3xl">
-          {pack.exam.officialName[lang]}
+          {loc(pack.exam.officialName, lang)}
         </h1>
         <p className="mt-2 text-sm text-ink-600 md:text-base">
           {lang === "es"

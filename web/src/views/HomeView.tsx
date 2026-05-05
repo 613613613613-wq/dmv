@@ -55,7 +55,7 @@ export default function HomeView() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="space-y-3">
             <div className="text-xs font-medium uppercase tracking-wider text-sun-200">
-              {pack.agency.name} · {pack.exam.officialName[lang]}
+              {pack.agency.name} · {loc(pack.exam.officialName, lang)}
             </div>
             <h1 className="text-2xl font-bold leading-tight md:text-4xl">
               {t("heroHeadline", lang).trimEnd().split("\n").map((line, i, arr) => (
@@ -201,7 +201,7 @@ export default function HomeView() {
               >
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="text-sm font-semibold text-ink-900">{cat.name[lang]}</span>
+                    <span className="text-sm font-semibold text-ink-900">{loc(cat.name, lang)}</span>
                     <span className="text-xs text-ink-500">
                       {s.attempts === 0
                         ? `${totalQs} ${
@@ -254,7 +254,7 @@ export default function HomeView() {
             {pack.specialNotes.slice(0, 4).map((n, i) => (
               <li key={i} className="flex gap-2">
                 <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-gulf-400" />
-                <span>{n[lang]}</span>
+                <span>{loc(n, lang)}</span>
               </li>
             ))}
           </ul>

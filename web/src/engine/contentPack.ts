@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ContentPack, LessonPack, VehicleClass } from "../types";
+import { loc } from "./util";
 
 const PACK_URLS: Record<VehicleClass, string> = {
   car: "/content/florida-car.json",
@@ -146,5 +147,7 @@ export function categoryName(
   id: string,
   lang: "en" | "es" = "en",
 ): string {
-  return pack.categories.find((c) => c.id === id)?.name[lang] ?? id;
+  const cat = pack.categories.find((c) => c.id === id);
+  if (!cat) return id;
+  return loc(cat.name, lang) || id;
 }
