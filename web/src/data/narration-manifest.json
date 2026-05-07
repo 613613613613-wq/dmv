@@ -435,6 +435,30 @@
     "mc-l2-controls__step1__en": {
       "hash": "5f5731399c",
       "lang": "en"
+    },
+    "mc-l2-controls__step1__es": {
+      "hash": "3dc0f9adb5",
+      "lang": "es"
+    },
+    "mc-l2-controls__step2__en": {
+      "hash": "f0cf0fddd2",
+      "lang": "en"
+    },
+    "mc-l2-controls__step2__es": {
+      "hash": "df198e9e95",
+      "lang": "es"
+    },
+    "mc-l2-controls__step3__en": {
+      "hash": "d68d464151",
+      "lang": "en"
+    },
+    "mc-l2-controls__step3__es": {
+      "hash": "3380b5e725",
+      "lang": "es"
+    },
+    "mc-l2-controls__step4__en": {
+      "hash": "e7f1732cee",
+      "lang": "en"
     }
   }
 }
