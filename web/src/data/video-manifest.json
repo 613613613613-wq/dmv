@@ -1,1 +1,23 @@
-{"videos":[]}
+{
+  "videos": [
+    "bac:0.04",
+    "four-way-stop",
+    "gear:helmet",
+    "left-turn-yield",
+    "license-revoke",
+    "move-over",
+    "ped-crosswalk",
+    "school-bus",
+    "sign-spotlight:construction",
+    "sign-spotlight:curve",
+    "sign-spotlight:school-zone",
+    "sign-spotlight:stop",
+    "sign-spotlight:yield",
+    "siren",
+    "t-intersection",
+    "timeline:1",
+    "timeline:2",
+    "timeline:3",
+    "timeline:4"
+  ]
+}
