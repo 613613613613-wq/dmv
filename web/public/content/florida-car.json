@@ -762,9 +762,7 @@
       "tags": [
         "school-zone",
         "speed"
-      ],
-      "signKind": "speed-limit",
-      "signValue": 20
+      ]
     },
     {
       "id": "FLC-013",
@@ -816,9 +814,7 @@
       },
       "tags": [
         "speed"
-      ],
-      "signKind": "speed-limit",
-      "signValue": 70
+      ]
     },
     {
       "id": "FLC-014",
@@ -870,9 +866,7 @@
       },
       "tags": [
         "speed"
-      ],
-      "signKind": "speed-limit",
-      "signValue": 30
+      ]
     },
     {
       "id": "FLC-015",
