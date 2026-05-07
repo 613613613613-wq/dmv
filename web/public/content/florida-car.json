@@ -284,8 +284,7 @@
       "tags": [
         "signs",
         "shapes"
-      ],
-      "signKind": "yield"
+      ]
     },
     {
       "id": "FLC-004",
@@ -338,8 +337,7 @@
       "tags": [
         "signs",
         "construction"
-      ],
-      "signKind": "construction"
+      ]
     },
     {
       "id": "FLC-005",
@@ -392,8 +390,7 @@
       "tags": [
         "signs",
         "school"
-      ],
-      "signKind": "school-zone"
+      ]
     },
     {
       "id": "FLC-006",
@@ -1603,8 +1600,7 @@
       "tags": [
         "passing",
         "markings"
-      ],
-      "signKind": "no-passing"
+      ]
     },
     {
       "id": "FLC-029",
