@@ -1,0 +1,440 @@
+{
+  "clips": {
+    "car-l1-signs__step0__en": {
+      "hash": "0ff9ed8735",
+      "lang": "en"
+    },
+    "car-l1-signs__step0__es": {
+      "hash": "7812275990",
+      "lang": "es"
+    },
+    "car-l1-signs__step1__en": {
+      "hash": "865ba3e0b2",
+      "lang": "en"
+    },
+    "car-l1-signs__step1__es": {
+      "hash": "9b9abbcdf8",
+      "lang": "es"
+    },
+    "car-l1-signs__step2__en": {
+      "hash": "d14e9bde5d",
+      "lang": "en"
+    },
+    "car-l1-signs__step2__es": {
+      "hash": "6c424750b3",
+      "lang": "es"
+    },
+    "car-l1-signs__step3__en": {
+      "hash": "ddc6a37fed",
+      "lang": "en"
+    },
+    "car-l1-signs__step3__es": {
+      "hash": "7bfc018d53",
+      "lang": "es"
+    },
+    "car-l1-signs__step4__en": {
+      "hash": "7bacd95ddf",
+      "lang": "en"
+    },
+    "car-l1-signs__step4__es": {
+      "hash": "2aa256260b",
+      "lang": "es"
+    },
+    "car-l1-signs__step5__en": {
+      "hash": "4d8ea83334",
+      "lang": "en"
+    },
+    "car-l1-signs__step5__es": {
+      "hash": "75875a861c",
+      "lang": "es"
+    },
+    "car-l2-row__step0__en": {
+      "hash": "6cdc1fa6b7",
+      "lang": "en"
+    },
+    "car-l2-row__step0__es": {
+      "hash": "8c065d3b25",
+      "lang": "es"
+    },
+    "car-l2-row__step1__en": {
+      "hash": "557f1ea76b",
+      "lang": "en"
+    },
+    "car-l2-row__step1__es": {
+      "hash": "022a7a123c",
+      "lang": "es"
+    },
+    "car-l2-row__step2__en": {
+      "hash": "0e03ba6e1b",
+      "lang": "en"
+    },
+    "car-l2-row__step2__es": {
+      "hash": "7988615f5d",
+      "lang": "es"
+    },
+    "car-l2-row__step3__en": {
+      "hash": "0b7bc74625",
+      "lang": "en"
+    },
+    "car-l2-row__step3__es": {
+      "hash": "63621ef670",
+      "lang": "es"
+    },
+    "car-l2-row__step4__en": {
+      "hash": "a9b836adac",
+      "lang": "en"
+    },
+    "car-l2-row__step4__es": {
+      "hash": "c27bb167e6",
+      "lang": "es"
+    },
+    "car-l3-speed__step0__en": {
+      "hash": "a5affbac6b",
+      "lang": "en"
+    },
+    "car-l3-speed__step0__es": {
+      "hash": "761a616e4a",
+      "lang": "es"
+    },
+    "car-l3-speed__step1__en": {
+      "hash": "e19f86010c",
+      "lang": "en"
+    },
+    "car-l3-speed__step1__es": {
+      "hash": "4fdf7cf51c",
+      "lang": "es"
+    },
+    "car-l3-speed__step2__en": {
+      "hash": "c7fb31035d",
+      "lang": "en"
+    },
+    "car-l3-speed__step2__es": {
+      "hash": "8ab2a343e1",
+      "lang": "es"
+    },
+    "car-l3-speed__step3__en": {
+      "hash": "ade949a083",
+      "lang": "en"
+    },
+    "car-l3-speed__step3__es": {
+      "hash": "d10a971313",
+      "lang": "es"
+    },
+    "car-l3-speed__step4__en": {
+      "hash": "e6b98d6496",
+      "lang": "en"
+    },
+    "car-l3-speed__step4__es": {
+      "hash": "3268b0f117",
+      "lang": "es"
+    },
+    "car-l4-dui__step0__en": {
+      "hash": "e0ccf27b55",
+      "lang": "en"
+    },
+    "car-l4-dui__step0__es": {
+      "hash": "ea296ab375",
+      "lang": "es"
+    },
+    "car-l4-dui__step1__en": {
+      "hash": "145c547596",
+      "lang": "en"
+    },
+    "car-l4-dui__step1__es": {
+      "hash": "e417b4394f",
+      "lang": "es"
+    },
+    "car-l4-dui__step2__en": {
+      "hash": "ce1cb3310c",
+      "lang": "en"
+    },
+    "car-l4-dui__step2__es": {
+      "hash": "b35b9e2f59",
+      "lang": "es"
+    },
+    "car-l4-dui__step3__en": {
+      "hash": "bb454ac6bc",
+      "lang": "en"
+    },
+    "car-l4-dui__step3__es": {
+      "hash": "00736bdfa0",
+      "lang": "es"
+    },
+    "car-l4-dui__step4__en": {
+      "hash": "61fc60ad54",
+      "lang": "en"
+    },
+    "car-l4-dui__step4__es": {
+      "hash": "ae08536d6e",
+      "lang": "es"
+    },
+    "car-l5-emergency__step0__en": {
+      "hash": "a0353e3894",
+      "lang": "en"
+    },
+    "car-l5-emergency__step0__es": {
+      "hash": "ee8d1a5909",
+      "lang": "es"
+    },
+    "car-l5-emergency__step1__en": {
+      "hash": "3810e59353",
+      "lang": "en"
+    },
+    "car-l5-emergency__step1__es": {
+      "hash": "be841471fa",
+      "lang": "es"
+    },
+    "car-l5-emergency__step2__en": {
+      "hash": "48b5457c8e",
+      "lang": "en"
+    },
+    "car-l5-emergency__step2__es": {
+      "hash": "4d6a48c768",
+      "lang": "es"
+    },
+    "car-l5-emergency__step3__en": {
+      "hash": "e26fba774e",
+      "lang": "en"
+    },
+    "car-l5-emergency__step3__es": {
+      "hash": "ca8b13f06d",
+      "lang": "es"
+    },
+    "car-l6-perm__step0__en": {
+      "hash": "34df87c619",
+      "lang": "en"
+    },
+    "car-l6-perm__step0__es": {
+      "hash": "fe8e8a6105",
+      "lang": "es"
+    },
+    "car-l6-perm__step1__en": {
+      "hash": "dacc9082d0",
+      "lang": "en"
+    },
+    "car-l6-perm__step1__es": {
+      "hash": "3a033a39d2",
+      "lang": "es"
+    },
+    "car-l6-perm__step2__en": {
+      "hash": "4fa449ab25",
+      "lang": "en"
+    },
+    "car-l6-perm__step2__es": {
+      "hash": "b68ad7a620",
+      "lang": "es"
+    },
+    "car-l6-perm__step3__en": {
+      "hash": "c19776dcb1",
+      "lang": "en"
+    },
+    "car-l6-perm__step3__es": {
+      "hash": "f8cacb705f",
+      "lang": "es"
+    },
+    "car-l6-perm__step4__en": {
+      "hash": "a6f4fe00df",
+      "lang": "en"
+    },
+    "car-l6-perm__step4__es": {
+      "hash": "02db205a6c",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step0__en": {
+      "hash": "20a58e607a",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step0__es": {
+      "hash": "9b417bd1b2",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step1__en": {
+      "hash": "b89a829a5d",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step1__es": {
+      "hash": "81811425ba",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step2__en": {
+      "hash": "8595d6b57e",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step2__es": {
+      "hash": "ff14dc6a8d",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step3__en": {
+      "hash": "ba753a06b4",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step3__es": {
+      "hash": "85564d982a",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step4__en": {
+      "hash": "7f54490d0a",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step4__es": {
+      "hash": "3384f022e9",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step5__en": {
+      "hash": "9a91373f33",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step5__es": {
+      "hash": "3703b72734",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step6__en": {
+      "hash": "e56481e68b",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step6__es": {
+      "hash": "1fa4736c04",
+      "lang": "es"
+    },
+    "cdl-l1-pretrip__step7__en": {
+      "hash": "89ab5fd053",
+      "lang": "en"
+    },
+    "cdl-l1-pretrip__step7__es": {
+      "hash": "49e0e1eebe",
+      "lang": "es"
+    },
+    "cdl-l2-airbrakes__step0__en": {
+      "hash": "e908286360",
+      "lang": "en"
+    },
+    "cdl-l2-airbrakes__step0__es": {
+      "hash": "8b8cca775c",
+      "lang": "es"
+    },
+    "cdl-l2-airbrakes__step1__en": {
+      "hash": "1d8bf5bea5",
+      "lang": "en"
+    },
+    "cdl-l2-airbrakes__step1__es": {
+      "hash": "6ae32b3638",
+      "lang": "es"
+    },
+    "cdl-l2-airbrakes__step2__en": {
+      "hash": "511b242a40",
+      "lang": "en"
+    },
+    "cdl-l2-airbrakes__step2__es": {
+      "hash": "fa66a7b63d",
+      "lang": "es"
+    },
+    "cdl-l2-airbrakes__step3__en": {
+      "hash": "7df9480fe7",
+      "lang": "en"
+    },
+    "cdl-l2-airbrakes__step3__es": {
+      "hash": "e509434764",
+      "lang": "es"
+    },
+    "cdl-l2-airbrakes__step4__en": {
+      "hash": "52b8398a86",
+      "lang": "en"
+    },
+    "cdl-l2-airbrakes__step4__es": {
+      "hash": "2ef5dbaddd",
+      "lang": "es"
+    },
+    "cdl-l3-disqual__step0__en": {
+      "hash": "9e91fef29a",
+      "lang": "en"
+    },
+    "cdl-l3-disqual__step0__es": {
+      "hash": "fac8e03160",
+      "lang": "es"
+    },
+    "cdl-l3-disqual__step1__en": {
+      "hash": "d5b6cb6f56",
+      "lang": "en"
+    },
+    "cdl-l3-disqual__step1__es": {
+      "hash": "d4e1cc280f",
+      "lang": "es"
+    },
+    "cdl-l3-disqual__step2__en": {
+      "hash": "578990899b",
+      "lang": "en"
+    },
+    "cdl-l3-disqual__step2__es": {
+      "hash": "1aba2f6641",
+      "lang": "es"
+    },
+    "cdl-l3-disqual__step3__en": {
+      "hash": "d479bc8593",
+      "lang": "en"
+    },
+    "cdl-l3-disqual__step3__es": {
+      "hash": "8d597a0df3",
+      "lang": "es"
+    },
+    "cdl-l3-disqual__step4__en": {
+      "hash": "bcc8f3a841",
+      "lang": "en"
+    },
+    "cdl-l3-disqual__step4__es": {
+      "hash": "fb5dadfe41",
+      "lang": "es"
+    },
+    "mc-l1-gear__step0__en": {
+      "hash": "69c0775011",
+      "lang": "en"
+    },
+    "mc-l1-gear__step0__es": {
+      "hash": "2f47c94d42",
+      "lang": "es"
+    },
+    "mc-l1-gear__step1__en": {
+      "hash": "6ca1f4816a",
+      "lang": "en"
+    },
+    "mc-l1-gear__step1__es": {
+      "hash": "d58ffe82eb",
+      "lang": "es"
+    },
+    "mc-l1-gear__step2__en": {
+      "hash": "71d576e411",
+      "lang": "en"
+    },
+    "mc-l1-gear__step2__es": {
+      "hash": "ba1a1b1d99",
+      "lang": "es"
+    },
+    "mc-l1-gear__step3__en": {
+      "hash": "46eaaf5093",
+      "lang": "en"
+    },
+    "mc-l1-gear__step3__es": {
+      "hash": "fb00acc178",
+      "lang": "es"
+    },
+    "mc-l1-gear__step4__en": {
+      "hash": "92903ca03f",
+      "lang": "en"
+    },
+    "mc-l1-gear__step4__es": {
+      "hash": "fef5aceb41",
+      "lang": "es"
+    },
+    "mc-l2-controls__step0__en": {
+      "hash": "f948805f9b",
+      "lang": "en"
+    },
+    "mc-l2-controls__step0__es": {
+      "hash": "9a917cace2",
+      "lang": "es"
+    },
+    "mc-l2-controls__step1__en": {
+      "hash": "5f5731399c",
+      "lang": "en"
+    }
+  }
+}

@@ -22,6 +22,10 @@ args = "Start application"
 task = "workflow.run"
 args = "Generate videos"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Generate narration"
+
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
@@ -41,6 +45,17 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd scripts && node generate-videos.mjs"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "Generate narration"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd scripts && node generate-narration.mjs"
 
 [workflows.workflow.metadata]
 outputType = "console"

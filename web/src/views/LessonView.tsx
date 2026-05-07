@@ -200,6 +200,8 @@ export default function LessonView() {
                   <Narration
                     text={`${loc(step.title ?? lesson.title, lang)}. ${loc(step.body, lang)}`}
                     lang={lang}
+                    lessonId={lesson.id}
+                    stepIdx={stepIdx}
                   />
                 </div>
               </>
@@ -240,6 +242,8 @@ export default function LessonView() {
                 <Narration
                   text={`${step.title ? loc(step.title, lang) + ". " : ""}${loc(step.body, lang)}`}
                   lang={lang}
+                  lessonId={lesson.id}
+                  stepIdx={stepIdx}
                 />
               </div>
             )}

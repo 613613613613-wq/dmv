@@ -1,0 +1,153 @@
+Use this **Sora 2-ready prompt**:
+
+```text
+Create a realistic DMV driving lesson video teaching the rule for a 4-way stop.
+
+Length: 40 seconds.
+Format: 16:9 horizontal.
+Style: realistic, clean, educational, bright daylight, calm suburban road.
+Camera: smooth cinematic but simple, with clear overhead views when explaining right-of-way.
+Mood: calm, safe, easy for a new driver to understand.
+No crashes, no honking, no aggressive driving.
+
+The video should clearly teach:
+“4-way stop: first to arrive, first to go.”
+“If two cars stop at the same time, the car on the RIGHT has the right of way.”
+
+OPENING — 0:00–0:04
+Show a clean suburban 4-way intersection in daylight.
+There is a red STOP sign on all four corners.
+White stop lines are visible on the road.
+Camera begins with a wide front view, then slowly rises into a slight overhead view.
+
+On-screen title:
+“4-Way Stop”
+Subtitle:
+“First to arrive, first to go”
+
+Voiceover:
+“At a four-way stop, the basic rule is simple: first to arrive, first to go.”
+
+SCENE 1 — COMPLETE STOP — 0:04–0:08
+Show a blue car approaching the stop sign from the bottom of the screen.
+The car slows down smoothly and comes to a full stop before the white stop line.
+The stop must be obvious: wheels stop completely for a moment.
+
+On-screen text:
+“Always come to a complete stop.”
+
+Voiceover:
+“Every driver must come to a complete stop before entering the intersection.”
+
+SCENE 2 — FIRST TO ARRIVE GOES FIRST — 0:08–0:17
+Keep the overhead view.
+The blue car is already stopped.
+A yellow car arrives from the left and stops after the blue car.
+A gray car arrives from the top and stops after the yellow car.
+
+Add small floating labels:
+Blue car: “1st”
+Yellow car: “2nd”
+Gray car: “3rd”
+
+On-screen text:
+“Whoever stops first goes first.”
+
+Voiceover:
+“The car that stops first has the right of way and goes first.”
+
+Show a green arrow above the blue car.
+The blue car drives straight through the intersection safely.
+The yellow and gray cars stay stopped.
+
+On-screen text:
+“Blue stopped first → Blue goes first”
+
+Voiceover:
+“Here, the blue car stopped first, so the blue car goes first.”
+
+SCENE 3 — NEXT CAR GOES — 0:17–0:22
+After the blue car clears the intersection, show the yellow car going next.
+The gray car waits.
+Then the gray car begins to move only after the yellow car clears.
+
+On-screen text:
+“Then the next car goes.”
+
+Voiceover:
+“After the first car clears the intersection, the next car may go.”
+
+SCENE 4 — SAME TIME ARRIVAL — 0:22–0:29
+Reset the intersection.
+Now show two cars only:
+A blue car approaches from the bottom.
+A red car approaches from the right side.
+Both cars slow down and stop at the exact same time.
+
+Freeze the frame for one second.
+Add a clean highlight around both cars.
+
+On-screen text:
+“Both stopped at the same time.”
+
+Voiceover:
+“But what if two cars stop at the same time?”
+
+SCENE 5 — CAR ON THE RIGHT GOES FIRST — 0:29–0:36
+Switch to a clear overhead view.
+Show the red car is on the RIGHT side of the blue car.
+Place a curved arrow from the blue car toward the red car labeled:
+“Car on your RIGHT”
+
+On-screen text:
+“Same time? The car on the RIGHT goes first.”
+
+Voiceover:
+“If two cars stop at the same time, the car on the right has the right of way.”
+
+Show a green arrow above the red car.
+The blue car waits.
+The red car safely drives through the intersection first.
+
+On-screen text:
+“Red is on the right → Red goes first”
+
+Voiceover:
+“In this example, the red car is on the blue car’s right, so the red car goes first.”
+
+SCENE 6 — OTHER CAR GOES AFTER — 0:36–0:40
+After the red car clears the intersection, the blue car checks the road and drives straight through.
+
+On-screen text:
+“After the right-side car clears, you may go.”
+
+Voiceover:
+“Once the car on the right has gone and the intersection is clear, the other driver may proceed.”
+
+ENDING CARD — 0:40–0:45
+Show a simple clean diagram of a 4-way stop with four stop signs.
+
+Final on-screen recap:
+“4-Way Stop Rules”
+“1. Stop completely.”
+“2. First to stop goes first.”
+“3. Same time? Right goes first.”
+
+Voiceover:
+“Remember: stop completely. First to stop goes first. Same time? The car on the right goes first.”
+
+Important visual instructions:
+- Make all STOP signs clearly red and readable.
+- Make the white stop lines clear.
+- Use only the cars needed for the lesson.
+- Blue car is the main learner car.
+- Red car demonstrates the car on the right.
+- Use green arrows only for the car that has the right of way.
+- Waiting cars should remain still.
+- Keep all movement slow, safe, and realistic.
+- Avoid confusing traffic, pedestrians, bicycles, emergency vehicles, or extra cars.
+- The video must be simple enough for a beginner driver to understand immediately.
+
+Negative prompt:
+No accidents, no police, no sirens, no nighttime, no rain, no cluttered city traffic, no pedestrians crossing, no confusing road layouts, no cars rolling through stop signs, no unreadable signs, no aggressive driving.
+```

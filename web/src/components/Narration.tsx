@@ -1,33 +1,84 @@
 import { useEffect, useRef, useState } from "react";
 import type { Lang } from "../types";
+import { hasNarration, narrationUrl } from "../engine/narrationAssets";
 
 interface Props {
   text: string;
   lang: Lang;
+  /** When provided, plays the pre-generated AI-voice clip if one exists. */
+  lessonId?: string;
+  stepIdx?: number;
   className?: string;
 }
 
-const supported =
+const speechSupported =
   typeof window !== "undefined" &&
   "speechSynthesis" in window &&
   typeof SpeechSynthesisUtterance !== "undefined";
 
-export default function Narration({ text, lang, className = "" }: Props) {
+export default function Narration({
+  text,
+  lang,
+  lessonId,
+  stepIdx,
+  className = "",
+}: Props) {
   const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  useEffect(() => {
-    if (supported) window.speechSynthesis.cancel();
-    setPlaying(false);
-    return () => {
-      if (supported) window.speechSynthesis.cancel();
-    };
-  }, [text, lang]);
+  const useFile =
+    lessonId !== undefined &&
+    stepIdx !== undefined &&
+    hasNarration(lessonId, stepIdx, lang);
 
-  if (!supported || !text.trim()) return null;
+  // Stop any in-flight playback whenever inputs change or on unmount.
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      if (speechSupported) window.speechSynthesis.cancel();
+    };
+  }, [text, lang, lessonId, stepIdx]);
+
+  useEffect(() => {
+    setPlaying(false);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
+    if (speechSupported) window.speechSynthesis.cancel();
+  }, [text, lang, lessonId, stepIdx]);
+
+  if (!text.trim()) return null;
+  if (!useFile && !speechSupported) return null;
 
   function play() {
-    if (!supported) return;
+    if (useFile) {
+      const a = new Audio(narrationUrl(lessonId!, stepIdx!, lang));
+      a.preload = "auto";
+      a.onended = () => setPlaying(false);
+      a.onerror = () => {
+        // Fall back to Web Speech if the file fails to load.
+        setPlaying(false);
+        playSpeech();
+      };
+      audioRef.current = a;
+      a.play()
+        .then(() => setPlaying(true))
+        .catch(() => {
+          setPlaying(false);
+          playSpeech();
+        });
+    } else {
+      playSpeech();
+    }
+  }
+
+  function playSpeech() {
+    if (!speechSupported) return;
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = lang === "es" ? "es-US" : "en-US";
@@ -41,8 +92,11 @@ export default function Narration({ text, lang, className = "" }: Props) {
   }
 
   function stop() {
-    if (!supported) return;
-    window.speechSynthesis.cancel();
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
+    if (speechSupported) window.speechSynthesis.cancel();
     setPlaying(false);
   }
 
