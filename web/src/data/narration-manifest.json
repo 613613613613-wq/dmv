@@ -459,6 +459,90 @@
     "mc-l2-controls__step4__en": {
       "hash": "e7f1732cee",
       "lang": "en"
+    },
+    "mc-l2-controls__step4__es": {
+      "hash": "3af9749cb7",
+      "lang": "es"
+    },
+    "mc-l3-corner__step0__en": {
+      "hash": "ae8e5515dc",
+      "lang": "en"
+    },
+    "mc-l3-corner__step0__es": {
+      "hash": "d5fad92453",
+      "lang": "es"
+    },
+    "mc-l3-corner__step1__en": {
+      "hash": "eb558e24dc",
+      "lang": "en"
+    },
+    "mc-l3-corner__step1__es": {
+      "hash": "bf044db192",
+      "lang": "es"
+    },
+    "mc-l3-corner__step2__en": {
+      "hash": "f78a09f92a",
+      "lang": "en"
+    },
+    "mc-l3-corner__step2__es": {
+      "hash": "503da898fc",
+      "lang": "es"
+    },
+    "mc-l3-corner__step3__en": {
+      "hash": "927e29a72c",
+      "lang": "en"
+    },
+    "mc-l3-corner__step3__es": {
+      "hash": "a42405da29",
+      "lang": "es"
+    },
+    "mc-l3-corner__step4__en": {
+      "hash": "366aa9a713",
+      "lang": "en"
+    },
+    "mc-l3-corner__step4__es": {
+      "hash": "786d7e1f29",
+      "lang": "es"
+    },
+    "mc-l4-fl-law__step0__en": {
+      "hash": "ad84cdd6e8",
+      "lang": "en"
+    },
+    "mc-l4-fl-law__step0__es": {
+      "hash": "f6b4550a52",
+      "lang": "es"
+    },
+    "mc-l4-fl-law__step1__en": {
+      "hash": "fb3ab42265",
+      "lang": "en"
+    },
+    "mc-l4-fl-law__step1__es": {
+      "hash": "2a2351f045",
+      "lang": "es"
+    },
+    "mc-l4-fl-law__step2__en": {
+      "hash": "4772faa895",
+      "lang": "en"
+    },
+    "mc-l4-fl-law__step2__es": {
+      "hash": "2ff131507a",
+      "lang": "es"
+    },
+    "mc-l4-fl-law__step3__en": {
+      "hash": "274148ae6b",
+      "lang": "en"
+    },
+    "mc-l4-fl-law__step3__es": {
+      "hash": "6f45939f6c",
+      "lang": "es"
+    },
+    "mc-l4-fl-law__step4__en": {
+      "hash": "20596f54de",
+      "lang": "en"
+    },
+    "mc-l4-fl-law__step4__es": {
+      "hash": "9fe3a5d762",
+      "lang": "es"
     }
   }
 }

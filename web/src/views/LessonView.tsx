@@ -9,6 +9,8 @@ import SceneAnimation from "../components/SceneAnimation";
 import { hasGeneratedVideo, sceneVideoUrl } from "../engine/videoAssets";
 import Confetti from "../components/Confetti";
 import Narration from "../components/Narration";
+import { hasLessonVideo } from "../engine/lessonVideoAssets";
+import LessonVideoView from "./LessonVideoView";
 import type { Lang, LessonStep } from "../types";
 
 export default function LessonView() {
@@ -99,6 +101,13 @@ export default function LessonView() {
   }, [lesson, stepIdx, chosen, completed, completeLesson, recordAttempt]);
 
   if (!lesson) return <div className="card h-72 animate-pulse" />;
+
+  // If a Sora 2 narrated teaching video exists for this lesson, render the
+  // full-video flow (video → checkpoint quiz → completion). Otherwise fall
+  // back to the legacy step-by-step concept slides below.
+  if (hasLessonVideo(lesson.id)) {
+    return <LessonVideoView lesson={lesson} />;
+  }
 
   const step: LessonStep = lesson.steps[stepIdx];
   const total = lesson.steps.length;
