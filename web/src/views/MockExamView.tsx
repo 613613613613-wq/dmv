@@ -54,7 +54,7 @@ export default function MockExamView() {
   const finished = answered === total;
 
   function pick(choiceId: string) {
-    if (answers[q.id]) return; // already answered (no overwrite during exam to enable hearts)
+    if (answers[q.id] || outOfHearts) return; // no answers while the out-of-hearts modal is up
     const isCorrect = choiceId === q.correct;
     setAnswers((a) => ({ ...a, [q.id]: choiceId }));
     if (isCorrect) {
@@ -77,13 +77,18 @@ export default function MockExamView() {
   function submit(forced = false) {
     if (!test || submittedRef.current) return;
     submittedRef.current = true;
-    const result = scoreMockTest(test, answers, Math.floor((Date.now() - startedAt.current) / 1000));
-    if (forced) result.passed = false;
+    const totalSeconds = Math.floor((Date.now() - startedAt.current) / 1000);
+    const scored = scoreMockTest(test, answers, totalSeconds);
+    const result = forced ? { ...scored, passed: false } : scored;
     recordMockResult(result);
+    // Per-question time isn't tracked individually; attribute the average so SRS
+    // sees a representative value instead of a hardcoded 0.
+    const answeredCount = Object.keys(answers).length;
+    const avgPerQuestion = answeredCount > 0 ? Math.max(1, Math.floor(totalSeconds / answeredCount)) : 0;
     for (const question of test.questions) {
       const chosen = answers[question.id];
       if (!chosen) continue;
-      recordAttempt(question.id, chosen === question.correct, 0);
+      recordAttempt(question.id, chosen === question.correct, avgPerQuestion);
     }
     sessionStorage.setItem(
       "dmvprep.lastMock",

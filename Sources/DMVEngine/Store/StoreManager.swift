@@ -17,18 +17,43 @@ public final class StoreManager: ObservableObject {
 
     public let productIDs: [ProductTier: String]
 
+    private var updatesTask: Task<Void, Never>?
+
     public init(productIDs: [ProductTier: String]) {
         self.productIDs = productIDs
+        // Long-running listener for out-of-band entitlement changes:
+        // family sharing grants, Ask-to-Buy approvals, refunds/revocations,
+        // and any transaction Apple completes outside the active purchase() call.
+        // Without this, deferred and revoked purchases silently desync from `purchased`.
+        self.updatesTask = Task { [weak self] in
+            for await result in Transaction.updates {
+                await self?.apply(result)
+            }
+        }
+    }
+
+    deinit {
+        updatesTask?.cancel()
     }
 
     public func loadEntitlements() async {
         var owned: Set<String> = []
         for await result in Transaction.currentEntitlements {
-            if case .verified(let tx) = result {
+            if case .verified(let tx) = result, tx.revocationDate == nil {
                 owned.insert(tx.productID)
             }
         }
         self.purchased = owned
+    }
+
+    private func apply(_ result: VerificationResult<Transaction>) async {
+        guard case .verified(let tx) = result else { return }
+        if tx.revocationDate != nil {
+            purchased.remove(tx.productID)
+        } else {
+            purchased.insert(tx.productID)
+        }
+        await tx.finish()
     }
 
     public func loadProducts() async throws {

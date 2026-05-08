@@ -29,8 +29,9 @@ struct MockTestView: View {
         VStack(spacing: 16) {
             Image(systemName: "doc.text.fill").font(.system(size: 48)).foregroundStyle(.tint)
             if let pack {
+                let dims = MockTestGenerator.plannedDimensions(for: pack)
                 Text(pack.exam.officialName).font(.title2).fontWeight(.semibold)
-                Text("\(pack.exam.questionCount) questions • Pass at \(pack.exam.passingPercent)%")
+                Text("\(dims.questionCount) questions • Pass at \(dims.passingPercent)%")
                     .font(.subheadline).foregroundStyle(.secondary)
                 if let limit = pack.exam.timeLimitMinutes {
                     Label("\(limit) minute time limit", systemImage: "clock")

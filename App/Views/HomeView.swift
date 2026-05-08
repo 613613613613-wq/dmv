@@ -26,10 +26,11 @@ struct HomeView: View {
                                 subtitle: NSLocalizedString("home.practice.subtitle", comment: ""))
                     }
                     NavigationLink(destination: MockTestView()) {
+                        let dims = MockTestGenerator.plannedDimensions(for: pack)
                         ModeRow(icon: "doc.text.fill",
                                 title: NSLocalizedString("home.mock", comment: ""),
                                 subtitle: String(format: NSLocalizedString("home.mock.subtitle", comment: ""),
-                                                 pack.exam.questionCount, pack.exam.passingPercent))
+                                                 dims.questionCount, dims.passingPercent))
                     }
                     NavigationLink(destination: ReviewView()) {
                         ModeRow(icon: "arrow.uturn.backward.circle.fill",

@@ -63,6 +63,13 @@ export default function MockResultView() {
         <h1 className="mt-1 text-3xl font-bold md:text-4xl">
           {snap.result.passed ? t("youPassed", lang) : t("notYetKeepGoing", lang)}
         </h1>
+        {snap.forcedByHearts && (
+          <p className="mt-2 text-sm font-medium opacity-95">
+            {lang === "es"
+              ? "Te quedaste sin corazones — el examen real termina al cuarto error."
+              : "You ran out of hearts — the real exam ends on your fourth wrong answer."}
+          </p>
+        )}
         <div className="mt-3 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm md:text-base">
           <span className="text-2xl font-bold md:text-3xl">
             {snap.result.score} / {snap.result.total}

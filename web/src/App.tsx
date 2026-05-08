@@ -31,6 +31,12 @@ export default function App() {
     }
   }, [data.profile.vehicleClass]);
 
+  // Keep <html lang> in sync with the user's chosen language so screen readers
+  // and translation engines apply the right pronunciation/locale rules.
+  useEffect(() => {
+    document.documentElement.lang = data.profile.language ?? "en";
+  }, [data.profile.language]);
+
   return (
     <Routes>
       <Route path="/start" element={<OnboardingView />} />

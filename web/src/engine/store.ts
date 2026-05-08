@@ -27,6 +27,9 @@ function load(): UserData {
 function save(data: UserData) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  // First v2 write also retires the v1 key so a later manual clear of v2 doesn't
+  // resurrect stale legacy state on next load.
+  window.localStorage.removeItem(LEGACY_KEY);
 }
 
 type Listener = (d: UserData) => void;

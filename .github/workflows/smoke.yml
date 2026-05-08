@@ -19,6 +19,9 @@ jobs:
       - name: Build the engine package
         run: swift build
 
+      - name: Run XCTest suite
+        run: swift test
+
       - name: Run smoke check (engine end-to-end)
         run: swift run SmokeCheck
 

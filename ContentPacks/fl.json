@@ -18,9 +18,9 @@
     "feeRetake": 11.74
   },
   "languages": {
-    "ui": ["en", "es", "ht"],
+    "ui": ["en"],
     "test": ["en"],
-    "note": "Florida switched to English-only testing on Feb 6, 2026. Spanish and Haitian Creole are provided in STUDY mode only."
+    "note": "Florida switched to English-only testing on Feb 6, 2026. Spanish and Haitian Creole study-mode translations are planned for V1.1 — see docs/CONTENT_PIPELINE.md."
   },
   "categories": [
     { "id": "signs",       "name": "Road Signs",          "weight": 0.25 },
