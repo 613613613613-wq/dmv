@@ -71,13 +71,20 @@ export function buildMemorandum(input: MemoInput): Memorandum {
   const terms = deal.terms;
 
   // Agreed terms: explicit agreement or concession, latest per topic wins.
+  // Untyped ("general") lines have no shared topic to supersede each other, so each
+  // commitment or rejection stands on its own; plain offers there are just talk.
+  const keyOf = (e: LedgerEntry) => (e.topic === "general" ? `general#${e.entryId}` : e.topic);
   const agreedByTopic = new Map<string, LedgerEntry>();
   for (const e of ledger) {
-    if (e.assertionType === "AGREEMENT" || e.assertionType === "CONCESSION") agreedByTopic.set(e.topic, e);
+    if (e.assertionType === "AGREEMENT" || e.assertionType === "CONCESSION") agreedByTopic.set(keyOf(e), e);
   }
   // A later rejection on the same topic reopens it.
   const lastByTopic = new Map<string, LedgerEntry>();
-  for (const e of ledger) if (e.assertionType !== "QUESTION") lastByTopic.set(e.topic, e);
+  for (const e of ledger) {
+    if (e.assertionType === "QUESTION") continue;
+    if (e.topic === "general" && e.assertionType === "OFFER") continue;
+    lastByTopic.set(keyOf(e), e);
+  }
 
   const agreedTerms: MemoItem[] = [];
   const openIssues: MemoItem[] = [];

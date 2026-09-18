@@ -1,6 +1,7 @@
 import type { Deal, LedgerEntry } from "../types";
 import type { UsageState } from "../billing/entitlements";
 import type { LlmProvider } from "../advisor/llm";
+import type { Conversation } from "../coach/types";
 
 /**
  * Persistence. The engine only knows a tiny key/value adapter; the app wires
@@ -117,6 +118,7 @@ const K = {
   secretPrefix: "dealguard.v1.secret.",
   settings: "dealguard.v1.settings",
   deals: "dealguard.v1.deals",
+  conversations: "dealguard.v1.conversations",
   usage: "dealguard.v1.usage",
   sessions: "dealguard.v1.sessions",
 } as const;
@@ -187,6 +189,24 @@ export class Vault {
     return deals;
   }
 
+  async loadConversations(): Promise<Conversation[]> {
+    return this.read<Conversation[]>(K.conversations, []);
+  }
+  async saveConversation(c: Conversation): Promise<Conversation[]> {
+    const all = await this.loadConversations();
+    const i = all.findIndex((x) => x.id === c.id);
+    const next = { ...c, updatedAt: new Date().toISOString() };
+    if (i >= 0) all[i] = next;
+    else all.unshift(next);
+    await this.write(K.conversations, all);
+    return all;
+  }
+  async deleteConversation(id: string): Promise<Conversation[]> {
+    const all = (await this.loadConversations()).filter((x) => x.id !== id);
+    await this.write(K.conversations, all);
+    return all;
+  }
+
   async loadUsage(): Promise<UsageState | null> {
     return this.read<UsageState | null>(K.usage, null);
   }
@@ -214,14 +234,14 @@ export class Vault {
 
   /** Wipe everything — Settings → "Delete all data". */
   async eraseAll(): Promise<void> {
-    for (const k of [K.settings, K.deals, K.usage, K.sessions]) await this.storage.remove(k);
+    for (const k of [K.settings, K.deals, K.conversations, K.usage, K.sessions]) await this.storage.remove(k);
     for (const k of SECRET_SETTINGS) await this.secrets.remove(`${K.secretPrefix}${k}`).catch(() => undefined);
   }
 
   /** Export everything the app stores, for the privacy "download my data" flow. */
   async exportAll(): Promise<string> {
     return JSON.stringify(
-      { settings: await this.loadSettings(), deals: await this.loadDeals(), usage: await this.loadUsage(), sessions: await this.loadSessions() },
+      { settings: await this.loadSettings(), deals: await this.loadDeals(), conversations: await this.loadConversations(), usage: await this.loadUsage(), sessions: await this.loadSessions() },
       (key, value) => (key === "deepgramApiKey" || key === "llmApiKey" || key === "companionToken" ? "[redacted]" : value),
       2,
     );

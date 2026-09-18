@@ -18,7 +18,7 @@ export type HudMessage =
 
 export type HudClientMessage = { type: "hello"; device: string; version: number; token?: string } | { type: "pong"; t: number } | { type: "dismiss"; id: string } | { type: "freeze"; id: string; frozen: boolean } | { type: "help" };
 
-const KINDS: CueKind[] = ["RED_FLAG", "FACT_CARD", "TALKING_POINT", "CONFIDENTIAL"];
+const KINDS: CueKind[] = ["RED_FLAG", "FACT_CARD", "TALKING_POINT", "CONFIDENTIAL", "REPLY", "WAIT"];
 
 /** Strict parser: anything malformed is dropped, never rendered. */
 export function parseHudMessage(raw: string): HudMessage | null {

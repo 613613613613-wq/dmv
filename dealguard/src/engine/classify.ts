@@ -19,7 +19,7 @@ const REJECTION =
   /\b(no way|not acceptable|unacceptable|can't do|cannot do|can't accept|cannot accept|won't work|doesn't work|does not work|not going to work|won't go|won't move|we're firm|we are firm|firm at|non[-\s]?negotiable|non[-\s]?starter|dealbreaker|deal[-\s]breaker|walk away|walk|pass|reject|rejected|decline|declined|not happening|off the table|no more than|not a penny|not one dollar|not a day|that's too|too high|too low|too long|too short|out of the question|hard no|absolutely not)\b/i;
 
 const AGREEMENT =
-  /\b(we have a deal|it's a deal|that's a deal|agreed|we agree|deal\.?$|done deal|let's shake on it|you have a deal|we're aligned|we are aligned|confirmed|i confirm|we confirm|i accept|we accept|accepted)\b/i;
+  /^(?:okay,?\s+|ok,?\s+|sure,?\s+|alright,?\s+)?deal\b|\b(i promise|you have my word|i'll (?:book|handle|take care|send|do it|call|make sure|sort|arrange)|i will (?:book|handle|take care|send|do it|call|make sure|sort|arrange)|we have a deal|it's a deal|that's a deal|agreed|we agree|deal\.?$|done deal|let's shake on it|you have a deal|we're aligned|we are aligned|confirmed|i confirm|we confirm|i accept|we accept|accepted)\b/i;
 
 export function normalizeText(text: string): string {
   return text.replace(/\s+/g, " ").trim();

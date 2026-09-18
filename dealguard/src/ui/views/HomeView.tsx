@@ -3,6 +3,7 @@ import { BRAND } from "../../brand";
 import { canCreateDossier, formatHours, remainingSeconds } from "../../engine/billing/entitlements";
 import { PLANS } from "../../engine/billing/plans";
 import { makeDemoDeal } from "../../engine/demoDeal";
+import { DEMO_CONVERSATION } from "../../engine/coach/demoConversation";
 import { newId } from "../../engine/store/vault";
 import type { Deal } from "../../engine/types";
 import { useApp } from "../AppContext";
@@ -10,7 +11,7 @@ import { Button, Card, Empty, Pill, Screen, SectionTitle } from "../components";
 
 export function HomeView() {
   const nav = useNavigate();
-  const { deals, usage, sessions, saveDeal, settings } = useApp();
+  const { deals, conversations, usage, sessions, saveDeal, settings } = useApp();
   const active = deals.filter((d) => !d.archived);
   const now = new Date();
   const remaining = remainingSeconds(usage, now);
@@ -58,6 +59,35 @@ export function HomeView() {
         <Pill tone={remaining <= 0 ? "flag" : "calm"}>{remaining <= 0 ? "Upgrade" : "Ready"}</Pill>
       </Card>
 
+      <Button full variant="flag" className="mt-4 h-14 text-[16px]" onClick={() => nav("/talk/new")} data-testid="new-talk">
+        New conversation
+      </Button>
+      <p className="text-[13px] text-ink-400 mt-2 leading-snug">Type what it's about and what you want. Works for your partner, a friend, a landlord or a client.</p>
+
+      <SectionTitle
+        right={
+          <button onClick={() => nav(`/live/talk/${DEMO_CONVERSATION.id}?mode=demo`)} className="text-[13px] font-semibold text-link" data-testid="talk-demo">
+            Try the demo
+          </button>
+        }
+      >
+        Conversations
+      </SectionTitle>
+      {!conversations.length && <p className="text-[13px] text-ink-400">Nothing saved yet. The demo plays a scripted talk about planning a trip with a spouse.</p>}
+      <div className="space-y-2">
+        {conversations.map((c) => (
+          <Card key={c.id} testId={`talk-${c.id}`}>
+            <div className="text-[16px] font-bold truncate">{c.title || "Untitled"}</div>
+            <div className="text-[13px] text-ink-300 mt-1 line-clamp-2 leading-snug">{c.goal}</div>
+            <div className="flex gap-2 mt-3">
+              <Button full onClick={() => nav(`/talk/${c.id}`)} data-testid={`open-talk-${c.id}`}>
+                Start
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+
       <SectionTitle
         right={
           <button onClick={newDeal} className="text-[13px] font-semibold text-link" data-testid="new-deal">
@@ -65,8 +95,9 @@ export function HomeView() {
           </button>
         }
       >
-        Deal dossiers
+        Deal dossiers (advanced)
       </SectionTitle>
+      <p className="text-[13px] text-ink-400 mb-2 leading-snug">For negotiations with hard numbers: enter your terms once and get red flags the moment someone misstates or crosses them.</p>
 
       {!active.length && (
         <Empty

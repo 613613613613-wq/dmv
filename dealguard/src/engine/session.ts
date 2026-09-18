@@ -4,6 +4,7 @@ import { Ledger } from "./ledger";
 import { buildMemorandum, memorandumToMarkdown, type Memorandum } from "./memorandum";
 import { SpeculativeEngine } from "./speculative";
 import type { Advisor } from "./advisor/llm";
+import type { CoachProvider, Conversation } from "./coach/types";
 import type { SttClient, SttStatus } from "./stt/types";
 import type { Cue, Deal, LedgerEntry, Speaker, TranscriptEvent, TranscriptLine } from "./types";
 
@@ -37,6 +38,10 @@ export interface SessionDeps {
   deal: Deal;
   stt: SttClient[];
   advisor: Advisor;
+  /** Goal-driven conversation coaching: reacts at the end of each counterparty turn. */
+  coach?: CoachProvider;
+  conversation?: Conversation;
+  replyTtlMs?: number;
   tier1TtlMs?: number;
   tier2TtlMs?: number;
   talkingPointTtlMs?: number;
@@ -71,6 +76,9 @@ export class CallSession {
   private pendingTurn: { speaker: Speaker; text: string; timer: ReturnType<typeof setTimeout> | null; receivedAt: number } | null = null;
   private interim: Partial<Record<Speaker, string>> = {};
   private m = { tier1: 0, tier2: 0, talkingPoints: 0, latencies: [] as number[], finals: 0 };
+  private coachAbort: AbortController | null = null;
+  private counterpartyTurns = 0;
+  private coachStats = { decisions: 0, says: 0, waits: 0, stale: 0 };
 
   constructor(private readonly deps: SessionDeps) {
     this.now = deps.now ?? (() => Date.now());
@@ -167,6 +175,50 @@ export class CallSession {
       this.m.latencies.push(published.latencyMs);
       this.publish({ ...published.cue, latencyMs: published.latencyMs }, published.cue.tier === 1 ? this.deps.tier1TtlMs ?? 20_000 : this.deps.tier2TtlMs ?? 8_000, false);
     }
+
+    // Conversation coaching: only after THEY finish a turn, never before anything was said.
+    if (this.deps.coach && this.deps.conversation && t.speaker === "COUNTERPARTY" && !(published && published.cue.tier === 1)) {
+      void this.coachTurn(t.text, t.receivedAt);
+    }
+  }
+
+  private async coachTurn(theirLine: string, endOfTurnAt: number): Promise<void> {
+    const coach = this.deps.coach!;
+    const conversation = this.deps.conversation!;
+    this.coachAbort?.abort(); // a newer turn supersedes any pending decision
+    const ctrl = new AbortController();
+    this.coachAbort = ctrl;
+    const turnIndex = this.counterpartyTurns++;
+    const recent = this.recentLines(90_000).map((l) => ({ speaker: l.speaker, text: l.text }));
+    let decision;
+    try {
+      decision = await coach.decide({ conversation, recent, theirLine, turnIndex }, ctrl.signal);
+    } catch {
+      return;
+    }
+    if (ctrl.signal.aborted || this.endedAt !== null) {
+      this.coachStats.stale++;
+      return;
+    }
+    this.coachStats.decisions++;
+    const latencyMs = Math.max(0, this.now() - endOfTurnAt);
+    if (decision.action === "say" && decision.say) {
+      this.coachStats.says++;
+      this.m.latencies.push(latencyMs);
+      this.publish(
+        { tier: 3, kind: "REPLY", headline: decision.say, source: decision.why ? `Why: ${decision.why}` : "Suggested reply", context: theirLine, topic: "reply", latencyMs },
+        this.deps.replyTtlMs ?? 15_000,
+        false,
+      );
+    } else {
+      this.coachStats.waits++;
+      // A WAIT never replaces a visible suggestion; it only fills an empty screen.
+      if (!this.current) this.publish({ tier: 3, kind: "WAIT", headline: "Let them finish.", source: decision.why ? `Why: ${decision.why}` : "Listening", context: theirLine, topic: "wait", latencyMs }, 4_000, false);
+    }
+  }
+
+  get coachMetrics() {
+    return { ...this.coachStats };
   }
 
   private recordUntypedIfCommitment(line: TranscriptLine): void {
@@ -285,6 +337,7 @@ export class CallSession {
     this.flushTurn();
     this.endedAt = this.now();
     if (this.ttlTimer) this.clearT(this.ttlTimer);
+    this.coachAbort?.abort();
     if (this.current) this.deps.onEvent({ type: "cue-cleared", id: this.current.id, reason: "ended" });
     this.current = null;
     await Promise.all(this.deps.stt.map((c) => c.stop().catch(() => undefined)));

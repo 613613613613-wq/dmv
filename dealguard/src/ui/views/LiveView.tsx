@@ -13,7 +13,8 @@ import { keepAwake } from "../../native/keepAwake";
 import { platform } from "../../native/platform";
 import { immersive } from "../../native/statusBar";
 import { useApp } from "../AppContext";
-import { createLiveController, type LiveController } from "../live";
+import { conversationAsDeal, createLiveController, type LiveController } from "../live";
+import { DEMO_CONVERSATION } from "../../engine/coach/demoConversation";
 
 const HOLD_MS = 1500;
 
@@ -23,11 +24,12 @@ function fmt(ms: number): string {
 }
 
 export function LiveView() {
-  const { id } = useParams();
+  const { id, talkId } = useParams();
   const [params] = useSearchParams();
   const nav = useNavigate();
-  const { deals, settings, usage, setUsage, saveSession } = useApp();
-  const deal = deals.find((d) => d.projectId === id);
+  const { deals, conversations, settings, usage, setUsage, saveSession } = useApp();
+  const conversation = talkId ? (talkId === DEMO_CONVERSATION.id ? DEMO_CONVERSATION : conversations.find((c) => c.id === talkId)) : undefined;
+  const deal = conversation ? conversationAsDeal(conversation) : deals.find((d) => d.projectId === id);
   const rawMode = params.get("mode");
   const mode: SttMode = rawMode === "demo" || rawMode === "deepgram" || rawMode === "companion" ? rawMode : settings.sttMode;
   const disclosed = params.get("disclosed") === "1";
@@ -118,7 +120,7 @@ export function LiveView() {
       l.onClear = () => applyCue(null);
       l.connect();
     } else {
-      const c = createLiveController(deal, settings, mode, onEvent);
+      const c = createLiveController(deal, settings, mode, onEvent, conversation);
       ctrl.current = c;
       if (disclosed) {
         // Pre-flight confirmation that participants were informed, on the record with a timestamp.
@@ -265,7 +267,7 @@ export function LiveView() {
     if (navigate) nav(record ? `/memo/${record.id}` : "/home", { replace: true });
   };
 
-  const tone = useMemo(() => (cue ? (cue.tier === 1 ? "text-flag" : cue.tier === 2 ? "text-fact" : "text-calm") : ""), [cue]);
+  const tone = useMemo(() => (cue ? (cue.tier === 1 ? "text-flag" : cue.tier === 2 ? "text-fact" : cue.kind === "WAIT" ? "text-ink-400" : "text-calm") : ""), [cue]);
   const dot = (s?: string) => (s === "open" ? "bg-calm" : s === "connecting" || s === "reconnecting" ? "bg-fact pulse" : s === "error" ? "bg-flag" : "bg-ink-600");
 
   if (!deal) return null;
@@ -283,10 +285,20 @@ export function LiveView() {
         aria-label={cue ? `${cue.headline}. Tap to dismiss, hold to freeze.` : "Listening"}
         data-testid="hud"
       >
-        {cue ? (
-          <div key={cue.id} className="cue-in max-w-[680px]" data-testid="cue" data-tier={cue.tier}>
+        {cue && cue.kind === "WAIT" ? (
+          <div key={cue.id} className="cue-in max-w-[680px] opacity-60" data-testid="cue" data-tier={cue.tier} data-kind="WAIT">
+            {cue.context && <p className="text-[15px] text-ink-400 leading-snug mb-3">“{cue.context}”</p>}
+            <div className="text-[13px] font-bold uppercase tracking-[0.2em] text-ink-400">Let them finish</div>
+          </div>
+        ) : cue ? (
+          <div key={cue.id} className="cue-in max-w-[680px]" data-testid="cue" data-tier={cue.tier} data-kind={cue.kind}>
+            {cue.context && (
+              <p className="text-[15px] text-ink-400 leading-snug mb-4" data-testid="cue-context">
+                They said: “{cue.context}”
+              </p>
+            )}
             <div className={`text-[12px] font-bold uppercase tracking-[0.2em] mb-4 ${tone}`}>
-              {cue.kind === "RED_FLAG" ? "Red flag" : cue.kind === "CONFIDENTIAL" ? "Confidential" : cue.kind === "FACT_CARD" ? "Fact" : "Talking point"}
+              {cue.kind === "RED_FLAG" ? "Red flag" : cue.kind === "CONFIDENTIAL" ? "Confidential" : cue.kind === "FACT_CARD" ? "Fact" : cue.kind === "REPLY" ? "You could say" : "Talking point"}
               {frozen && " · frozen"}
             </div>
             <div className={`hud-headline ${cue.tier === 1 ? "text-white" : "text-ink-100"}`} data-testid="cue-headline">

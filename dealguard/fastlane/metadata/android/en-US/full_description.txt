@@ -1,3 +1,5 @@
+Deal Guard is a discreet listening copilot for the conversations that matter: your partner, a friend, a landlord, a client, a counterparty. Type what the conversation is about and what you want from it, put the phone down, and it stays silent until the other person speaks. Then it shows you what they said and what you could say next, timed to the end of their turn. Nothing before, nothing invented.
+
 Deal Guard is a real-time negotiation copilot for people who close deals: commercial real estate, lending, M&A term sheets. It listens to the call, compares what is said against the terms you already agreed, and shows you exactly one thing when it matters. Otherwise the screen stays black.
 
 <b>Never concede what you already agreed</b>

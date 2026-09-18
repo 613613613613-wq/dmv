@@ -4,6 +4,7 @@ import { applyEntitlements, initialUsage, rollover, type UsageState } from "../e
 import type { PurchaseProvider } from "../engine/billing/provider";
 import { DEFAULT_SETTINGS, Vault, type AppSettings, type SessionRecord } from "../engine/store/vault";
 import type { Deal } from "../engine/types";
+import type { Conversation } from "../engine/coach/types";
 import { makePurchaseProvider } from "../native/purchases";
 import { makeSecretStorage, makeStorage } from "../native/storage";
 
@@ -11,12 +12,15 @@ export interface AppApi {
   ready: boolean;
   settings: AppSettings;
   deals: Deal[];
+  conversations: Conversation[];
   usage: UsageState;
   sessions: SessionRecord[];
   purchases: PurchaseProvider;
   updateSettings(patch: Partial<AppSettings>): Promise<void>;
   saveDeal(deal: Deal): Promise<void>;
   deleteDeal(projectId: string): Promise<void>;
+  saveConversation(c: Conversation): Promise<void>;
+  deleteConversation(id: string): Promise<void>;
   setUsage(u: UsageState): Promise<void>;
   saveSession(rec: SessionRecord): Promise<void>;
   deleteSession(id: string): Promise<void>;
@@ -38,19 +42,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
   const [deals, setDeals] = useState<Deal[]>([]);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
   const [usage, setUsageState] = useState<UsageState>(() => initialUsage(new Date()));
   const [sessions, setSessions] = useState<SessionRecord[]>([]);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [s, d, u, ss] = await Promise.all([vault.loadSettings(), vault.loadDeals(), vault.loadUsage(), vault.loadSessions()]);
+      const [s, d, c, u, ss] = await Promise.all([vault.loadSettings(), vault.loadDeals(), vault.loadConversations(), vault.loadUsage(), vault.loadSessions()]);
       if (cancelled) return;
       const now = new Date();
       const usageNow = rollover(u ?? initialUsage(now), now);
       if (!u) await vault.saveUsage(usageNow);
       setSettings(s);
       setDeals(d);
+      setConversations(c);
       setUsageState(usageNow);
       setSessions(ss);
       setReady(true);
@@ -99,6 +105,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const saveDeal = useCallback(async (deal: Deal) => setDeals(await vault.saveDeal(deal)), [vault]);
   const deleteDeal = useCallback(async (id: string) => setDeals(await vault.deleteDeal(id)), [vault]);
+  const saveConversation = useCallback(async (c: Conversation) => setConversations(await vault.saveConversation(c)), [vault]);
+  const deleteConversation = useCallback(async (id: string) => setConversations(await vault.deleteConversation(id)), [vault]);
   const setUsage = useCallback(
     async (u: UsageState) => {
       setUsageState(u);
@@ -114,6 +122,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const now = new Date();
     setSettings(DEFAULT_SETTINGS);
     setDeals([]);
+    setConversations([]);
     setSessions([]);
     const u = initialUsage(now);
     setUsageState(u);
@@ -121,8 +130,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [vault]);
 
   const api = useMemo<AppApi>(
-    () => ({ ready, settings, deals, usage, sessions, purchases, updateSettings, saveDeal, deleteDeal, setUsage, saveSession, deleteSession, exportData, eraseAll }),
-    [ready, settings, deals, usage, sessions, purchases, updateSettings, saveDeal, deleteDeal, setUsage, saveSession, deleteSession, exportData, eraseAll],
+    () => ({ ready, settings, deals, conversations, usage, sessions, purchases, updateSettings, saveDeal, deleteDeal, saveConversation, deleteConversation, setUsage, saveSession, deleteSession, exportData, eraseAll }),
+    [ready, settings, deals, conversations, usage, sessions, purchases, updateSettings, saveDeal, deleteDeal, saveConversation, deleteConversation, setUsage, saveSession, deleteSession, exportData, eraseAll],
   );
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>;

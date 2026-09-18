@@ -13,7 +13,15 @@ Deal Guard is a negotiation assistant for business professionals. There is
 which uses a built-in, fictional scripted negotiation ("Harbor Point
 Industrial (Sample)") and needs no microphone, no network and no API keys.
 
-Steps to review:
+Steps to review (conversation coach, the primary flow):
+
+a. On Home tap **"Try the demo"** next to *Conversations*. The screen stays
+   black until the scripted other person speaks; then it shows what they
+   said and a suggested reply. Tap **"End meeting"** for the memorandum.
+b. Tap **"New conversation"** to see the plain-language setup (goal, who,
+   tone, optional facts) — no purchase or key needed for the demo mode.
+
+Steps to review (deal dossier mode):
 
 1. Launch the app. Onboarding: tap **Continue**, optionally enter a name and
    pick a state, tap **Continue**, tick the acknowledgement, tap **"Start

@@ -4,6 +4,9 @@ import { keywordBiasList } from "../engine/terms";
 import { CallSession, type SessionEvent } from "../engine/session";
 import { DeepgramClient, SpeakerMap } from "../engine/stt/deepgram";
 import { DEMO_SCRIPT, MockSttClient } from "../engine/stt/mock";
+import { DEMO_CONVERSATION_SCRIPT, ScriptedCoach } from "../engine/coach/demoConversation";
+import { LlmCoach } from "../engine/coach/llm";
+import type { Conversation } from "../engine/coach/types";
 import type { SttClient } from "../engine/stt/types";
 import type { AppSettings, SttMode } from "../engine/store/vault";
 import type { Deal } from "../engine/types";
@@ -21,13 +24,29 @@ export interface LiveController {
   captureStats(): { level: number; overflows: number; engine: string } | null;
 }
 
-export function createLiveController(deal: Deal, settings: AppSettings, mode: SttMode, onEvent: (e: SessionEvent) => void): LiveController {
+/** A goal-driven conversation runs through the same session with an empty term vault plus a coach. */
+export function conversationAsDeal(c: Conversation): Deal {
+  return {
+    projectId: c.id,
+    name: c.title || "Conversation",
+    createdAt: c.createdAt,
+    updatedAt: c.updatedAt,
+    side: "other",
+    counterparties: c.counterpart ? [{ name: c.counterpart, role: "", notes: "" }] : [],
+    terms: [],
+    keywords: [c.counterpart, ...c.facts].filter(Boolean),
+    archived: false,
+  };
+}
+
+export function createLiveController(deal: Deal, settings: AppSettings, mode: SttMode, onEvent: (e: SessionEvent) => void, conversation?: Conversation): LiveController {
   const advisor = new Advisor({ provider: settings.llmProvider, apiKey: settings.llmApiKey });
   let capture: MicCapture | null = null;
   const stt: SttClient[] = [];
+  const coach = conversation ? (mode === "demo" ? new ScriptedCoach() : new LlmCoach({ provider: settings.llmProvider, apiKey: settings.llmApiKey })) : undefined;
 
   if (mode === "demo") {
-    stt.push(new MockSttClient(DEMO_SCRIPT));
+    stt.push(new MockSttClient(conversation ? DEMO_CONVERSATION_SCRIPT : DEMO_SCRIPT));
   } else if (mode === "deepgram") {
     // Standalone phone mode: one diarized stream. The first voice heard after
     // Start is the user (pre-flight tells them to speak first) — SpeakerMap
@@ -46,6 +65,8 @@ export function createLiveController(deal: Deal, settings: AppSettings, mode: St
     deal,
     stt,
     advisor,
+    coach,
+    conversation,
     tier1TtlMs: settings.tier1TtlMs,
     tier2TtlMs: settings.tier2TtlMs,
     speculative: settings.speculative,

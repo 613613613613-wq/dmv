@@ -41,11 +41,11 @@ export function OnboardingView() {
             <h1 className="text-[34px] font-extrabold leading-[1.05] tracking-tight">{BRAND.name}</h1>
             <p className="text-[20px] text-ink-300 mt-3 leading-snug">{BRAND.tagline}</p>
             <ul className="mt-8 space-y-3 text-[15px] text-ink-100/90">
-              <li className="flex gap-3"><span className="text-flag font-bold">●</span> Red flag the moment someone misstates the record or crosses your walk-away.</li>
-              <li className="flex gap-3"><span className="text-fact font-bold">●</span> Fact cards with the source document when a term comes up.</li>
-              <li className="flex gap-3"><span className="text-calm font-bold">●</span> A deal memorandum seconds after you hang up.</li>
+              <li className="flex gap-3"><span className="text-calm font-bold">●</span> Any conversation that matters: your partner, a friend, a landlord, a client. Type the goal, put the phone down.</li>
+              <li className="flex gap-3"><span className="text-calm font-bold">●</span> Silent until they speak. Then: what they said, and what you could say next.</li>
+              <li className="flex gap-3"><span className="text-flag font-bold">●</span> For deals with hard numbers: red flags the moment someone misstates or crosses a term.</li>
             </ul>
-            <p className="text-[13px] text-ink-400 mt-6 leading-snug">Deterministic. Every number on screen comes from your own deal terms. Nothing is invented.</p>
+            <p className="text-[13px] text-ink-400 mt-6 leading-snug">Nothing is invented: suggestions only use figures from what you wrote or what was actually said.</p>
           </div>
         )}
 
@@ -115,7 +115,7 @@ export function OnboardingView() {
             </Button>
           ) : (
             <Button full disabled={!ack} onClick={finish} data-testid="ob-finish">
-              Start with a sample deal
+              Get started
             </Button>
           )}
         </div>

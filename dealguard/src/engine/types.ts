@@ -87,7 +87,11 @@ export interface TranscriptLine {
 
 export type Tier = 1 | 2 | 3;
 
-export type CueKind = "RED_FLAG" | "FACT_CARD" | "TALKING_POINT" | "CONFIDENTIAL";
+/**
+ * REPLY / WAIT come from the conversation coach: REPLY is "say this now",
+ * WAIT is "let them finish" (rendered small and dim).
+ */
+export type CueKind = "RED_FLAG" | "FACT_CARD" | "TALKING_POINT" | "CONFIDENTIAL" | "REPLY" | "WAIT";
 
 export interface Cue {
   id: string;
@@ -95,8 +99,10 @@ export interface Cue {
   kind: CueKind;
   /** ≤ 12 words, the thing the user glances at. */
   headline: string;
-  /** Exactly one line: "PSA_Draft_v3_Clean.pdf · 2026-08-15" */
+  /** Exactly one line: "PSA_Draft_v3_Clean.pdf · 2026-08-15" or the coach's "why". */
   source: string;
+  /** For coach cues: the line they just said, shown above the suggestion. */
+  context?: string;
   topic: string;
   termId?: string;
   createdAt: number;

@@ -1,5 +1,13 @@
 # Deal Guard
 
+Deal Guard is a discreet listening copilot for conversations that matter — a
+partner, a friend, a landlord, a client. You type what the conversation is
+about and what you want from it; the phone listens and stays silent until the
+other person speaks, then shows what they said and what you could say next,
+timed to the end of their turn. For negotiations with hard numbers, the
+advanced **deal dossier** mode adds deterministic red flags and fact cards
+anchored to your own terms.
+
 > Never concede what you already agreed.
 
 Deal Guard is a real-time negotiation copilot for dealmakers (commercial real

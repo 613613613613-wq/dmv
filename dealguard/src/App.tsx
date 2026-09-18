@@ -12,6 +12,7 @@ import { SessionsView } from "./ui/views/SessionsView";
 import { SettingsView } from "./ui/views/SettingsView";
 import { PaywallView } from "./ui/views/PaywallView";
 import { LegalView } from "./ui/views/LegalView";
+import { ConversationView } from "./ui/views/ConversationView";
 
 function Gate({ children }: { children: JSX.Element }) {
   const { ready, settings } = useApp();
@@ -44,6 +45,8 @@ export function App() {
             <Route path="/home" element={<HomeView />} />
             <Route path="/deal/:id" element={<DealEditorView />} />
             <Route path="/preflight/:id" element={<PreflightView />} />
+            <Route path="/talk/:id" element={<ConversationView />} />
+            <Route path="/live/talk/:talkId" element={<LiveView />} />
             <Route path="/live/:id" element={<LiveView />} />
             <Route path="/memo/:sessionId" element={<MemoView />} />
             <Route path="/sessions" element={<SessionsView />} />

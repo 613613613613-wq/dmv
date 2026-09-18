@@ -26,6 +26,8 @@ asks about a term you recorded. After the call it produces a Deal Memorandum.
 The following is stored only on your phone, in the app's private storage
 (the app sandbox), and never sent to us:
 
+- Conversation goals you type (what a conversation is about, who it is with,
+  your tone, optional facts).
 - Deal terms you enter (prices, deposits, dates, ratios, their status, source
   document names and dates).
 - The ledger: typed assertions (offer, concession, rejection, question,
@@ -66,7 +68,7 @@ The app connects to the internet only in the following cases:
 | Connection | When | What is sent |
 |---|---|---|
 | Deepgram (speech to text) | Only in **Live mode**, and only after you enter your own Deepgram API key | Microphone audio during the call, for transcription |
-| Google Gemini or Groq (optional language model) | Only if you enter your own Gemini or Groq API key and press "Help Now" | Short text snippets: relevant deal terms and the last seconds of transcript, to draft a talking point |
+| Google Gemini or Groq (optional language model) | Only if you enter your own Gemini or Groq API key, at the end of each turn the other person takes in a live conversation and when you press "Help Now" | Short text snippets: your typed goal and facts, relevant deal terms and the last ~90 seconds of transcript, to suggest a reply. Confidential deal values are never sent. |
 | RevenueCat, Apple App Store, Google Play | When you view the paywall or buy or restore a plan | Purchase receipt and an anonymous app-generated identifier |
 | Your own computer (Companion mode) | Only if you connect the phone to a desktop daemon on your local network | Cue display messages over your LAN; nothing leaves your network |
 
