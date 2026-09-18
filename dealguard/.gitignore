@@ -1,0 +1,47 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+e2e/.auth/
+*.tsbuildinfo
+
+# Native build output
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/app/*.iml
+android/capacitor-cordova-android-plugins/build/
+ios/App/Pods/
+ios/App/build/
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/App.xcodeproj/xcuserdata/
+ios/App/App.xcodeproj/project.xcworkspace/xcuserdata/
+ios/DerivedData/
+ios/capacitor-cordova-ios-plugins/
+
+# Signing material — never commit
+*.keystore
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+fastlane/.env
+fastlane/.env.*
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/test_output/
+
+# Android release signing (see docs/RELEASE_CHECKLIST.md)
+android/keystore.properties
+
+# Store screenshots are deliverables — keep them even though the repo root ignores fastlane screenshots.
+!fastlane/screenshots/**/*.png
+!fastlane/metadata/android/en-US/images/**/*.png
+
+# The repo root ignores *.xcodeproj (for the DMV app's generated project); Deal Guard's Xcode project is hand-maintained and must be tracked.
+!ios/App/App.xcodeproj/
+!ios/App/App.xcodeproj/**

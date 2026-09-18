@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Everything is HTTPS/WSS except Companion mode, which talks to the user's own
+  desktop daemon over plain ws:// on the local network (RFC 1918 ranges only
+  in practice; Android cannot scope cleartext by IP range, so cleartext is
+  permitted app-wide and the JS layer only ever opens ws:// to the configured
+  LAN host). All third-party APIs (Deepgram, Gemini, Groq, RevenueCat) are
+  TLS-only and unaffected.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

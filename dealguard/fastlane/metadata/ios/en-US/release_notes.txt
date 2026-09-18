@@ -1,0 +1,7 @@
+Initial release.
+• Glance HUD with red flags and fact cards grounded in your own deal terms
+• Demo, Live (Deepgram) and Companion listening modes
+• Help Now talking points with a strict no-hallucination guard
+• Deal Memorandum with timestamps, open issues and boundary audit
+• Consent pre-flight, disclosure script and jurisdiction guide
+• Zero-persistence audio; all data stays on device

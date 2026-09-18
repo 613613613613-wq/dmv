@@ -1,0 +1,152 @@
+import type { Deal, DealTerm } from "./types";
+
+/**
+ * The bundled sample deal. Used by unit tests, the in-app demo call, and App
+ * Store reviewers (see docs/REVIEWER_NOTES.md). All figures are fictional.
+ */
+export const DEMO_PROJECT_ID = "demo-harbor-point";
+
+const t = (partial: Omit<DealTerm, "projectId" | "aliases" | "allowCounterpartyDisclosure"> & Partial<Pick<DealTerm, "aliases" | "allowCounterpartyDisclosure">>): DealTerm => ({
+  projectId: DEMO_PROJECT_ID,
+  aliases: [],
+  allowCounterpartyDisclosure: false,
+  ...partial,
+});
+
+export const DEMO_TERMS: DealTerm[] = [
+  t({
+    termId: "demo-purchase-price",
+    category: "financial",
+    fieldName: "purchase_price",
+    fieldValue: "$14,250,000",
+    unit: "USD",
+    status: "agreed",
+    boundary: "exact",
+    sourceDoc: "PSA_Draft_v3_Clean.pdf",
+    sourceDate: "2026-08-15",
+    allowCounterpartyDisclosure: true,
+  }),
+  t({
+    termId: "demo-walk-away",
+    category: "financial",
+    fieldName: "walk_away_price",
+    fieldValue: "$14,500,000",
+    unit: "USD",
+    status: "hard_cap",
+    boundary: "max",
+    sourceDoc: "IC_Memo_HarborPoint.pdf",
+    sourceDate: "2026-08-10",
+  }),
+  t({
+    termId: "demo-earnest",
+    category: "financial",
+    fieldName: "earnest_deposit",
+    fieldValue: "$500,000",
+    unit: "USD",
+    status: "agreed",
+    boundary: "exact",
+    sourceDoc: "PSA_Draft_v3_Clean.pdf",
+    sourceDate: "2026-08-15",
+    allowCounterpartyDisclosure: true,
+  }),
+  t({
+    termId: "demo-inspection",
+    category: "contingency",
+    fieldName: "inspection_window",
+    fieldValue: "21 calendar days",
+    unit: "days",
+    status: "hard_cap",
+    boundary: "min",
+    sourceDoc: "IC_Memo_HarborPoint.pdf",
+    sourceDate: "2026-08-10",
+    allowCounterpartyDisclosure: true,
+  }),
+  t({
+    termId: "demo-financing",
+    category: "contingency",
+    fieldName: "financing_contingency",
+    fieldValue: "45 days",
+    unit: "days",
+    status: "negotiable",
+    boundary: "min",
+    sourceDoc: "LOI_Executed.pdf",
+    sourceDate: "2026-07-30",
+    allowCounterpartyDisclosure: true,
+  }),
+  t({
+    termId: "demo-closing",
+    category: "closing",
+    fieldName: "closing_date",
+    fieldValue: "90 days",
+    unit: "days",
+    status: "negotiable",
+    boundary: "min",
+    sourceDoc: "LOI_Executed.pdf",
+    sourceDate: "2026-07-30",
+    allowCounterpartyDisclosure: true,
+  }),
+  t({
+    termId: "demo-cap-rate",
+    category: "financial",
+    fieldName: "cap_rate",
+    fieldValue: "6.25%",
+    unit: "percent",
+    status: "internal_confidential",
+    boundary: "min",
+    sourceDoc: "Underwriting_Model_v7.xlsx",
+    sourceDate: "2026-08-12",
+    note: "Going-in cap on T-12 NOI. Never disclose.",
+  }),
+  t({
+    termId: "demo-dscr",
+    category: "financial",
+    fieldName: "dscr",
+    fieldValue: "1.25x",
+    unit: "ratio",
+    status: "hard_cap",
+    boundary: "min",
+    sourceDoc: "Lender_Term_Sheet.pdf",
+    sourceDate: "2026-08-01",
+  }),
+  t({
+    termId: "demo-seller-credit",
+    category: "financial",
+    fieldName: "seller_credit",
+    fieldValue: "$150,000",
+    unit: "USD",
+    status: "negotiable",
+    boundary: "min",
+    sourceDoc: "Internal_Negotiation_Plan.docx",
+    sourceDate: "2026-08-14",
+  }),
+  t({
+    termId: "demo-exclusions",
+    category: "entity",
+    fieldName: "exclusions",
+    fieldValue: "Rooftop cell lease revenue is excluded",
+    unit: "text",
+    status: "agreed",
+    boundary: "exact",
+    sourceDoc: "PSA_Draft_v3_Clean.pdf",
+    sourceDate: "2026-08-15",
+    allowCounterpartyDisclosure: true,
+    aliases: ["cell tower", "rooftop lease", "antenna lease"],
+  }),
+];
+
+export function makeDemoDeal(now = new Date("2026-09-01T12:00:00Z")): Deal {
+  return {
+    projectId: DEMO_PROJECT_ID,
+    name: "Harbor Point Industrial (Sample)",
+    createdAt: now.toISOString(),
+    updatedAt: now.toISOString(),
+    side: "buyer",
+    counterparties: [
+      { name: "Dana Whitfield", role: "Seller's broker", notes: "Conceded 30 → 45 day financing period on the Aug 12 call. Pushes hard on closing speed." },
+      { name: "Marcus Lee", role: "Seller principal", notes: "Wants certainty of close over price." },
+    ],
+    terms: DEMO_TERMS.map((x) => ({ ...x })),
+    keywords: ["Harbor Point", "Whitfield", "T-12", "Phase 1", "estoppel"],
+    archived: false,
+  };
+}

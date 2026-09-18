@@ -1,0 +1,48 @@
+Deal Guard is a real-time negotiation copilot for people who close deals: commercial real estate, lending, M&A term sheets. It listens to the call, compares what is said against the terms you already agreed, and shows you exactly one thing when it matters. Otherwise the screen stays black.
+
+NEVER CONCEDE WHAT YOU ALREADY AGREED
+Before the call, enter your ground truth: purchase price, walk-away price, earnest deposit, inspection window, financing contingency, closing date, cap rate, DSCR, and anything else, each marked as hard cap, negotiable, agreed or internal-confidential, with its source document and date.
+
+DURING THE CALL: A GLANCE HUD, NOT A DASHBOARD
+• RED FLAG when a statement contradicts your record or crosses a walk-away boundary, or when you are about to disclose a confidential figure.
+• FACT CARD when someone asks about a term you have on file.
+• Every cue is 12 words or fewer plus one source line, such as "PSA_Draft_v3_Clean.pdf · 2026-08-15".
+• Help Now gives you an on-demand talking point built from your own terms.
+• Lay the phone flat and keep your eyes on the room. One cue at a time; no feed, no scrolling.
+
+FACTS ARE DETERMINISTIC
+Red flags and fact cards come from rules over your own numbers, not from a model guessing. If you connect an optional language model for talking points, every number it produces is checked against your vault or the last 30 seconds of the conversation before it can reach the screen.
+
+AFTER THE CALL: THE DEAL MEMORANDUM
+Tap End meeting and get a memorandum in under a second: agreed terms with mm:ss timestamps, open issues, and a ledger audit of any moment you agreed to something outside your pre-call boundaries.
+
+THREE WAYS TO LISTEN
+• Demo: a built-in, fictional negotiation. No microphone, no keys, no network. Try the whole product in two minutes.
+• Live: your phone's microphone with streaming speech-to-text and speaker separation. Bring your own Deepgram API key.
+• Companion: the phone becomes a display for a desktop daemon on your local network.
+
+BRING YOUR OWN KEYS
+Speech-to-text and the optional language model run on your own provider accounts. Keys are stored on this device only.
+
+PRIVATE BY DESIGN
+• Audio exists only in memory and is never stored.
+• The raw transcript is discarded as soon as the memorandum is built.
+• Deal terms, ledger and memoranda stay on your device.
+• No accounts, no analytics, no ads, no tracking, no server of ours.
+• Export my data and Delete all data are one tap away.
+
+CONSENT FIRST
+A pre-flight step asks where the participants are, applies all-party-consent rules where they exist, gives you a disclosure script to read and a calendar disclaimer to send. Recording laws vary; you are responsible for complying with them. Deal Guard provides product guidance, not legal advice.
+
+PLANS
+Trial (free): 2 live hours, 1 dossier, 14 days.
+Dealmaker: 15 live hours per month, 3 active dossiers.
+Principal: 50 live hours per month, unlimited dossiers, multi-document cross audit, speculative turn prep, phone + desktop display.
+Extra hours: 5-hour pack.
+Enterprise: contact sales.
+
+Subscriptions renew automatically unless cancelled at least 24 hours before the end of the period and are managed in your Apple ID settings.
+
+Terms: https://dealguard.app/terms
+Privacy: https://dealguard.app/privacy
+Support: support@dealguard.app

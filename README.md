@@ -90,3 +90,13 @@ Recommended App Store messaging:
 | GitHub Actions CI | ✅ `.github/workflows/smoke.yml` |
 | Apple Developer enrollment | ❌ User action — $99/yr at developer.apple.com |
 | Android, web | 🚫 Deferred — see `docs/ANDROID_WEB_DEFERRED.md` |
+
+## Deal Guard (dealguard/)
+
+`dealguard/` holds a separate product: **Deal Guard**, a Capacitor 8
+iOS/Android app (Vite + React + TypeScript) that acts as a real-time
+negotiation copilot. It has its own `README.md`, `docs/`, unit and E2E tests,
+fastlane lanes and GitHub Actions workflow (`.github/workflows/dealguard.yml`).
+It shares no code, content, build tooling or store metadata with the Florida
+DMV permit app in the rest of this repository. Start at
+[`dealguard/README.md`](dealguard/README.md).
