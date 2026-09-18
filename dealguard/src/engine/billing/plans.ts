@@ -36,7 +36,7 @@ export const PLANS: Record<PlanId, Plan> = {
     priceLabel: "Free",
     monthlyHours: TRIAL_HOURS,
     dossierCap: 1,
-    features: ["2 live deal hours", "1 deal dossier", "Real-time red flags", "Deal memorandum"],
+    features: ["2 live hours, 14 days", "1 active deal dossier", "Red flags, fact cards, Help Now", "Deal memorandum with ledger audit"],
     products: {},
   },
   dealmaker: {
@@ -46,7 +46,7 @@ export const PLANS: Record<PlanId, Plan> = {
     annualLabel: "$950 / year",
     monthlyHours: 15,
     dossierCap: 3,
-    features: ["15 active deal hours / month", "3 active deal dossiers", "Local encrypted vault", "Real-time red flags", "Agreed-terms ledger & memo"],
+    features: ["15 live hours / month", "3 active deal dossiers", "Red flags, fact cards, Help Now", "Deal memorandum with ledger audit", "Companion desktop HUD mode"],
     products: { monthly: PRODUCT_IDS.dealmakerMonthly, annual: PRODUCT_IDS.dealmakerAnnual },
   },
   principal: {
@@ -56,16 +56,18 @@ export const PLANS: Record<PlanId, Plan> = {
     annualLabel: "$2,400 / year",
     monthlyHours: 50,
     dossierCap: null,
-    features: ["50 active deal hours / month", "Unlimited dossiers", "Multi-document cross audit", "Speculative turn prep", "Phone + desktop notch display", "Priority low-latency routing"],
+    features: ["50 live hours / month", "Unlimited active dossiers", "Everything in Dealmaker"],
     products: { monthly: PRODUCT_IDS.principalMonthly, annual: PRODUCT_IDS.principalAnnual },
   },
   enterprise: {
     id: "enterprise",
     name: "Enterprise",
-    priceLabel: "Custom ($5k+ / year)",
+    // Not sold in-app (App Store 3.1.1 / Play Payments): granted via a RevenueCat
+    // promotional entitlement for organisations that contract directly.
+    priceLabel: "By agreement",
     monthlyHours: null,
     dossierCap: null,
-    features: ["Unlimited deal hours", "Custom CRM / ERP retrieval", "Dedicated local vault", "Team permission locks"],
+    features: ["Unlimited live hours", "Unlimited active dossiers"],
     products: {},
   },
 };

@@ -9,7 +9,6 @@ const config: CapacitorConfig = {
     contentInset: "never",
     backgroundColor: "#07090d",
     preferredContentMode: "mobile",
-    scheme: "Deal Guard",
   },
   android: {
     backgroundColor: "#07090d",

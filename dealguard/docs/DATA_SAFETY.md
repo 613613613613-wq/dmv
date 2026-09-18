@@ -22,12 +22,19 @@ Then declare exactly one data type:
 | Data type | Collected | Linked to user | Used for tracking | Purposes |
 |---|---|---|---|---|
 | Purchases → Purchase History | Yes | No | No | App Functionality |
+| Identifiers → User ID | Yes | No | No | App Functionality |
+| Identifiers → Device ID | Yes | No | No | App Functionality |
+
+The two Identifiers rows exist because the RevenueCat SDK generates an
+anonymous app-user ID and reads the vendor identifier (IDFV) to attach
+purchases to this install; Apple requires the app's answers to be a superset
+of every embedded SDK's privacy manifest. Neither is linked to the person.
 
 Everything else → **Not collected**. Specifically confirm "not collected" for:
 Contact Info, Health & Fitness, Financial Info (payment info is handled by
 Apple and never seen by the app), Location, Sensitive Info, Contacts, User
 Content (Audio Data — see note), Browsing History, Search History,
-Identifiers, Usage Data, Diagnostics, Other Data.
+Usage Data, Diagnostics, Other Data.
 
 **Audio note.** Apple's definition of "collect" is transmitting data off the
 device in a way that allows access for longer than servicing the request.
@@ -46,8 +53,9 @@ any SDK that does.
 
 Apple age-rating questionnaire: answer **None/No** to all content categories
 (violence, sexual content, profanity, gambling, horror, drugs, medical,
-contests). Unrestricted web access: No. Then set the rating to **17+** because
-the app is a professional business tool not intended for minors.
+contests). Unrestricted web access: No. Apple's current tiers are 4+, 9+,
+13+, 16+ and 18+; choose **18+** manually because the app is a professional
+business tool not intended for minors (Terms §2 require users to be 18+).
 
 ### PrivacyInfo.xcprivacy (`ios/App/App/PrivacyInfo.xcprivacy`)
 
@@ -105,8 +113,8 @@ entries.
 
 | Key | Text |
 |---|---|
-| `NSMicrophoneUsageDescription` | "Deal Guard uses the microphone only in Live mode to transcribe your negotiation through your own speech-to-text account. Audio is never stored." |
-| `NSLocalNetworkUsageDescription` | "Companion mode connects to a Deal Guard desktop daemon on your local network to display cues on this phone." |
+| `NSMicrophoneUsageDescription` | "Deal Guard listens to your negotiation only during a live call you start, to flag statements that contradict your deal terms. Audio is processed in memory and never stored." |
+| `NSLocalNetworkUsageDescription` | "Companion mode connects to the Deal Guard desktop app on your own Wi-Fi network to mirror cues on this phone." |
 | `NSAppTransportSecurity` → `NSAllowsLocalNetworking` | `true` (Companion mode uses ws:// on the LAN; all internet traffic remains HTTPS/WSS). |
 | `ITSAppUsesNonExemptEncryption` | `false` |
 
@@ -115,6 +123,12 @@ entries.
 **Does your app collect or share any of the required user data types?** → Yes.
 
 **Is all of the user data collected by your app encrypted in transit?** → Yes.
+Every internet connection (Deepgram, Gemini, Groq, RevenueCat, the stores) is
+TLS. The one non-TLS path is Companion mode: a WebSocket to the user's own
+desktop on the same Wi-Fi, which the app only allows to private (RFC 1918 /
+link-local / `.local`) addresses; it carries cue text produced by the desktop
+app, not user data collected by this app, and it never leaves the local
+network. Mention this caveat in the "Other" free-text field if Play asks.
 
 **Do you provide a way for users to request that their data is deleted?** → Yes
 (in-app "Delete all data"; and the app stores nothing server-side, so
@@ -139,7 +153,12 @@ never written to storage.
 Declare **not collected** for: Location, Personal info (name, email, user ids,
 address, phone), Messages, Photos and videos, Files and docs, Calendar,
 Contacts, App activity, Web browsing, App info and performance (no crash logs,
-no diagnostics), Device or other IDs, Health and fitness.
+no diagnostics), Health and fitness.
+
+Declare **collected, not shared, App functionality** for **Device or other
+IDs**: the RevenueCat SDK creates an anonymous app-user ID and reads the
+Android ID / Google advertising ID as instructed by Google's RevenueCat Data
+Safety guidance, to attach purchases to the install.
 
 Note on deal terms: the user's deal terms and memoranda never leave the device
 and are therefore not "collected" under Play's definition (on-device
@@ -180,26 +199,24 @@ captured only while the app is in the foreground), `ACCESS_NETWORK_STATE`
 
 ### Network security config (`android/app/src/main/res/xml/network_security_config.xml`)
 
-Cleartext is disabled by default; it is permitted only for private LAN ranges
-used by Companion mode:
+The shipped config permits cleartext on the base config (Android cannot scope
+cleartext to an IP range):
 
 ```xml
 <network-security-config>
-  <base-config cleartextTrafficPermitted="false" />
-  <domain-config cleartextTrafficPermitted="true">
-    <domain includeSubdomains="false">localhost</domain>
-    <domain includeSubdomains="true">10.0.0.0</domain>
-    <domain includeSubdomains="true">192.168.0.0</domain>
-    <domain includeSubdomains="true">172.16.0.0</domain>
-  </domain-config>
+  <base-config cleartextTrafficPermitted="true">
+    <trust-anchors><certificates src="system" /></trust-anchors>
+  </base-config>
 </network-security-config>
 ```
 
-(Android domain-config matches host names, not CIDR ranges; the phone
-connects by IP address, so if the OS rejects an IP-literal rule, fall back to
-`cleartextTrafficPermitted="true"` on the base config **only in a Companion
-build flavor** and document it in the Data Safety "encrypted in transit"
-answer: LAN-only traffic that never leaves the device's network.)
+Why this is acceptable: the only cleartext the app ever opens is the Companion
+WebSocket, and the JavaScript layer (`src/engine/companion/protocol.ts`,
+`isPrivateHost`) refuses any host that is not a private, link-local, loopback
+or `.local` address, so no plaintext connection can be made to the internet.
+All third-party APIs are hard-coded `https://` / `wss://`. Play's pre-launch
+report may still show a "cleartext permitted" informational note; answer it
+with the paragraph above.
 
 ## Summary table for both stores
 
@@ -211,7 +228,7 @@ answer: LAN-only traffic that never leaves the device's network.)
 | Data stored server-side by us | None |
 | Data types collected | Purchase history (Apple/Google/RevenueCat) |
 | Data processed ephemerally | Audio (Live mode, user's Deepgram key); text snippets (optional Gemini/Groq, user's key) |
-| Data on device only | Deal terms, ledger, memoranda, settings, API keys |
+| Data on device only | Deal terms, ledger, memoranda, settings; API keys in Keychain / Android Keystore |
 | User deletion | In-app "Delete all data"; uninstall |
 | Export | In-app "Export my data" |
 | Encryption in transit | TLS for all internet traffic; plain ws:// only on LAN in Companion mode |

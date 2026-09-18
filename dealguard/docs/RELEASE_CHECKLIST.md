@@ -15,7 +15,7 @@ Identifiers used throughout:
 | Privacy policy URL | https://dealguard.app/privacy |
 | Terms URL | https://dealguard.app/terms |
 | Category | Business |
-| Age rating | 17+ (Apple) / equivalent adult rating (Play IARC) — professional tool, not for minors |
+| Age rating | 18+ (Apple manual override) / IARC as rated + "Target audience 18+" (Play) — professional tool, not for minors |
 
 ## Phase 0 — Before touching the stores
 
@@ -98,10 +98,12 @@ Identifiers used throughout:
 - [ ] `android/app/build.gradle`: `applicationId "com.shlomo.dealguard"`,
       `versionCode 1`, `versionName "1.0.0"`, `minSdk` per Capacitor 8
       default, `targetSdk` at the current Play requirement.
-- [ ] `AndroidManifest.xml` permissions: `RECORD_AUDIO`,
-      `MODIFY_AUDIO_SETTINGS`, `INTERNET`. Network security config permits
-      cleartext only for the Companion LAN range; `usesCleartextTraffic` is
-      not set globally.
+- [ ] `AndroidManifest.xml` permissions: `RECORD_AUDIO`, `INTERNET`,
+      `WAKE_LOCK`, `com.android.vending.BILLING`. The network security config
+      permits cleartext on the base config (Android cannot scope it by IP
+      range); the app itself only ever opens `ws://` to private LAN hosts —
+      see `docs/DATA_SAFETY.md` → Network security config for the wording
+      to use if Play asks.
 - [ ] Create a Play service account (Cloud Console → IAM → Service account →
       JSON key), grant it in Play Console → Users and permissions with
       release and financial-data permissions. Store the JSON as
@@ -135,8 +137,10 @@ Identifiers used throughout:
       `principal_monthly`, `principal_annual`, plus `pack_5h`. Make `default`
       current.
 - [ ] Copy the public SDK keys into CI secrets `VITE_RC_IOS_KEY` and
-      `VITE_RC_ANDROID_KEY`. They are baked in at build time; without them the
-      paywall shows "Purchases not configured".
+      `VITE_RC_ANDROID_KEY`. They are baked in at build time. **A build made
+      without them must never be submitted**: its paywall hides all plans and
+      says "Subscriptions are coming to this build soon", which Apple treats
+      as incomplete (2.1). Check the paywall on a TestFlight build first.
 - [ ] Sandbox test: iOS sandbox tester account + Play license tester; verify
       purchase, restore, cancellation and consumable credit.
 
@@ -183,12 +187,15 @@ Identifiers used throughout:
 - [ ] Metadata from `fastlane/metadata/ios/en-US/` (name, subtitle,
       description, keywords, promotional text, release notes, URLs).
 - [ ] Primary category Business; no secondary category needed.
-- [ ] Screenshots: iPhone 6.7" (1290×2796) required; iPad not required unless
-      iPad is supported (set the target to iPhone only, or add 13" iPad
-      screenshots). At least 3, up to 10, from `fastlane/screenshots/en-US/`.
+- [ ] Screenshots: iPhone 6.7" (1290×2796), at least 3, up to 10, from
+      `fastlane/screenshots/en-US/` (`npm run e2e:screenshots`). The project
+      is **iPhone-only** (`TARGETED_DEVICE_FAMILY = 1`), so no iPad
+      screenshots are needed; if you ever enable iPad, add 13" shots and
+      test the layout first.
 - [ ] Age rating questionnaire: no objectionable content categories; set
-      **17+** manually because the product is a professional business tool
-      not intended for minors. Mark "Unrestricted Web Access: No".
+      **18+** manually (Apple's tiers are 4+/9+/13+/16+/18+) because the
+      product is a professional business tool not intended for minors. Mark
+      "Unrestricted Web Access: No".
 - [ ] App Privacy (nutrition labels): **Data Not Collected** for everything
       except **Purchases** (Purchase History, linked to user: No, tracking:
       No, used for App Functionality). Microphone audio is used but not

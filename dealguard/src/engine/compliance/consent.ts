@@ -84,7 +84,7 @@ export function disclosureScript(brand: string): string {
 }
 
 export function calendarDisclaimer(brand: string): string {
-  return `Note: the host uses ${brand}, an AI deal assistant, for real-time transcription and record-keeping during this meeting. By joining you consent to that. Audio is processed live and never stored.`;
+  return `Note: the host uses ${brand}, an AI deal assistant, for real-time transcription and record-keeping during this meeting. Audio is processed live and never stored. Please let the host know before the call if you have any concerns.`;
 }
 
 export const PREFLIGHT_REMINDER = "Ensure counterparties are informed that an AI deal assistant is running for transcription and record-keeping.";

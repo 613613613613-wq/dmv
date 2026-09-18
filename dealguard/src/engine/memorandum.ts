@@ -137,5 +137,7 @@ export function memorandumToMarkdown(m: Memorandum): string {
   for (const x of m.ledgerAudit) lines.push(`- ⚠️ [${x.at}] **${x.topicLabel}** — you said “${x.text}”; boundary was ${x.boundary} (${x.sourceDoc}).`);
   lines.push("");
   lines.push(`_${m.stats.userLines} of your lines · ${m.stats.counterpartyLines} of theirs · ${m.stats.ledgerEntries} ledger entries · ${m.stats.redFlags} red flags · ${m.stats.factCards} fact cards_`);
+  lines.push("");
+  lines.push("_Generated automatically from live speech recognition. Verify every entry against your documents before relying on it. This is not legal, financial or investment advice._");
   return lines.join("\n");
 }

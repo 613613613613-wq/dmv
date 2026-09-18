@@ -153,7 +153,9 @@ export class CallSession {
         verbatimText: t.text,
         value: decision?.value,
         unit: decision?.unit,
-        flaggedTermId: decision?.tier === 1 ? decision.term?.termId : undefined,
+        // The ledger audit is about commitments outside the pre-call boundaries, so only a
+        // breach (or a confidential disclosure) marks the entry — a misremembered figure does not.
+        flaggedTermId: decision?.tier === 1 && (decision.reason === "boundary breached" || decision.reason === "user disclosed a confidential value") ? decision.term?.termId : undefined,
       });
       this.deps.onEvent({ type: "ledger", entry });
     } else if (!decision) {

@@ -48,6 +48,8 @@ export function digitize(text: string): string {
   });
   // "5 100" (five hundred) → 500 ; "a 100" → 100
   t = t.replace(/\b(\d{1,2})\s+100\b/g, (_m, n) => String(Number(n) * 100));
+  // "500 and 2 thousand" → "502 thousand"; "12 million 500 thousand" is left to the money regex.
+  t = t.replace(/\b(\d{3})\s+and\s+(\d{1,2})\b(?=\s+(?:thousand|million|billion|k|m|b)\b)/g, (_m, h, u) => String(Number(h) + Number(u)));
   // "14 point 2 5" → "14.25"
   t = t.replace(/\b(\d+)\s+point((?:\s+\d)+)\b/g, (_m, whole, frac: string) => `${whole}.${frac.replace(/\s+/g, "")}`);
   t = t.replace(/\bpoint((?:\s+\d)+)\b/g, (_m, frac: string) => `0.${frac.replace(/\s+/g, "")}`);
@@ -85,10 +87,12 @@ export function extractScaledBare(text: string, reference: number, band = 0.3): 
   if (!(reference > 0)) return [];
   const d = digitize(text);
   const out: ExtractedValue[] = [];
-  const unitAfter = /^\s*(?:%|percent|bps|days?|weeks?|months?|x\b|times|hours?|minutes?|years?|people|units?|buildings?)/i;
+  const unitAfter = /^(?:st|nd|rd|th)\b|^\s*(?:%|percent|bps|days?|weeks?|months?|x\b|times|hours?|minutes?|years?|people|units?|buildings?|am\b|pm\b|o'clock)/i;
   for (const m of d.matchAll(/(?<![\d.$])(\d+(?:\.\d+)?)(?!\.?\d)/g)) {
     const after = d.slice(m.index! + m[0].length);
     if (unitAfter.test(after)) continue;
+    // "by the 15th", "on the 3rd": a date, not a figure.
+    if (/\bthe\s+$/.test(d.slice(0, m.index!))) continue;
     const n = Number(m[1]);
     if (!Number.isFinite(n) || n === 0) continue;
     let best: { v: number; err: number } | null = null;
@@ -182,8 +186,8 @@ export function extractByUnit(text: string, unit: TermUnit): ExtractedValue[] {
 export function parseTermValue(fieldValue: string, unit: TermUnit): number | null {
   const vals = extractByUnit(fieldValue, unit);
   if (vals.length) return vals[0].value;
-  // Fall back to any bare number for units whose regex needs a keyword (e.g. "21" for days)
-  const bare = digitize(fieldValue).match(/-?\d+(?:\.\d+)?/);
+  // Fall back to any bare number for units whose regex needs a keyword (e.g. "21" for days, "14,500,000" for USD)
+  const bare = digitize(fieldValue).replace(/(\d),(?=\d{3}\b)/g, "$1").match(/-?\d+(?:\.\d+)?/);
   if (bare && unit !== "text") return Number(bare[0]);
   return null;
 }
@@ -213,9 +217,12 @@ function trimZeros(s: string): string {
   return s.includes(".") ? s.replace(/\.?0+$/, "") : s;
 }
 
-/** Two values are "the same" when within 0.5% (rounding, "12.5" vs "12,500,000"). */
+/**
+ * Two values are "the same" when within 0.1% — enough to absorb float noise
+ * and "$14.25M" vs "14,250,000", but a $50k slip on a $14M price is caught.
+ */
 export function approxEqual(a: number, b: number): boolean {
   if (a === b) return true;
-  const tol = Math.max(Math.abs(a), Math.abs(b)) * 0.005;
+  const tol = Math.max(Math.abs(a), Math.abs(b)) * 0.001;
   return Math.abs(a - b) <= tol;
 }

@@ -1,7 +1,7 @@
 import { Purchases, LOG_LEVEL, type PurchasesPackage } from "@revenuecat/purchases-capacitor";
 import { BRAND } from "../brand";
 import { PLANS, PACK } from "../engine/billing/plans";
-import { MockPurchaseProvider, type Offering, type PurchaseProvider, type PurchaseResult } from "../engine/billing/provider";
+import { MockPurchaseProvider, type EntitlementSnapshot, type Offering, type PurchaseProvider, type PurchaseResult } from "../engine/billing/provider";
 import { isNative, platform } from "./platform";
 
 /**
@@ -37,6 +37,36 @@ export class RevenueCatProvider implements PurchaseProvider {
 
   private fromCustomerInfo(info: { entitlements: { active: Record<string, unknown> }; allPurchasedProductIdentifiers: string[] }): PurchaseResult {
     return { ok: true, productIds: info.allPurchasedProductIdentifiers, entitlements: Object.keys(info.entitlements.active) };
+  }
+
+  private snapshot(info: { entitlements: { active: Record<string, { expirationDate?: string | null }> } }): EntitlementSnapshot {
+    const active = Object.entries(info.entitlements.active);
+    const expiries = active.map(([, e]) => e.expirationDate).filter((d): d is string => typeof d === "string");
+    const expiresAt = expiries.length ? expiries.sort()[expiries.length - 1] : null;
+    return { entitlements: active.map(([k]) => k), expiresAt };
+  }
+
+  async currentEntitlements(): Promise<EntitlementSnapshot | null> {
+    try {
+      await this.configure();
+      const res = await Purchases.getCustomerInfo();
+      return this.snapshot(res.customerInfo);
+    } catch {
+      return null;
+    }
+  }
+
+  onEntitlementsChanged(cb: (snap: EntitlementSnapshot) => void): () => void {
+    let id: string | null = null;
+    void this.configure()
+      .then(() => Purchases.addCustomerInfoUpdateListener((info) => cb(this.snapshot(info))))
+      .then((listenerId) => {
+        id = listenerId as unknown as string;
+      })
+      .catch(() => undefined);
+    return () => {
+      if (id !== null) void Purchases.removeCustomerInfoUpdateListener({ listenerToRemove: id as never }).catch(() => undefined);
+    };
   }
 
   async purchase(productId: string): Promise<PurchaseResult> {

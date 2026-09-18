@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { App as CapApp } from "@capacitor/app";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { recordUsage } from "../../engine/billing/entitlements";
 import { CompanionLink, type LinkStatus } from "../../engine/companion/link";
@@ -9,6 +10,7 @@ import { newId } from "../../engine/store/vault";
 import type { Cue, Speaker } from "../../engine/types";
 import { hapticCue, hapticTap } from "../../native/haptics";
 import { keepAwake } from "../../native/keepAwake";
+import { platform } from "../../native/platform";
 import { immersive } from "../../native/statusBar";
 import { useApp } from "../AppContext";
 import { createLiveController, type LiveController } from "../live";
@@ -26,7 +28,9 @@ export function LiveView() {
   const nav = useNavigate();
   const { deals, settings, usage, setUsage, saveSession } = useApp();
   const deal = deals.find((d) => d.projectId === id);
-  const mode = (params.get("mode") as SttMode) || settings.sttMode;
+  const rawMode = params.get("mode");
+  const mode: SttMode = rawMode === "demo" || rawMode === "deepgram" || rawMode === "companion" ? rawMode : settings.sttMode;
+  const disclosed = params.get("disclosed") === "1";
 
   const [cue, setCue] = useState<Cue | null>(null);
   const [frozen, setFrozen] = useState(false);
@@ -92,7 +96,9 @@ export function LiveView() {
     if (!deal) return;
     let cancelled = false;
     void keepAwake(settings.keepAwake);
-    void immersive(true);
+    // iOS keeps its system microphone indicator in the Dynamic Island; on Android the
+    // status bar (and its privacy chip) stays visible so a live call is never hidden.
+    if (platform() === "ios") void immersive(true);
     startedAt.current = Date.now();
 
     if (mode === "companion") {
@@ -114,6 +120,16 @@ export function LiveView() {
     } else {
       const c = createLiveController(deal, settings, mode, onEvent);
       ctrl.current = c;
+      if (disclosed) {
+        // Pre-flight confirmation that participants were informed, on the record with a timestamp.
+        c.session.ledger.add({
+          offsetMs: 0,
+          speaker: "USER",
+          assertionType: "AGREEMENT",
+          topic: "consent_disclosure",
+          verbatimText: `Host confirmed all participants were informed that an AI deal assistant is running (${new Date().toISOString()}).`,
+        });
+      }
       c.start().catch((err: unknown) => {
         if (!cancelled) setError(err instanceof Error ? err.message : "Could not start listening");
       });
@@ -128,18 +144,22 @@ export function LiveView() {
       void immersive(false);
       link.current?.close();
       link.current = null;
-      const c = ctrl.current;
-      ctrl.current = null;
-      if (c) {
-        void c.stop();
-        // If the user navigated away without ending, close the STT sockets too.
-        void c.session.end().catch(() => undefined);
-      }
+      // Navigated away without "End meeting" (history back, deep link): finish the
+      // call properly so the memorandum is saved and live time is metered.
+      if (ctrl.current) void endRef.current(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deal?.projectId, mode]);
 
-  // Hardware back / browser back: end cleanly.
+  // Android hardware back: end the call instead of silently unmounting.
+  useEffect(() => {
+    const sub = CapApp.addListener("backButton", () => void endRef.current(true));
+    return () => {
+      void sub.then((h) => h.remove()).catch(() => undefined);
+    };
+  }, []);
+
+  // Keyboard shortcuts (desktop/web): space dismiss/hold-freeze, ⌘/Ctrl+H help.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.code === "Space") {
@@ -210,12 +230,16 @@ export function LiveView() {
     }
   };
 
-  const end = async () => {
-    if (ending || !deal) return;
-    setEnding(true);
+  const endRef = useRef<(navigate: boolean) => Promise<void>>(async () => undefined);
+  const end = () => endRef.current(true);
+  endRef.current = async (navigate: boolean) => {
+    if (!deal) return;
     const c = ctrl.current;
+    if (!c && mode !== "companion") return; // already ended
+    if (navigate) setEnding(true);
     ctrl.current = null;
     link.current?.close();
+    link.current = null;
     const durationMs = Date.now() - startedAt.current;
     let metrics: SessionMetrics | null = null;
     let record = null as null | Parameters<typeof saveSession>[0];
@@ -238,7 +262,7 @@ export function LiveView() {
     }
     if (mode !== "demo") await setUsage(recordUsage(usage, Math.ceil(durationMs / 1000), new Date()));
     void metrics;
-    nav(record ? `/memo/${record.id}` : "/home", { replace: true });
+    if (navigate) nav(record ? `/memo/${record.id}` : "/home", { replace: true });
   };
 
   const tone = useMemo(() => (cue ? (cue.tier === 1 ? "text-flag" : cue.tier === 2 ? "text-fact" : "text-calm") : ""), [cue]);
@@ -294,6 +318,10 @@ export function LiveView() {
 
       <div className="safe-bottom px-4 pb-6">
         <div className="flex items-center gap-3 text-[12px] text-ink-400 mb-3">
+          <span className={`flex items-center gap-1.5 font-semibold ${mode === "demo" ? "text-ink-300" : "text-flag"}`} data-testid="live-indicator">
+            <span className={`w-2 h-2 rounded-full ${mode === "demo" ? "bg-ink-300" : "bg-flag"} pulse`} />
+            {mode === "demo" ? "DEMO" : mode === "companion" ? "LIVE · desktop" : "LIVE · listening"}
+          </span>
           <span className="flex items-center gap-1.5">
             <span className={`w-2 h-2 rounded-full ${dot(mode === "companion" ? streams.link : streams.COUNTERPARTY)}`} />
             {mode === "companion" ? "desktop" : mode === "demo" ? "demo" : "them"}

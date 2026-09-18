@@ -60,6 +60,11 @@ export function createLiveController(deal: Deal, settings: AppSettings, mode: St
       if (capture) await capture.start();
     },
     async stop() {
+      // Detach listeners first so a closing socket cannot surface a stale error banner.
+      for (const c of stt) {
+        c.onStatus = null;
+        c.onTranscript = null;
+      }
       if (capture) await capture.stop().catch(() => undefined);
     },
     captureStats() {

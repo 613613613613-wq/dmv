@@ -1,7 +1,6 @@
 # Deal Guard Privacy Policy
 
-**Effective:** the date Deal Guard 1.0.0 is first released on the App Store or
-Google Play.
+**Effective:** 18 September 2026 (Deal Guard 1.0.0).
 **Last reviewed:** 2026-09-18.
 
 This policy explains what Deal Guard (the "app") does with information when
@@ -25,14 +24,18 @@ asks about a term you recorded. After the call it produces a Deal Memorandum.
 ## 3. Data that stays on your device
 
 The following is stored only on your phone, in the app's private storage
-(Capacitor Preferences, the app sandbox), and never sent to us:
+(the app sandbox), and never sent to us:
 
 - Deal terms you enter (prices, deposits, dates, ratios, their status, source
   document names and dates).
 - The ledger: typed assertions (offer, concession, rejection, question,
   agreement) with the verbatim words that triggered them and a time offset.
 - Session memoranda.
-- Settings, including any API keys you enter.
+- Settings.
+- Any API keys or companion token you enter. These are kept in the
+  platform's secure credential store (iOS Keychain, marked "this device
+  only", or Android Keystore-encrypted storage), so they are excluded from
+  device backups and never appear in the data export.
 
 You can export all of it (Settings → "Export my data") or erase all of it
 (Settings → "Delete all data"). Deleting the app also deletes it.

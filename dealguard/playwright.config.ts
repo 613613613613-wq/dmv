@@ -34,9 +34,16 @@ export default defineConfig({
       use: { ...devices["iPhone 14 Pro"], browserName: "chromium", permissions: ["clipboard-read", "clipboard-write"] },
     },
     {
+      // App Store 6.7" / 6.9" slot: 1290×2796.
       name: "store-screenshots",
       testMatch: /.*\.shots\.ts/,
       use: { browserName: "chromium", deviceScaleFactor: 3, viewport: { width: 430, height: 932 }, isMobile: true, hasTouch: true },
+    },
+    {
+      // Google Play phone slot: 1242×2208 (16:9-ish; Play rejects anything taller than 2:1).
+      name: "play-screenshots",
+      testMatch: /.*\.shots\.ts/,
+      use: { browserName: "chromium", deviceScaleFactor: 3, viewport: { width: 414, height: 736 }, isMobile: true, hasTouch: true },
     },
   ],
 });

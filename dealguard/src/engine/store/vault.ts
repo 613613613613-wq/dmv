@@ -114,14 +114,26 @@ export interface SessionRecord {
 }
 
 const K = {
+  secretPrefix: "dealguard.v1.secret.",
   settings: "dealguard.v1.settings",
   deals: "dealguard.v1.deals",
   usage: "dealguard.v1.usage",
   sessions: "dealguard.v1.sessions",
 } as const;
 
+/** Settings fields that hold credentials. Kept in the platform's secure store, never in Preferences. */
+export const SECRET_SETTINGS = ["deepgramApiKey", "llmApiKey", "companionToken"] as const;
+type SecretKey = (typeof SECRET_SETTINGS)[number];
+
 export class Vault {
-  constructor(private readonly storage: StorageAdapter) {}
+  /**
+   * @param storage  ordinary app-sandbox key/value store (Preferences / localStorage)
+   * @param secrets  Keychain / Android Keystore-backed store for API keys; defaults to `storage`
+   */
+  constructor(
+    private readonly storage: StorageAdapter,
+    private readonly secrets: StorageAdapter = storage,
+  ) {}
 
   private async read<T>(key: string, fallback: T): Promise<T> {
     const raw = await this.storage.get(key);
@@ -139,10 +151,22 @@ export class Vault {
 
   async loadSettings(): Promise<AppSettings> {
     const s = await this.read<Partial<AppSettings>>(K.settings, {});
-    return { ...DEFAULT_SETTINGS, ...s, schemaVersion: 1 };
+    const merged: AppSettings = { ...DEFAULT_SETTINGS, ...s, schemaVersion: 1 };
+    for (const k of SECRET_SETTINGS) {
+      const v = await this.secrets.get(`${K.secretPrefix}${k}`).catch(() => null);
+      merged[k] = v ?? "";
+    }
+    return merged;
   }
   async saveSettings(s: AppSettings): Promise<void> {
-    await this.write(K.settings, s);
+    const plain: Record<string, unknown> = { ...s };
+    for (const k of SECRET_SETTINGS) {
+      const v = s[k as SecretKey];
+      plain[k] = ""; // never persisted alongside ordinary settings
+      if (v) await this.secrets.set(`${K.secretPrefix}${k}`, v);
+      else await this.secrets.remove(`${K.secretPrefix}${k}`).catch(() => undefined);
+    }
+    await this.write(K.settings, plain);
   }
 
   async loadDeals(): Promise<Deal[]> {
@@ -178,8 +202,9 @@ export class Vault {
     const i = all.findIndex((s) => s.id === rec.id);
     if (i >= 0) all[i] = rec;
     else all.unshift(rec);
-    await this.write(K.sessions, all.slice(0, 200));
-    return all;
+    const kept = all.slice(0, 200);
+    await this.write(K.sessions, kept);
+    return kept;
   }
   async deleteSession(id: string): Promise<SessionRecord[]> {
     const all = (await this.loadSessions()).filter((s) => s.id !== id);
@@ -189,7 +214,8 @@ export class Vault {
 
   /** Wipe everything — Settings → "Delete all data". */
   async eraseAll(): Promise<void> {
-    for (const k of Object.values(K)) await this.storage.remove(k);
+    for (const k of [K.settings, K.deals, K.usage, K.sessions]) await this.storage.remove(k);
+    for (const k of SECRET_SETTINGS) await this.secrets.remove(`${K.secretPrefix}${k}`).catch(() => undefined);
   }
 
   /** Export everything the app stores, for the privacy "download my data" flow. */

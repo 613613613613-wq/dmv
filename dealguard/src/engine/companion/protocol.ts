@@ -16,7 +16,7 @@ export type HudMessage =
   | { type: "status"; self: "open" | "closed" | "error"; counterparty: "open" | "closed" | "error" }
   | { type: "ping"; t: number };
 
-export type HudClientMessage = { type: "hello"; device: string; version: number } | { type: "pong"; t: number } | { type: "dismiss"; id: string } | { type: "freeze"; id: string; frozen: boolean } | { type: "help" };
+export type HudClientMessage = { type: "hello"; device: string; version: number; token?: string } | { type: "pong"; t: number } | { type: "dismiss"; id: string } | { type: "freeze"; id: string; frozen: boolean } | { type: "help" };
 
 const KINDS: CueKind[] = ["RED_FLAG", "FACT_CARD", "TALKING_POINT", "CONFIDENTIAL"];
 
@@ -41,17 +41,17 @@ export function parseHudMessage(raw: string): HudMessage | null {
       if (!kind) return null;
       return {
         type: "cue",
-        id: o.id,
+        id: o.id.slice(0, 64),
         tier,
         kind,
         headline: o.headline.slice(0, 160),
         source: o.source.slice(0, 120),
-        topic: typeof o.topic === "string" ? o.topic : "general",
-        ttlMs: typeof o.ttlMs === "number" ? o.ttlMs : undefined,
+        topic: typeof o.topic === "string" ? o.topic.slice(0, 64) : "general",
+        ttlMs: typeof o.ttlMs === "number" && Number.isFinite(o.ttlMs) ? Math.min(120_000, Math.max(1_000, o.ttlMs)) : undefined,
       };
     }
     case "clear":
-      return { type: "clear", id: typeof o.id === "string" ? o.id : undefined };
+      return { type: "clear", id: typeof o.id === "string" ? o.id.slice(0, 64) : undefined };
     case "status": {
       const ok = (v: unknown): v is "open" | "closed" | "error" => v === "open" || v === "closed" || v === "error";
       return ok(o.self) && ok(o.counterparty) ? { type: "status", self: o.self, counterparty: o.counterparty } : null;
@@ -83,18 +83,40 @@ export class CueDedupe {
   }
 }
 
-const HOST_RE = /^(?:(?:\d{1,3}\.){3}\d{1,3}|[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*)$/i;
+const IPV4_RE = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+const LOCAL_NAME_RE = /^(localhost|[a-z0-9]([a-z0-9-]*[a-z0-9])?\.local)$/i;
+
+/**
+ * Companion mode speaks plain ws:// (the desktop daemon lives on the same
+ * Wi-Fi), so only private / link-local addresses and mDNS `.local` names are
+ * accepted. A public host is rejected outright — the phone never opens a
+ * cleartext socket to the internet.
+ */
+export function isPrivateHost(host: string): boolean {
+  if (LOCAL_NAME_RE.test(host)) return true;
+  const m = IPV4_RE.exec(host);
+  if (!m) return false;
+  const [a, b] = [Number(m[1]), Number(m[2])];
+  if ([m[1], m[2], m[3], m[4]].some((o) => Number(o) > 255)) return false;
+  if (a === 10) return true; // 10.0.0.0/8
+  if (a === 172 && b >= 16 && b <= 31) return true; // 172.16.0.0/12
+  if (a === 192 && b === 168) return true; // 192.168.0.0/16
+  if (a === 169 && b === 254) return true; // link-local
+  if (a === 127) return true; // loopback (dev)
+  return false;
+}
 
 export function validateHost(host: string): string | null {
   const h = host.trim().replace(/^wss?:\/\//, "").replace(/\/.*$/, "").replace(/:\d+$/, "");
-  return HOST_RE.test(h) ? h : null;
+  return isPrivateHost(h) ? h : null;
 }
 
-export function buildCompanionUrl(host: string, port = COMPANION_DEFAULT_PORT, token?: string): string | null {
+/** Token is sent inside the `hello` frame, never in the URL (keeps it out of access logs). */
+export function buildCompanionUrl(host: string, port = COMPANION_DEFAULT_PORT): string | null {
   const h = validateHost(host);
   if (!h) return null;
-  const q = token ? `?token=${encodeURIComponent(token)}` : "";
-  return `ws://${h}:${port}/hud${q}`;
+  if (!Number.isInteger(port) || port < 1 || port > 65535) return null;
+  return `ws://${h}:${port}/hud`;
 }
 
 export function backoffMs(attempt: number): number {

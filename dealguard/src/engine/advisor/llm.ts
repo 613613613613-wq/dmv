@@ -1,4 +1,6 @@
 import { clampHeadline } from "../gating";
+import { FIELD_ALIASES, humanFieldName } from "../terms";
+import type { DealTerm } from "../types";
 import { guardText } from "./guard";
 import { deterministicTalkingPoint, type AdviceContext, type CueDraft } from "./templates";
 
@@ -19,8 +21,14 @@ export const DEFAULT_MODELS: Record<Exclude<LlmProvider, "none">, string> = {
 };
 
 export function buildPrompt(ctx: AdviceContext): { system: string; user: string } {
+  // Confidential values are withheld from the prompt entirely: the model only
+  // needs to know the topic exists and must not be discussed.
   const facts = ctx.deal.terms
-    .map((t) => `- ${t.fieldName} = ${t.fieldValue} [${t.status}${t.status === "internal_confidential" ? ", NEVER suggest disclosing" : ""}] (${t.sourceDoc}, ${t.sourceDate})`)
+    .map((t) =>
+      t.status === "internal_confidential"
+        ? `- ${t.fieldName} = [withheld] [internal_confidential — NEVER suggest sharing, hinting at, or confirming this]`
+        : `- ${t.fieldName} = ${t.fieldValue} [${t.status}] (${t.sourceDoc}, ${t.sourceDate})`,
+    )
     .join("\n");
   const transcript = ctx.recentLines.map((l) => `${l.speaker === "USER" ? "ME" : "THEM"}: ${l.text}`).join("\n");
   const concessions = ctx.ledger
@@ -88,6 +96,23 @@ export function sanitizeLlmLine(raw: string): string {
   return clampHeadline(first.replace(/^["'“”*\-•\s]+|["'“”*\s]+$/g, ""));
 }
 
+const DISCLOSE_VERBS = /\b(share|disclose|reveal|tell|give|show|confirm|admit|offer up|walk them through|open up about)\b/i;
+
+/**
+ * Textual guard: a model line may never contain a confidential value, and may
+ * never pair a "disclose" verb with a confidential term's name.
+ */
+export function disclosureSafe(line: string, terms: DealTerm[]): boolean {
+  const lower = line.toLowerCase();
+  for (const t of terms) {
+    if (t.status !== "internal_confidential") continue;
+    if (t.fieldValue && lower.includes(t.fieldValue.toLowerCase())) return false;
+    const names = [humanFieldName(t).toLowerCase(), ...(FIELD_ALIASES[t.fieldName] ?? []), ...t.aliases.map((a) => a.toLowerCase())];
+    if (DISCLOSE_VERBS.test(line) && names.some((n) => n.length >= 3 && lower.includes(n))) return false;
+  }
+  return true;
+}
+
 export interface AdvisorResult {
   cue: CueDraft;
   source: "llm" | "template";
@@ -124,6 +149,7 @@ export class Advisor {
         ctx.recentLines.map((l) => l.text),
       );
       if (!g.ok) return { cue: fallback, source: "template", rejected: { text: line, offending: g.offending } };
+      if (!disclosureSafe(line, ctx.deal.terms)) return { cue: fallback, source: "template", rejected: { text: line, offending: [] } };
       return {
         cue: { tier: 3, kind: "TALKING_POINT", headline: line, source: `${this.cfg.provider} · guarded against vault`, topic: fallback.topic, termId: fallback.termId },
         source: "llm",

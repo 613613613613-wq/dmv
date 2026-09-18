@@ -94,7 +94,7 @@ Sent immediately after the socket opens, before the server's `hello` is
 required.
 
 ```json
-{ "type": "hello", "device": "iPhone 15 Pro", "version": 1 }
+{ "type": "hello", "device": "iPhone 15 Pro", "version": 1, "token": "optional shared secret" }
 ```
 
 ### `pong`
@@ -169,7 +169,10 @@ The user pressed "Help Now". The daemon should reply with a tier-3
   present must be a finite positive number.
 - `status` requires both fields with allowed values.
 - `ping` requires a finite number `t`.
-- `hello` requires `version === 1`.
+- `hello` requires `version === 1`. If the daemon is configured with a token,
+  it must close the socket when the phone's `hello` carries a different one.
+  The token travels only inside this frame — never in the URL — so it does
+  not end up in access logs.
 - Anything else is dropped and counted in a debug counter shown under
   Settings → Companion.
 
@@ -179,7 +182,12 @@ The link is plaintext by design: it is meant for a laptop and phone on the
 same trusted LAN, and adding TLS would require certificate provisioning on a
 private IP. Do not expose port 8765 beyond the LAN. Cues contain deal
 terms; on an untrusted network use Live mode instead. The phone only connects
-to the address the user typed; there is no discovery broadcast in v1.
+to the address the user typed, and refuses anything that is not a private
+address: `10/8`, `172.16/12`, `192.168/16`, `169.254/16` link-local,
+`127/8`, `localhost` or an mDNS `*.local` name (`isPrivateHost` in
+`src/engine/companion/protocol.ts`). There is no discovery broadcast in v1.
+Incoming frames are bounded (`id`/`topic` ≤ 64 chars, `headline` ≤ 160,
+`source` ≤ 120, `ttlMs` clamped to 1–120 s) and rendered as plain text.
 
 Platform notes: iOS needs `NSLocalNetworkUsageDescription` and ATS
 `NSAllowsLocalNetworking`; Android needs the network security config that

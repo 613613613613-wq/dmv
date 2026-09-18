@@ -27,7 +27,7 @@ describe("host + url", () => {
     expect(validateHost("my-mac.local")).toBe("my-mac.local");
     expect(validateHost("bad host!")).toBeNull();
     expect(buildCompanionUrl("192.168.1.20")).toBe("ws://192.168.1.20:8765/hud");
-    expect(buildCompanionUrl("192.168.1.20", 9000, "t k")).toBe("ws://192.168.1.20:9000/hud?token=t%20k");
+    expect(buildCompanionUrl("192.168.1.20", 9000)).toBe("ws://192.168.1.20:9000/hud");
     expect(buildCompanionUrl("")).toBeNull();
   });
   it("backs off exponentially with a ceiling", () => {
@@ -79,6 +79,7 @@ describe("CompanionLink", () => {
     const timers: Array<() => void> = [];
     const link = new CompanionLink({
       host: "192.168.0.5",
+      token: "secret-token",
       socketFactory: (u) => new FakeSocket(u) as unknown as WebSocket,
       setTimeoutFn: ((fn: () => void) => {
         timers.push(fn);
@@ -93,7 +94,8 @@ describe("CompanionLink", () => {
     expect(s1.url).toBe("ws://192.168.0.5:8765/hud");
     s1.open();
     expect(link.status).toBe("open");
-    expect(JSON.parse(s1.sent[0]).type).toBe("hello");
+    expect(JSON.parse(s1.sent[0])).toMatchObject({ type: "hello", token: "secret-token" });
+    expect(s1.url).not.toContain("secret-token");
 
     s1.onmessage?.({ data: JSON.stringify({ type: "cue", id: "c1", tier: 1, kind: "RED_FLAG", headline: "Hold.", source: "PSA · 2026-08-15", topic: "price" }) });
     expect(cues[0].headline).toBe("Hold.");

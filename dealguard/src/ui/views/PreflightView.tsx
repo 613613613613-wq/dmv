@@ -42,7 +42,7 @@ export function PreflightView() {
 
   const go = async () => {
     await updateSettings({ sttMode: mode });
-    nav(`/live/${deal.projectId}?mode=${mode}`, { replace: true });
+    nav(`/live/${deal.projectId}?mode=${mode}${informed ? "&disclosed=1" : ""}`, { replace: true });
   };
 
   return (

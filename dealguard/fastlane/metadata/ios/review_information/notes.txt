@@ -1,16 +1,16 @@
 Deal Guard is a negotiation assistant for business professionals. There is no login and no account. Everything can be reviewed in Demo mode, which uses a built-in, fictional scripted negotiation ("Harbor Point Industrial (Sample)") and needs no microphone, network or API keys.
 
 Steps:
-1. Launch the app and tap Continue through onboarding.
-2. Accept the consent step (any jurisdiction works for Demo).
-3. On Home, tap "Start demo call".
-4. The black Glance HUD stays blank until something matters. Within about 20 seconds a RED FLAG appears (a scripted line contradicts the sample deal's price), then FACT CARDs when the script asks about known terms.
-5. Tap "Help Now" for an on-demand talking point (built-in templates; no LLM configured).
+1. Launch the app. Onboarding: tap Continue, optionally enter a name and pick a state, tap Continue, tick the acknowledgement, tap "Start with a sample deal". The sample deal loads automatically.
+2. On Home, tap "Pre-flight & start" on the sample deal.
+3. Pre-flight step 1: keep "Demo" selected, tap Continue. Step 2: tick "These terms match the latest documents", tap Continue. Step 3: tap "Start demo call".
+4. The black Glance HUD stays blank until something matters. Within about 10 seconds a RED FLAG appears (a scripted line contradicts the sample deal's price), then FACT CARDs when the script asks about known terms. Tap to dismiss a cue; press and hold to freeze it.
+5. Tap "Help now" for an on-demand talking point (built-in templates; no LLM configured).
 6. Tap "End meeting" to see the Deal Memorandum: agreed terms with timestamps, open issues, boundary audit and call statistics.
 
-Permissions: the microphone permission is requested only when the user starts a Live session (Home -> "Live (Deepgram)"), which also requires the user's own Deepgram API key. Demo mode never requests it. Local network access is requested only in Companion mode.
+Permissions: the microphone permission is requested only when the user starts a Live session (pre-flight step 1 -> "Live - this phone listens"), which also requires the user's own Deepgram API key entered in Settings. Demo mode never requests it. Local network access is requested only in Companion mode.
 
-Purchases: subscriptions (Dealmaker, Principal) and a consumable 5-hour pack are optional. The Trial plan is free and nothing needed for review is behind a purchase.
+Purchases: subscriptions (Dealmaker, Principal) and a consumable 5-hour pack are optional. The Trial plan is free and nothing needed for review is behind a purchase. Plans -> "Restore purchases" restores an existing subscription.
 
 Data: audio is never stored; the raw transcript is discarded after the memorandum is built; deal terms and memoranda are stored on the device only. No analytics, ads or tracking. Privacy policy: https://dealguard.app/privacy
 

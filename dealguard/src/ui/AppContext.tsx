@@ -1,10 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { initialUsage, rollover, type UsageState } from "../engine/billing/entitlements";
+import { App as CapApp } from "@capacitor/app";
+import { applyEntitlements, initialUsage, rollover, type UsageState } from "../engine/billing/entitlements";
 import type { PurchaseProvider } from "../engine/billing/provider";
 import { DEFAULT_SETTINGS, Vault, type AppSettings, type SessionRecord } from "../engine/store/vault";
 import type { Deal } from "../engine/types";
 import { makePurchaseProvider } from "../native/purchases";
-import { makeStorage } from "../native/storage";
+import { makeSecretStorage, makeStorage } from "../native/storage";
 
 export interface AppApi {
   ready: boolean;
@@ -27,7 +28,10 @@ const Ctx = createContext<AppApi | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const vaultRef = useRef<Vault>();
-  if (!vaultRef.current) vaultRef.current = new Vault(makeStorage());
+  if (!vaultRef.current) {
+    const plain = makeStorage();
+    vaultRef.current = new Vault(plain, makeSecretStorage(plain));
+  }
   const vault = vaultRef.current;
   const purchases = useMemo(() => makePurchaseProvider(), []);
 
@@ -55,6 +59,34 @@ export function AppProvider({ children }: { children: ReactNode }) {
       cancelled = true;
     };
   }, [vault]);
+
+  // Subscriptions: re-sync with the store on launch, on resume, and whenever the
+  // store pushes an update (renewal, refund, cancellation). Packs stay local.
+  const usageRef = useRef(usage);
+  usageRef.current = usage;
+  useEffect(() => {
+    if (!ready || !purchases.available()) return;
+    let cancelled = false;
+    const apply = (snap: { entitlements: string[]; expiresAt: string | null }) => {
+      if (cancelled) return;
+      const next = applyEntitlements(usageRef.current, snap, new Date());
+      if (JSON.stringify(next) !== JSON.stringify(usageRef.current)) {
+        setUsageState(next);
+        void vault.saveUsage(next);
+      }
+    };
+    const sync = () => purchases.currentEntitlements().then((snap) => snap && apply(snap)).catch(() => undefined);
+    void sync();
+    const unsubscribe = purchases.onEntitlementsChanged(apply);
+    const resume = CapApp.addListener("appStateChange", ({ isActive }) => {
+      if (isActive) void sync();
+    });
+    return () => {
+      cancelled = true;
+      unsubscribe();
+      void resume.then((h) => h.remove()).catch(() => undefined);
+    };
+  }, [ready, purchases, vault]);
 
   const updateSettings = useCallback(
     async (patch: Partial<AppSettings>) => {

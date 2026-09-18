@@ -102,6 +102,18 @@ export function applyPurchase(state: UsageState, productId: string, now: Date): 
   }
 }
 
+/**
+ * Reconcile local state with what the store says right now. The store is the
+ * source of truth for subscriptions; packs (consumables) stay local.
+ */
+export function applyEntitlements(state: UsageState, snap: { entitlements: string[]; expiresAt: string | null }, now: Date): UsageState {
+  const s = rollover(state, now);
+  const plan = planFromEntitlements(snap.entitlements);
+  if (plan) return { ...s, planId: plan, planExpiresAt: snap.expiresAt ?? undefined };
+  if (s.planId !== "trial") return { ...s, planId: "trial", planExpiresAt: undefined };
+  return s;
+}
+
 /** Map RevenueCat-style entitlement identifiers back to a plan. */
 export function planFromEntitlements(active: string[]): PlanId | null {
   if (active.includes("enterprise")) return "enterprise";

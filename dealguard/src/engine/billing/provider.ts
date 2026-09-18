@@ -4,6 +4,13 @@ export interface Offering {
   priceLabel: string;
 }
 
+export interface EntitlementSnapshot {
+  /** Active entitlement identifiers ("dealmaker", "principal", "enterprise"). */
+  entitlements: string[];
+  /** Latest expiration among active entitlements, ISO, or null when unknown / lifetime. */
+  expiresAt: string | null;
+}
+
 export interface PurchaseResult {
   ok: boolean;
   /** Product ids now owned (for packs) or active entitlement ids (for subscriptions). */
@@ -25,6 +32,10 @@ export interface PurchaseProvider {
   offerings(): Promise<Offering[]>;
   purchase(productId: string): Promise<PurchaseResult>;
   restore(): Promise<PurchaseResult>;
+  /** Current store truth without user interaction (cached by the SDK). null when unavailable. */
+  currentEntitlements(): Promise<EntitlementSnapshot | null>;
+  /** Fires whenever the store reports a change (renewal, refund, cancellation). */
+  onEntitlementsChanged(cb: (snap: EntitlementSnapshot) => void): () => void;
   /** Manage-subscription deep link (App Store / Play). */
   manageUrl(): string | null;
 }
@@ -49,6 +60,12 @@ export class MockPurchaseProvider implements PurchaseProvider {
   }
   async restore(): Promise<PurchaseResult> {
     return { ok: true, productIds: [...this.owned], entitlements: entitlementsFor([...this.owned]) };
+  }
+  async currentEntitlements(): Promise<EntitlementSnapshot | null> {
+    return { entitlements: entitlementsFor([...this.owned]), expiresAt: null };
+  }
+  onEntitlementsChanged(): () => void {
+    return () => undefined;
   }
   manageUrl(): string | null {
     return null;

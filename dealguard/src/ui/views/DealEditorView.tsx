@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { formatValue, parseTermValue } from "../../engine/normalize";
 import { FIELD_ALIASES, humanFieldName } from "../../engine/terms";
 import { newId } from "../../engine/store/vault";
 import type { Boundary, Counterparty, Deal, DealTerm, TermCategory, TermStatus, TermUnit } from "../../engine/types";
@@ -19,6 +20,23 @@ const BOUNDARIES: Array<{ v: Boundary; label: string }> = [
   { v: "min", label: "Minimum — lower breaches" },
   { v: "exact", label: "Exact — any change breaches" },
 ];
+
+/**
+ * Which direction breaches a cap, given who we are. A buyer's price cap is a
+ * maximum; a seller's is a minimum. Time windows we need are minimums; a closing
+ * deadline we are held to is a maximum for either side.
+ */
+export function defaultBoundary(side: Deal["side"], fieldName: string, unit: TermUnit): Boundary {
+  const weAreBuyerLike = side === "buyer" || side === "borrower";
+  if (unit === "USD") {
+    if (/deposit|earnest|credit|holdback|fee/.test(fieldName)) return weAreBuyerLike ? "max" : "min";
+    return weAreBuyerLike ? "max" : "min";
+  }
+  if (unit === "days") return /closing_date|expiry|deadline/.test(fieldName) ? (weAreBuyerLike ? "min" : "max") : weAreBuyerLike ? "min" : "max";
+  if (unit === "percent") return /cap_rate|ltv/.test(fieldName) ? (weAreBuyerLike ? "min" : "max") : weAreBuyerLike ? "max" : "min";
+  if (unit === "ratio") return "min";
+  return "exact";
+}
 
 function blankTerm(projectId: string): DealTerm {
   return {
@@ -58,9 +76,11 @@ export function DealEditorView() {
     await saveDeal(next);
   };
 
+  const parsedValue = editing && editing.unit !== "text" ? parseTermValue(editing.fieldValue, editing.unit) : null;
+  const termValid = !!editing && !!editing.fieldValue.trim() && !!editing.sourceDoc.trim() && !!editing.fieldName && (editing.unit === "text" || parsedValue !== null);
+
   const saveTerm = async () => {
-    if (!editing) return;
-    if (!editing.fieldValue.trim() || !editing.sourceDoc.trim()) return;
+    if (!editing || !termValid) return;
     const terms = deal.terms.some((t) => t.termId === editing.termId) ? deal.terms.map((t) => (t.termId === editing.termId ? editing : t)) : [...deal.terms, editing];
     await persist({ ...deal, terms });
     setEditing(null);
@@ -201,8 +221,21 @@ export function DealEditorView() {
               </Select>
             </Field>
           </div>
+          {editing.unit !== "text" && editing.fieldValue.trim() && (
+            <p className={`text-[12px] mt-1.5 ${parsedValue === null ? "text-flag" : "text-ink-400"}`} data-testid="term-parsed">
+              {parsedValue === null ? `Could not read a ${editing.unit} figure — e.g. ${editing.unit === "USD" ? "$14,250,000" : editing.unit === "days" ? "21 days" : editing.unit === "percent" ? "6.25%" : "1.25x"}` : `Reads as ${formatValue(parsedValue, editing.unit)}`}
+            </p>
+          )}
           <Field label="Status" className="mt-3" hint={STATUSES.find((s) => s.v === editing.status)?.hint}>
-            <Select value={editing.status} onChange={(e) => setEditing({ ...editing, status: e.target.value as TermStatus })} data-testid="term-status">
+            <Select
+              value={editing.status}
+              onChange={(e) => {
+                const status = e.target.value as TermStatus;
+                const boundary = status === "hard_cap" || status === "negotiable" ? defaultBoundary(deal.side, editing.fieldName, editing.unit) : editing.boundary;
+                setEditing({ ...editing, status, boundary });
+              }}
+              data-testid="term-status"
+            >
               {STATUSES.map((s) => (
                 <option key={s.v} value={s.v}>
                   {s.label}
@@ -249,7 +282,7 @@ export function DealEditorView() {
                 Delete
               </Button>
             )}
-            <Button full onClick={saveTerm} disabled={!editing.fieldValue.trim() || !editing.sourceDoc.trim() || !editing.fieldName} data-testid="term-save">
+            <Button full onClick={saveTerm} disabled={!termValid} data-testid="term-save">
               Save term
             </Button>
           </div>

@@ -1,7 +1,6 @@
 # Deal Guard Terms of Service
 
-**Effective:** the date Deal Guard 1.0.0 is first released on the App Store or
-Google Play.
+**Effective:** 18 September 2026 (Deal Guard 1.0.0).
 **Last reviewed:** 2026-09-18.
 
 These terms govern your use of the Deal Guard mobile application (the "app")
@@ -90,7 +89,7 @@ before purchase.
 
 Subscriptions are sold through Apple's App Store or Google Play and are
 managed by them. **A subscription renews automatically at the end of each
-period at the then-current price unless you cancel at least 24 hours before
+period at the then-current price unless you cancel before the renewal date (Apple requires at least 24 hours before
 the period ends.** Payment is charged to your Apple ID or Google account. You
 can manage or cancel in your device's subscription settings (iOS: Settings →
 Apple ID → Subscriptions; Android: Google Play → Payments & subscriptions).

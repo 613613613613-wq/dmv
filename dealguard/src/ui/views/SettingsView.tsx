@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BRAND } from "../../brand";
 import { formatHours, remainingSeconds } from "../../engine/billing/entitlements";
@@ -9,6 +9,29 @@ import type { SttMode } from "../../engine/store/vault";
 import { shareText } from "../../native/share";
 import { useApp } from "../AppContext";
 import { Button, Card, Field, Input, Screen, SectionTitle, Select, Toggle } from "../components";
+
+/** Numeric field that lets the user type freely and clamps/commits on blur. */
+function NumberField({ label, value, min, max, onCommit, testId }: { label: string; value: number; min: number; max: number; onCommit: (v: number) => void; testId?: string }) {
+  const [text, setText] = useState(String(value));
+  useEffect(() => setText(String(value)), [value]);
+  return (
+    <Field label={label}>
+      <Input
+        type="number"
+        inputMode="numeric"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        onBlur={() => {
+          const n = Number(text);
+          const v = Number.isFinite(n) && text.trim() !== "" ? Math.min(max, Math.max(min, n)) : value;
+          setText(String(v));
+          onCommit(v);
+        }}
+        data-testid={testId}
+      />
+    </Field>
+  );
+}
 
 export function SettingsView() {
   const nav = useNavigate();
@@ -60,7 +83,9 @@ export function SettingsView() {
       <Field label="Companion desktop host" className="mt-4" hint="LAN IP or hostname of the machine running the desktop daemon (port 8765 by default).">
         <div className="flex gap-2">
           <Input value={s.companionHost} onChange={(e) => updateSettings({ companionHost: e.target.value.trim() })} placeholder="192.168.1.20" className="flex-1" data-testid="set-host" />
-          <Input type="number" value={s.companionPort} onChange={(e) => updateSettings({ companionPort: Number(e.target.value) || 8765 })} className="w-24" />
+          <div className="w-28">
+            <NumberField label="" value={s.companionPort} min={1} max={65535} onCommit={(v) => updateSettings({ companionPort: v })} />
+          </div>
         </div>
       </Field>
       <Field label="Companion token (optional)" className="mt-4">
@@ -86,12 +111,8 @@ export function SettingsView() {
       <Toggle checked={s.keepAwake} onChange={(v) => updateSettings({ keepAwake: v })} label="Keep screen awake during calls" />
       <Toggle checked={s.speculative} onChange={(v) => updateSettings({ speculative: v })} label="Speculative retrieval" hint="Pre-build the cue while they are still talking; publish or cancel at end of turn." />
       <div className="grid grid-cols-2 gap-3 mt-2">
-        <Field label="Red flag stays (s)">
-          <Input type="number" value={s.tier1TtlMs / 1000} onChange={(e) => updateSettings({ tier1TtlMs: Math.max(3, Number(e.target.value) || 20) * 1000 })} />
-        </Field>
-        <Field label="Fact card stays (s)">
-          <Input type="number" value={s.tier2TtlMs / 1000} onChange={(e) => updateSettings({ tier2TtlMs: Math.max(3, Number(e.target.value) || 8) * 1000 })} />
-        </Field>
+        <NumberField label="Red flag stays (s)" value={s.tier1TtlMs / 1000} min={3} max={120} onCommit={(v) => updateSettings({ tier1TtlMs: v * 1000 })} />
+        <NumberField label="Fact card stays (s)" value={s.tier2TtlMs / 1000} min={3} max={120} onCommit={(v) => updateSettings({ tier2TtlMs: v * 1000 })} />
       </div>
 
       <SectionTitle>Privacy & data</SectionTitle>

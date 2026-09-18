@@ -33,7 +33,7 @@ export class CompanionLink {
   constructor(private readonly deps: CompanionLinkDeps) {}
 
   get url(): string | null {
-    return buildCompanionUrl(this.deps.host, this.deps.port, this.deps.token);
+    return buildCompanionUrl(this.deps.host, this.deps.port);
   }
 
   private set(s: LinkStatus, detail?: string): void {
@@ -54,7 +54,7 @@ export class CompanionLink {
     ws.onopen = () => {
       this.attempt = 0;
       this.set("open");
-      this.send({ type: "hello", device: this.deps.device ?? "phone", version: PROTOCOL_VERSION });
+      this.send({ type: "hello", device: this.deps.device ?? "phone", version: PROTOCOL_VERSION, token: this.deps.token || undefined });
     };
     ws.onmessage = (ev: MessageEvent) => {
       if (typeof ev.data !== "string") return;

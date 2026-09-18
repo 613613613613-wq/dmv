@@ -56,17 +56,19 @@ strictest jurisdiction selected.
    > transcription and record-keeping on my side. Is everyone comfortable
    > proceeding?
 
-   The host confirms "Disclosed" in the app. The confirmation and its
-   timestamp are written to the session ledger so the memorandum records
-   that the disclosure was made.
+   The host ticks "All participants have been informed" in pre-flight step 3
+   (mandatory before a live call can start in an all-party jurisdiction). The
+   confirmation is written to the session ledger with a timestamp as the
+   first entry (`consent_disclosure`), so the memorandum records that the
+   disclosure was made.
 
 3. **Calendar-invite disclaimer.** A copyable paragraph for meeting invites
    so participants are informed in writing ahead of time:
 
-   > Note: the host will use Deal Guard, an AI deal assistant, for live
-   > transcription and record-keeping during this meeting. Audio is not
-   > stored. Please let the host know before the meeting if you have any
-   > concerns.
+   > Note: the host uses Deal Guard, an AI deal assistant, for real-time
+   > transcription and record-keeping during this meeting. Audio is processed
+   > live and never stored. Please let the host know before the call if you
+   > have any concerns.
 
 4. **Zero persistence.** Audio is held in memory only and discarded after
    transcription. The raw transcript is discarded when the memorandum is

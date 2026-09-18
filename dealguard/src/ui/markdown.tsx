@@ -94,12 +94,18 @@ function inline(s: string): ReactNode {
     if (m[1]) parts.push(<strong key={m.index}>{m[1]}</strong>);
     else if (m[2]) parts.push(<em key={m.index}>{m[2]}</em>);
     else if (m[3]) parts.push(<code key={m.index} className="text-[13px] bg-ink-800 rounded px-1">{m[3]}</code>);
-    else if (m[4])
+    else if (m[4]) {
+      const safe = /^(https?:|mailto:)/i.test(m[5].trim());
       parts.push(
-        <a key={m.index} href={m[5]} className="text-link underline" target="_blank" rel="noreferrer">
-          {m[4]}
-        </a>,
+        safe ? (
+          <a key={m.index} href={m[5].trim()} className="text-link underline" target="_blank" rel="noreferrer noopener">
+            {m[4]}
+          </a>
+        ) : (
+          <span key={m.index}>{m[4]}</span>
+        ),
       );
+    }
     last = m.index + m[0].length;
   }
   if (last < s.length) parts.push(s.slice(last));

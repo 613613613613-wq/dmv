@@ -1,6 +1,7 @@
 import type { Speaker, TranscriptEvent } from "../types";
 import type { Frame } from "../audio/chunker";
 import type { SttClient, SttOptions, SttStatus } from "./types";
+import { backoffMs } from "../companion/protocol";
 
 /**
  * Deepgram streaming client (browser WebSocket). Auth uses the
@@ -108,13 +109,21 @@ export class SpeakerMap {
     this.userIndex = index;
   }
 
-  resolve(index: number | undefined, fallback: Speaker): Speaker {
+  /**
+   * @param canCalibrate only a final (not interim) result may lock the user's index
+   */
+  resolve(index: number | undefined, fallback: Speaker, canCalibrate = true): Speaker {
     if (index === undefined) return fallback;
     if (this.userIndex === null) {
-      if (!this.autoCalibrate) return fallback;
+      if (!this.autoCalibrate || !canCalibrate) return fallback;
       this.userIndex = index;
     }
     return index === this.userIndex ? "USER" : "COUNTERPARTY";
+  }
+
+  /** "That was me" — re-point the user label at the most recent speaker index. */
+  recalibrate(index: number): void {
+    this.userIndex = index;
   }
 }
 
@@ -139,6 +148,11 @@ export class DeepgramClient implements SttClient {
   private readonly now: () => number;
   private closing = false;
   private lastInterim = "";
+  private reconnectAttempt = 0;
+  private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
+  private closeWaiters: Array<() => void> = [];
+  /** Max automatic reconnects per outage before we give up and report an error. */
+  static readonly MAX_RECONNECTS = 6;
 
   constructor(private readonly deps: DeepgramClientDeps) {
     this.stream = deps.stream;
@@ -172,10 +186,11 @@ export class DeepgramClient implements SttClient {
       };
       ws.onerror = () => {
         clearTimeout(timer);
-        this.setStatus("error", "socket error");
+        if (this.reconnectAttempt === 0) this.setStatus("error", "socket error");
         reject(new Error("Deepgram socket error — check the API key and network"));
       };
     });
+    this.reconnectAttempt = 0;
 
     ws.onmessage = (ev: MessageEvent) => {
       if (typeof ev.data !== "string") return;
@@ -183,7 +198,8 @@ export class DeepgramClient implements SttClient {
       if (!parsed) return;
       if (!parsed.isFinal && parsed.transcript === this.lastInterim) return; // zero-flicker: identical interim
       this.lastInterim = parsed.isFinal ? "" : parsed.transcript;
-      const speaker = this.deps.speakerMap ? this.deps.speakerMap.resolve(parsed.speakerIndex, this.stream) : this.stream;
+      // Auto-calibration must only ever lock onto a *final* label; interim labels are provisional.
+      const speaker = this.deps.speakerMap ? this.deps.speakerMap.resolve(parsed.speakerIndex, this.stream, parsed.isFinal) : this.stream;
       this.onTranscript?.({
         speaker,
         text: parsed.transcript,
@@ -197,7 +213,23 @@ export class DeepgramClient implements SttClient {
       if (this.keepAlive) clearInterval(this.keepAlive);
       this.keepAlive = null;
       this.ws = null;
-      this.setStatus(this.closing ? "closed" : "error", this.closing ? undefined : `closed (${ev.code})`);
+      for (const w of this.closeWaiters.splice(0)) w();
+      if (this.closing) return this.setStatus("closed");
+      // Unexpected drop mid-call: reconnect with backoff so transcription resumes
+      // while the clock keeps running. Frames sent meanwhile are dropped, not queued
+      // (the FrameQueue upstream sheds non-speech first).
+      if (this.reconnectAttempt < DeepgramClient.MAX_RECONNECTS) {
+        const delay = backoffMs(this.reconnectAttempt++);
+        this.setStatus("connecting", `reconnecting in ${delay} ms (${ev.code})`);
+        this.reconnectTimer = setTimeout(() => {
+          this.reconnectTimer = null;
+          this.start().catch(() => {
+            if (this.reconnectAttempt >= DeepgramClient.MAX_RECONNECTS) this.setStatus("error", "Deepgram connection lost");
+          });
+        }, delay);
+      } else {
+        this.setStatus("error", `Deepgram connection lost (${ev.code})`);
+      }
     };
   }
 
@@ -207,15 +239,24 @@ export class DeepgramClient implements SttClient {
     for (const f of frames) ws.send(f.pcm.buffer);
   }
 
+  /** Sends CloseStream and waits (≤ 700 ms) for Deepgram to flush the final transcript before closing. */
   async stop(): Promise<void> {
     this.closing = true;
+    if (this.reconnectTimer) clearTimeout(this.reconnectTimer);
+    this.reconnectTimer = null;
     const ws = this.ws;
     if (!ws) {
       this.setStatus("closed");
       return;
     }
+    const closed = new Promise<void>((resolve) => this.closeWaiters.push(resolve));
     try {
       if (ws.readyState === ws.OPEN) ws.send(JSON.stringify({ type: "CloseStream" }));
+    } catch {
+      /* ignore */
+    }
+    await Promise.race([closed, new Promise<void>((r) => setTimeout(r, 700))]);
+    try {
       ws.close();
     } catch {
       /* ignore */

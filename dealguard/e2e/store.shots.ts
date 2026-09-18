@@ -3,18 +3,18 @@ import { mkdirSync } from "node:fs";
 import { onboard, startDemo } from "./helpers";
 
 /**
- * Store screenshots. 430×932 @3x = 1290×2796 (iPhone 6.7"), also accepted by
- * Google Play (16:9–9:16, ≥320 px). Written into the fastlane folders so
- * `fastlane deliver` / `supply` pick them up directly.
+ * Store screenshots, written straight into the fastlane folders so
+ * `fastlane deliver` / `supply` pick them up.
+ *  - project "store-screenshots": 430×932 @3x = 1290×2796 (App Store 6.7"/6.9")
+ *  - project "play-screenshots":  414×736 @3x = 1242×2208 (Google Play phone, ≤ 2:1)
  */
 const IOS = "fastlane/screenshots/en-US";
 const ANDROID = "fastlane/metadata/android/en-US/images/phoneScreenshots";
 
 async function shot(page: import("@playwright/test").Page, name: string) {
-  mkdirSync(IOS, { recursive: true });
-  mkdirSync(ANDROID, { recursive: true });
-  await page.screenshot({ path: `${IOS}/${name}.png`, fullPage: false });
-  await page.screenshot({ path: `${ANDROID}/${name}.png`, fullPage: false });
+  const dir = test.info().project.name === "play-screenshots" ? ANDROID : IOS;
+  mkdirSync(dir, { recursive: true });
+  await page.screenshot({ path: `${dir}/${name}.png`, fullPage: false });
 }
 
 test("capture store screenshots", async ({ page }) => {

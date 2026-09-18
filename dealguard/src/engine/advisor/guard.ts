@@ -32,6 +32,8 @@ export interface GuardResult {
 export function allowedNumbers(terms: DealTerm[], context: string[]): number[] {
   const allowed: number[] = [];
   for (const t of terms) {
+    // A confidential figure is only "allowed" if someone already said it out loud.
+    if (t.status === "internal_confidential") continue;
     const v = parseTermValue(t.fieldValue, t.unit);
     if (v !== null) {
       allowed.push(v);

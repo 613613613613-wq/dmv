@@ -88,7 +88,7 @@ Design rules the engine enforces:
 | Ledger | `src/engine/ledger.ts` | Append-only list of typed assertions with verbatim text and `mm:ss` offsets. |
 | Session | `src/engine/session.ts` | State machine: idle → pre-flight → live → ended. Owns latency counters (median time-to-cue, unsolicited cues per 30 min, red flags, fact cards, speculative hits). |
 | Memorandum | `src/engine/memorandum.ts` | Builds the Deal Memorandum from ledger + vault: agreed terms with timestamps, open issues, and a ledger audit of any agreement outside pre-call boundaries. |
-| Vault | `src/engine/store/vault.ts` | Structured terms, ledger, memoranda and settings on Capacitor Preferences. Export and delete-all live here. |
+| Vault | `src/engine/store/vault.ts` | Structured terms, ledger, memoranda and settings on Capacitor Preferences; API keys and the companion token in the platform secure store (`capacitor-secure-storage-plugin`: iOS Keychain / Android Keystore). Export (keys redacted) and delete-all live here. |
 
 ## Help Now (advisor)
 
@@ -130,7 +130,7 @@ paywall renders plans and shows "Purchases not configured".
 
 ## Native layer
 
-Capacitor plugins used: `@capacitor/preferences`, `haptics`, `status-bar`,
+Capacitor plugins used: `@capacitor/preferences`, `capacitor-secure-storage-plugin`, `haptics`, `status-bar`,
 `splash-screen`, `app`, `share`, `@capacitor-community/keep-awake` (screen stays
 on during a call) and `@revenuecat/purchases-capacitor`. Thin wrappers live in
 `src/native/` so the engine and UI can run in a plain browser for tests and

@@ -37,7 +37,7 @@ A pre-flight step asks where the participants are, applies all-party-consent rul
 PLANS
 Trial (free): 2 live hours, 1 dossier, 14 days.
 Dealmaker: 15 live hours per month, 3 active dossiers.
-Principal: 50 live hours per month, unlimited dossiers, multi-document cross audit, speculative turn prep, phone + desktop display.
+Principal: 50 live hours per month and unlimited deal dossiers.
 Extra hours: 5-hour pack.
 Enterprise: contact sales.
 

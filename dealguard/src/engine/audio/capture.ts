@@ -1,4 +1,4 @@
-import { floatToPcm16, FrameQueue, resampleTo16k, type Frame } from "./chunker";
+import { floatToPcm16, FrameQueue, StreamingResampler, type Frame } from "./chunker";
 
 /**
  * Browser / WebView microphone capture. Runs on the audio thread via an
@@ -39,6 +39,8 @@ export class MicCapture {
   private timer: ReturnType<typeof setInterval> | null = null;
   private level = 0;
   private engine: CaptureStats["engine"] = "none";
+  private generation = 0;
+  private starting: Promise<void> | null = null;
   readonly queue = new FrameQueue();
 
   constructor(private readonly sink: FrameSink) {}
@@ -47,19 +49,35 @@ export class MicCapture {
     return typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && typeof AudioContext !== "undefined";
   }
 
-  async start(): Promise<void> {
+  start(): Promise<void> {
+    if (this.starting) return this.starting;
+    this.starting = this.doStart().finally(() => {
+      this.starting = null;
+    });
+    return this.starting;
+  }
+
+  /** stop() may be called while start() is still awaiting permission; every await re-checks the generation. */
+  private async doStart(): Promise<void> {
     if (this.ctx) return;
-    this.stream = await navigator.mediaDevices.getUserMedia({
+    const gen = ++this.generation;
+    const stream = await navigator.mediaDevices.getUserMedia({
       audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true },
       video: false,
     });
+    if (gen !== this.generation) {
+      stream.getTracks().forEach((t) => t.stop());
+      return;
+    }
+    this.stream = stream;
     this.ctx = new AudioContext({ sampleRate: 48_000 });
     await this.ctx.resume();
+    if (gen !== this.generation) return; // stop() already released everything
     const source = this.ctx.createMediaStreamSource(this.stream);
-    const inputRate = this.ctx.sampleRate;
+    const resampler = new StreamingResampler(this.ctx.sampleRate);
 
     const onChunk = (chunk: Float32Array) => {
-      const pcm = floatToPcm16(resampleTo16k(chunk, inputRate));
+      const pcm = floatToPcm16(resampler.process(chunk));
       let peak = 0;
       for (let i = 0; i < chunk.length; i += 8) peak = Math.max(peak, Math.abs(chunk[i]));
       this.level = this.level * 0.7 + peak * 0.3;
@@ -72,6 +90,7 @@ export class MicCapture {
         const url = URL.createObjectURL(blob);
         await this.ctx.audioWorklet.addModule(url);
         URL.revokeObjectURL(url);
+        if (gen !== this.generation) return;
         const worklet = new AudioWorkletNode(this.ctx, "pcm-tap", { numberOfInputs: 1, numberOfOutputs: 0 });
         worklet.port.onmessage = (e: MessageEvent<Float32Array>) => onChunk(e.data);
         source.connect(worklet);
@@ -112,6 +131,7 @@ export class MicCapture {
   }
 
   async stop(): Promise<void> {
+    this.generation++; // cancels any in-flight start()
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
     this.node?.disconnect();

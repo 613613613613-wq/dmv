@@ -36,7 +36,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Live mode: phone microphone → 16 kHz PCM → Deepgram. Requested at runtime only when the user starts a live call. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- Keep the screen on during a call (KeepAwake plugin). -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- RevenueCat / Google Play Billing -->

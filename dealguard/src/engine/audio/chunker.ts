@@ -13,7 +13,7 @@ export const FRAME_SAMPLES = 800; // 50 ms @ 16 kHz
 export const QUEUE_MAX_FRAMES = 100;
 export const QUEUE_BACKLOG_THRESHOLD = 20;
 
-/** Linear-interpolation downsampler. Good enough for speech to STT. */
+/** Linear-interpolation downsampler for a single, self-contained buffer. */
 export function resampleTo16k(input: Float32Array, inputRate: number): Float32Array {
   if (inputRate === TARGET_SAMPLE_RATE) return input;
   const ratio = inputRate / TARGET_SAMPLE_RATE;
@@ -27,6 +27,38 @@ export function resampleTo16k(input: Float32Array, inputRate: number): Float32Ar
     out[i] = input[i0] * (1 - frac) + input[i1] * frac;
   }
   return out;
+}
+
+/**
+ * Streaming resampler: carries the fractional read position and the last
+ * input sample across chunks so nothing is dropped at chunk boundaries
+ * (a 128-sample worklet quantum at 48 kHz is not a whole number of 16 kHz samples).
+ */
+export class StreamingResampler {
+  private readonly ratio: number;
+  private pos = 0; // read position relative to the start of the *current* chunk, may be negative
+  private last = 0;
+
+  constructor(inputRate: number) {
+    this.ratio = inputRate / TARGET_SAMPLE_RATE;
+  }
+
+  process(input: Float32Array): Float32Array {
+    if (this.ratio === 1) return input;
+    const out: number[] = [];
+    let pos = this.pos;
+    while (pos < input.length) {
+      const i0 = Math.floor(pos);
+      const frac = pos - i0;
+      const s0 = i0 < 0 ? this.last : input[i0];
+      const s1 = i0 + 1 < input.length ? input[i0 + 1] : input[input.length - 1];
+      out.push(s0 * (1 - frac) + s1 * frac);
+      pos += this.ratio;
+    }
+    this.pos = pos - input.length;
+    this.last = input[input.length - 1] ?? this.last;
+    return Float32Array.from(out);
+  }
 }
 
 export function floatToPcm16(input: Float32Array): Int16Array {
@@ -124,6 +156,7 @@ export class FrameQueue {
     }
     if (droppedNonSpeech || droppedSpeech) {
       this.overflows.push({ droppedNonSpeech, droppedSpeech, queueLength: this.queue.length, at: this.now() });
+      if (this.overflows.length > 500) this.overflows.splice(0, this.overflows.length - 500);
     }
   }
 

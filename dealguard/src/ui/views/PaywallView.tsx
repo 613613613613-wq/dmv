@@ -25,7 +25,9 @@ export function PaywallView() {
       .catch((e: unknown) => setMsg(e instanceof Error ? e.message : "Could not load products"));
   }, [purchases, live]);
 
-  const price = (productId?: string, fallback?: string) => offerings.find((o) => o.productId === productId)?.priceLabel ?? fallback ?? "";
+  // Store prices only (localized by the store). Hard-coded USD labels are shown
+  // only on the web preview, never on a device (App Store 3.1.2).
+  const price = (productId?: string, fallback?: string) => offerings.find((o) => o.productId === productId)?.priceLabel ?? (isNative() ? "—" : fallback ?? "");
 
   const buy = async (productId?: string) => {
     if (!productId || !live) return;
@@ -67,7 +69,7 @@ export function PaywallView() {
         <div className="flex items-start gap-3">
           <div className="flex-1">
             <div className="text-[18px] font-extrabold">{p.name}</div>
-            <div className="text-[15px] text-ink-300 mt-0.5">{id === "enterprise" ? p.priceLabel : price(productId, annual ? p.annualLabel : p.priceLabel)}</div>
+            <div className="text-[15px] text-ink-300 mt-0.5">{price(productId, annual ? p.annualLabel : p.priceLabel)}</div>
           </div>
           {current && <Pill tone="calm">Current</Pill>}
         </div>
@@ -79,17 +81,9 @@ export function PaywallView() {
             </li>
           ))}
         </ul>
-        {id === "enterprise" ? (
-          <a className="mt-4 block" href="mailto:sales@dealguard.app?subject=Deal%20Guard%20Enterprise">
-            <Button variant="ghost" full>
-              Contact sales
-            </Button>
-          </a>
-        ) : (
-          <Button full className="mt-4" disabled={!live || current || busy !== null} onClick={() => buy(productId)} data-testid={`buy-${id}`}>
-            {busy === productId ? "Purchasing…" : current ? "Active" : `Choose ${p.name}`}
-          </Button>
-        )}
+        <Button full className="mt-4" disabled={!live || current || busy !== null} onClick={() => buy(productId)} data-testid={`buy-${id}`}>
+          {busy === productId ? "Purchasing…" : current ? "Active" : `Choose ${p.name}`}
+        </Button>
       </Card>
     );
   };
@@ -102,6 +96,15 @@ export function PaywallView() {
         <p className="text-[13px] text-ink-400 mt-1 leading-snug">Live hours are counted only while a real call is running. Demo calls are free.</p>
       </Card>
 
+      {!live && (
+        <Card className="mt-4" testId="purchases-unavailable">
+          <div className="text-[15px] font-semibold">Subscriptions are coming to this build soon.</div>
+          <p className="text-[13px] text-ink-400 mt-1.5 leading-snug">Your trial keeps working. Live hours and dossier limits will be upgradeable through the {isNative() ? "App Store / Google Play" : "app stores"} once plans are switched on.</p>
+        </Card>
+      )}
+
+      {live && (
+        <>
       <div className="flex items-center justify-center gap-3 mt-6">
         <button className={`text-[14px] font-semibold ${!annual ? "text-ink-100" : "text-ink-400"}`} onClick={() => setAnnual(false)}>
           Monthly
@@ -110,14 +113,13 @@ export function PaywallView() {
           <span className={`block w-6 h-6 rounded-full bg-white transition ${annual ? "translate-x-5" : ""}`} />
         </button>
         <button className={`text-[14px] font-semibold ${annual ? "text-ink-100" : "text-ink-400"}`} onClick={() => setAnnual(true)}>
-          Annual <span className="text-calm">save 20%</span>
+          Annual <span className="text-calm">save up to 20%</span>
         </button>
       </div>
 
       <div className="space-y-3 mt-4">
         {planCard("dealmaker")}
         {planCard("principal")}
-        {planCard("enterprise")}
       </div>
 
       <Card className="mt-3" testId="plan-pack">
@@ -133,11 +135,6 @@ export function PaywallView() {
         </Button>
       </Card>
 
-      {!live && (
-        <p className="text-[13px] text-ink-400 mt-4 leading-snug" data-testid="purchases-unavailable">
-          Purchases are handled by the App Store / Google Play and are not available in this build. Your trial keeps working.
-        </p>
-      )}
       {msg && (
         <p className="text-[13px] text-calm mt-3" role="status">
           {msg}
@@ -157,7 +154,7 @@ export function PaywallView() {
         )}
       </div>
       <p className="text-[11px] text-ink-400 mt-5 leading-snug">
-        Subscriptions renew automatically until cancelled in your App Store or Google Play account settings. Payment is charged to your store account at confirmation.{" "}
+        Subscriptions renew automatically at the shown price and period until cancelled in your App Store or Google Play account settings. Payment is charged to your store account at confirmation.{" "}
         <button className="underline" onClick={() => nav("/legal/terms")}>
           Terms
         </button>{" "}
@@ -166,6 +163,8 @@ export function PaywallView() {
           Privacy
         </button>
       </p>
+        </>
+      )}
     </Screen>
   );
 }

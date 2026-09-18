@@ -15,15 +15,18 @@ Industrial (Sample)") and needs no microphone, no network and no API keys.
 
 Steps to review:
 
-1. Launch the app. Onboarding explains the three modes. Tap Continue.
-2. Accept the consent step (jurisdiction picker + reminder). Any jurisdiction
-   works for Demo.
-3. On Home, tap **"Start demo call"**.
+1. Launch the app. Onboarding: tap **Continue**, optionally enter a name and
+   pick a state, tap **Continue**, tick the acknowledgement, tap **"Start
+   with a sample deal"**. The fictional sample deal is loaded automatically.
+2. On Home, tap **"Pre-flight & start"** on the sample deal.
+3. Pre-flight step 1: keep **Demo** selected, tap **Continue**. Step 2: tick
+   "These terms match the latest documents", tap **Continue**. Step 3: tap
+   **"Start demo call"** (the consent checkbox is optional for Demo).
 4. The black Glance HUD screen stays blank until something matters. Within
-   about 20 seconds you will see a **RED FLAG** (a scripted counterparty line
+   about 10 seconds you will see a **RED FLAG** (a scripted counterparty line
    contradicts the sample deal's recorded price) and then **FACT CARD**s when
    the script asks about known terms. Each cue has a short headline and a
-   source line.
+   source line. Tap the screen to dismiss a cue; press and hold to freeze it.
 5. Tap **"Help Now"** to see an on-demand talking point (generated from
    built-in templates; no LLM key is configured).
 6. Tap **"End meeting"**. The Deal Memorandum appears: agreed terms with
@@ -34,16 +37,16 @@ Steps to review:
 Permissions:
 
 - The **microphone permission is requested only when the user starts a Live
-  session** (Home → "Live (Deepgram)"), which also requires the user to enter
-  their own Deepgram API key. Demo mode never requests it.
+  session** (pre-flight step 1 → "Live — this phone listens"), which also
+  requires the user to enter their own Deepgram API key in Settings. Demo
+  mode never requests it.
 - Local network access (iOS) is requested only in Companion mode when the user
   connects to their own desktop daemon on Wi-Fi.
 
 Purchases: subscriptions (Dealmaker, Principal) and a consumable 5-hour pack
 are optional and sold through in-app purchase. The Trial plan is free. No
-feature needed for review is behind a purchase. If the build was made without
-RevenueCat keys the paywall shows plans with purchasing disabled and a
-"Purchases not configured" note.
+feature needed for review is behind a purchase. Plans → "Restore purchases"
+restores an existing subscription.
 
 Data: audio is never stored; the raw transcript is discarded after the
 memorandum is built; deal terms and memoranda are stored only on the device.

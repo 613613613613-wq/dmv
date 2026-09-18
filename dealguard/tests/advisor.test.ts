@@ -83,7 +83,8 @@ describe("Advisor", () => {
 
   it("builds a prompt that marks confidential terms", () => {
     const p = buildPrompt(ctx);
-    expect(p.user).toMatch(/cap_rate = 6.25% \[internal_confidential, NEVER suggest disclosing\]/);
+    expect(p.user).toMatch(/cap_rate = \[withheld\] \[internal_confidential/);
+    expect(p.user).not.toContain("6.25");
     expect(p.system).toMatch(/at most 12 words/);
   });
 

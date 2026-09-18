@@ -105,7 +105,7 @@ Run `npm run mock-hud` on a laptop to exercise Companion mode locally (see
 
 Audio exists only in RAM. The raw transcript is discarded when the memorandum
 is built. Only structured deal terms, the ledger, session memoranda and
-settings are stored, on-device, via Capacitor Preferences. There are no
+settings are stored, on-device, via Capacitor Preferences; API keys go to the iOS Keychain / Android Keystore. There are no
 accounts, no analytics SDK, no ads and no server of ours. Settings offers
 "Export my data" and "Delete all data".
 
